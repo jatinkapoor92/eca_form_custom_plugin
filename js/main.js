@@ -37,11 +37,11 @@ $(document).ready(function() {
     //   }
     // }
     // else 
-    if (formDataObj['fieldset'] == 3) {
-      if (!validateForm3()) {
-          return false;
-      }
-    }
+    // if (formDataObj['fieldset'] == 3) {
+    //   if (!validateForm3()) {
+    //       return false;
+    //   }
+    // }
     // else if (formDataObj['fieldset'] == 4) {
     //   if (!validateForm4()) {
     //       return false;
@@ -492,57 +492,52 @@ $(document).ready(function () {
             $(this).closest("#spouse_language_test_block").remove();
         });
 
+
         //Company details
 
         initializeDatepicker($("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
 
-        $(document).on("click", "#addMoreCompany", function () {
-          
-          let newBlock = $("#company_details_block").first().clone();
-      
-          newBlock.find("input").val("");
-          newBlock.find("select").prop("selectedIndex", 0);
-          newBlock.find(".hasDatepicker").removeClass("hasDatepicker").removeAttr("id");
-      
-          // Generate a unique index for cloned inputs
-          let uniqueIndex = $(".company_details_block").length;
-      
-          // Update radio button names and IDs to be unique
-          newBlock.find(".currently_working_in_companys").each(function (index) {
-              let newName = `currently_working_in_company_${uniqueIndex}`;
-              let newId = `currently_employed_${uniqueIndex}_${index}`;
 
-              let selectedValue = $("#company_details_block")
-              .last()
-              .find(".currently_working_in_companys:checked")
-              .val();
-              if (selectedValue === "yes") {
-                alert('blank');
-                $(this).prop("checked", true);
-              }
-      
-              $(this).attr("name", newName).attr("id", newId);
-              $(this).next("label").attr("for", newId);
-
-              
-          });
-      
-          if (!newBlock.find(".removeCompany").length) {
-              newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeCompany">REMOVE</button></div>');
-          }
-      
-          $("#company_details_block").last().after(newBlock);
-      
-          initializeDatepicker(newBlock.find("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
-      });
-
+        $("#addMoreCompany").click(function () {
+            let newBlock = $("#company_details_block").first().clone();
         
-    
-        $(document).on("click", ".removeCompany", function () {
-            $(this).closest("#company_details_block").remove();
+            newBlock.find("input").val("");
+            newBlock.find("select").prop("selectedIndex", 0);
+            newBlock.find("input[type='radio']").prop("checked", false);
+            newBlock.find("input[type='radio']").first().prop("checked", true);
+        
+            let uniqueId = new Date().getTime();
+        
+            newBlock.find("input[type='radio']").each(function () {
+                let name = $(this).attr("name");
+                let newName = name + "_" + uniqueId;
+                $(this).attr("name", newName);
+            });
+            newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
+        
+            $("#employment_history").append(newBlock);
+        
+            initializeDatepicker(newBlock.find("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
         });
         
-
+      
+    
+        $(".company_details_block").each(function () {
+            var parentBlock = $(this);
+    
+            parentBlock.find(".currently_working_in_companys").change(function () {
+                var selectedValue = $(this).val();
+    
+                if (selectedValue === "yes") {
+                    parentBlock.find(".last_working_date").closest(".col-lg-4").hide();
+                } else {
+                    parentBlock.find(".last_working_date").closest(".col-lg-4").show();
+                }
+            });
+    
+            parentBlock.find(".currently_working_in_companys:checked").trigger("change");
+        });
+        
         // Travelled History
 
         $("#travelled_history").hide();
