@@ -474,41 +474,104 @@ function validateForm3(){
 }
 function validateForm4(){
     let isValid = true;
-    let AdmissibilityradioGroups = ["submitted_immegration_application","refused_immegration_applications","have_you_ever_stayed","unauthorized_work_of_study","serious_diseases","served_in_govt_job","handcuffs_detained_by_police","charged_with_impaired_driving","immigration_matter_would_you_like_to_discuss"]; 
+    let emailPatterns = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    let AdmissibilityradioGroups = ["have_you_ever_stayed","unauthorized_work_of_study","serious_diseases","served_in_govt_job","handcuffs_detained_by_police","charged_with_impaired_driving","immigration_matter_would_you_like_to_discuss"]; 
     let travelled_country = $("input[name='travelled_country']:checked").val();
+    let submitted_immegration_application =  $("input[name='submitted_immegration_application']:checked").val(); 
+    let refused_immegration_applications =  $("input[name='refused_immegration_applications']:checked").val(); 
+    let referral_email = $("input[name='referral_email']").val();
+    let referral_phone = $("input[name='referral_phone']").val();
     $(".error").remove();
+
+
+    // Submitted Immegration Application Validation
+
+    let submitted_immegration_application_error = $("input[name='submitted_immegration_application']").parent().parent(); 
+    if (!submitted_immegration_application) {
+        if (submitted_immegration_application_error.next(".error").length === 0) { 
+            submitted_immegration_application_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+        }
+        isValid = false;
+    }
+
+    if(submitted_immegration_application==="yes"){
+        // Provide Immigration Application Details Validition
+        $(".immegration_application_type,.immegration_application_submission_year").each(function () {
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        })
+        // Admissibility/Misc page radio button validation
+        $(".decision-group").each(function () {
+            let radioGroup = $(this).find("input[type='radio']");
+            if (radioGroup.filter(":checked").length === 0) {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
+    }
+
+    // Refused Immegration Applications Validation
+    let refused_immegration_applications_error = $("input[name='refused_immegration_applications']").parent().parent(); 
+    if (!refused_immegration_applications) {
+        if (refused_immegration_applications_error.next(".error").length === 0) { 
+            refused_immegration_applications_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+        }
+        isValid = false;
+    }
+
+    if(refused_immegration_applications ==="yes"){
+        $("#refused_application_country,#refused_application_type,#year_of_refusal").each(function () {
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        })
+    }
     // Travelled Country validation
     if(travelled_country ==="yes"){
         $(".where_did_you_travelled, .travelled_year").each(function () {
             // Remove existing error before adding a new one
-            $(this).next(".error").remove(); 
+        $(this).next(".error").remove(); 
             if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         });
     }
-    // Provide Immigration Application Details Validition
-    $(".immegration_application_type,.immegration_application_submission_year").each(function () {
-        if ($(this).val() === "") {
-            $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+    
+    // Referred By Validation
+    let referred_by_error = $("input[name='referred_by']").parent().parent().parent(); 
+    let referred_by =  $("input[name='referred_by']:checked").val(); 
+    
+    if (!referred_by) {
+        if (referred_by_error.next(".error").length === 0) { 
+            referred_by_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+        }
+        isValid = false;
+    }
+
+    // Referred by a friend or family member
+
+    if(referred_by === "Referred by a friend or family member"){
+        $(".referral_name,.referral_phone,.referral_email,.referral_code,.textrefer").each(function () {
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        })
+         if (!emailPatterns.test(referral_email)) {
+            $("input[name='referral_email']").after("<span class='error' style='color: red;'>Enter a valid email.</span>");
             isValid = false;
         }
-    })
-    // Admissibility/Misc page radio button validation
-    $(".decision-group").each(function () {
-        let radioGroup = $(this).find("input[type='radio']");
-        if (radioGroup.filter(":checked").length === 0) {
-            $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+        //  Referred by a friend or family member phone validation
+        if(referral_phone.length < 10){
+            $("input[name='referral_phone']").after("<span class='error' style='color: red;'>Enter a valid  phone number.</span>");
             isValid = false;
         }
-    });
-    $("#refused_application_country,#refused_application_type,#year_of_refusal").each(function () {
-        if ($(this).val() === "") {
-            $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-            isValid = false;
-        }
-    })
+    }
+    
     $(".liquid_assets_in_canadian_dollar,.net_worth_in_canadian_dollar,.moveable_assets,.immovable_assets,.exampleFormControlTextarea1,.today_date,.full_legal_name").each(function () {
         if ($(this).val() === "") {
             $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
