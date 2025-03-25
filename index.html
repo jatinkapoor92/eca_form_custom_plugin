@@ -2052,7 +2052,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="zr-provide-detail pt-2">
+                    <div class="zr-provide-detail pt-2" id="refused_details">
                       <div id="" class="zr-form-detail">
                         <h5 class="zr-canada-detaik-heading">Provide Immigration Application(s) Details</h5>
                         <div id="refused_immegration_block" class="row">
@@ -2568,7 +2568,7 @@
                             <div class="row">
                               <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="referred_by" id="flexRadioDefault217" value="Referred by a friend or family member" checked>
+                                  <input class="form-check-input" type="radio" name="referred_by" id="flexRadioDefault217" value="Referred by a friend or family member" >
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefault217">
                                     Referred by a friend or family member
                                   </label>
@@ -2656,7 +2656,7 @@
                                   <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
                                     <label class="form-label zr-assessment-form-label"> Name <span
                                         class="req-red">*</span></label>
-                                    <input type="text" name="referral_name[]" class="form-control zr-assessment-form-input" placeholder=""
+                                    <input type="text" name="referral_name[]" class="form-control zr-assessment-form-input referral_name" placeholder=""
                                       >
                                   </div>
 
@@ -2664,13 +2664,13 @@
                                     <label class="form-label zr-assessment-form-label">Phone Number <span
                                         class="req-red">*</span>
                                     </label>
-                                    <input type="tel" name="referral_phone[]"  class="form-control zr-assessment-form-input" placeholder=""
+                                    <input type="tel" name="referral_phone[]"  class="form-control zr-assessment-form-input referral_phone" placeholder="" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);"
                                       >
                                   </div>
                                   <div class="col-lg-4 col-md-6 col-sm-12 mt-3" >
                                     <label class="form-label zr-assessment-form-label">Email of who referred<span
                                         class="req-red">*</span></label>
-                                    <input type="email" name="referral_email[]" class="form-control zr-assessment-form-input" placeholder=""
+                                    <input type="email" name="referral_email[]" class="form-control zr-assessment-form-input referral_email" placeholder=""
                                       >
                                   </div>
                                   <div class="col-md-12 mt-3">
@@ -2680,14 +2680,14 @@
                                         data-bs-original-title="If the person provided a referral code, enter it here. Leave blank if not applicable.">
                                         <i class="tool-tip__icon">i</i>
                                       </span></label>
-                                    <input type="text" name="referral_code[]" class="form-control zr-assessment-form-input" placeholder=""
+                                    <input type="text" name="referral_code[]" class="form-control zr-assessment-form-input referral_code" placeholder=""
                                       >
                                   </div>
                                   <div class="col-md-12 mt-3">
                                     <div class="form-group">
                                       <label for="exampleFormControlTextarea1 zr-assessment-form-label">Please provide
                                         details<span class="req-red">*</span></label>
-                                      <textarea class="form-control zr-assessment-form-input"
+                                      <textarea class="form-control zr-assessment-form-input textrefer"
                                         id="exampleFormControlTextarea1" rows="3"></textarea>
                                     </div>
 

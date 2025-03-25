@@ -42,11 +42,12 @@ $(document).ready(function() {
           return false;
       }
     }
-    // else if (formDataObj['fieldset'] == 4) {
-    //   if (!validateForm4()) {
-    //       return false;
-    //   }
-    // }
+    else if (formDataObj['fieldset'] == 4) {
+      if (!validateForm4()) {
+          return false;
+      }
+    }
+    alert('submit');
     // try {
     //   $.ajax({
     //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
@@ -552,6 +553,29 @@ $(document).ready(function () {
             $("#travelled_history").show();
           } else {
             $("#travelled_history").hide();
+          }
+        });
+
+
+        // Immigration History Section
+
+        $("#immegration_applications").hide();
+
+        $("input[name='submitted_immegration_application']").change(function () {
+          if ($(this).val() === "yes") {
+            $("#immegration_applications").show();
+          } else {
+            $("#immegration_applications").hide();
+          }
+        });
+
+        $("#refused_details").hide();
+
+        $("input[name='refused_immegration_applications']").change(function () {
+          if ($(this).val() === "yes") {
+            $("#refused_details").show();
+          } else {
+            $("#refused_details").hide();
           }
         });
       
