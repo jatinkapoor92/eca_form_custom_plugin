@@ -479,8 +479,7 @@ function validateForm4(){
     let travelled_country = $("input[name='travelled_country']:checked").val();
     let submitted_immegration_application =  $("input[name='submitted_immegration_application']:checked").val(); 
     let refused_immegration_applications =  $("input[name='refused_immegration_applications']:checked").val(); 
-    let referral_email = $("input[name='referral_email']").val();
-    let referral_phone = $("input[name='referral_phone']").val();
+    let referred_by_other =  $("#referred_by_other").val();
     $(".error").remove();
 
 
@@ -553,21 +552,39 @@ function validateForm4(){
     }
 
     // Referred by a friend or family member
-
     if(referred_by === "Referred by a friend or family member"){
-        $(".referral_name,.referral_phone,.referral_email,.referral_code,.textrefer").each(function () {
+        $(".error").remove();
+        $(".referral_name,.referral_code,.textrefer").each(function () {
             if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         })
-         if (!emailPatterns.test(referral_email)) {
-            $("input[name='referral_email']").after("<span class='error' style='color: red;'>Enter a valid email.</span>");
-            isValid = false;
-        }
-        //  Referred by a friend or family member phone validation
-        if(referral_phone.length < 10){
-            $("input[name='referral_phone']").after("<span class='error' style='color: red;'>Enter a valid  phone number.</span>");
+        $(".referral_phone").each(function () {
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }else if ($(this).val().length < 10){
+                $(this).after("<span class='error' style='color: red;'>Enter a valid  phone number.</span>");
+                isValid = false;
+            }
+        })
+        $(".referral_email").each(function () {
+            let referral_email = $(this).val().trim();
+            
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }else if (!emailPatterns.test(referral_email)){
+                $(this).after("<span class='error' style='color: red;'>Enter a valid  email.</span>");
+                isValid = false;
+            }
+        })
+    }
+    // Referred by other
+    if(referred_by === "Other"){
+        if (referred_by_other === "") {
+            $("#referred_by_other").after("<span class='error' style='color: red;'>This field is required.</span>");
             isValid = false;
         }
     }
