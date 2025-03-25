@@ -1,0 +1,518 @@
+/*********************************** Gobal css starts  here***********************************/
+body {
+  font-family: "Poppins", serif;
+}
+
+:root {
+  --text-heading-color: #00466b;
+  --text-parha-color: #000000;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-bottom: 0px;
+  font-family: "Poppins", serif;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+/*********************************** Gobal css Ends ***********************************/
+
+/*********************************** Custom form css starts  here ***********************************/
+.zr-assessment-form {
+  box-shadow: 0px 10px 8px 0px #0a826914;
+  border: 1px solid #2f816b52;
+  border-radius: 20px;
+  padding: 0px 30px 30px 0px;
+  margin-top: 50px;
+}
+
+.zr-progressbar-main1 {
+  border-left: 1px solid #2f816b52;
+}
+.col-md-9.zr-progressbar-main1 {
+  padding-top: 50px;
+}
+#zrform fieldset:not(:first-of-type) {
+  display: none;
+}
+
+/******************** Progressbar start **********************/
+.zr-progressbar {
+  margin-bottom: 0px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  list-style-type: none;
+  align-items: flex-start;
+}
+
+.zr-progressbar::before {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: #d1d1d1;
+  left: 10px;
+  top: 0;
+  z-index: -1;
+}
+fieldset {
+  margin-left: 19px;
+}
+
+.zr-progressbar li {
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  color: #696363;
+  counter-increment: step-counter;
+  padding-left: 35px;
+  margin-bottom: 40px;
+}
+
+.zr-progressbar li::before {
+  content: counter(step-counter);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #a1a1a1, #747474);
+  border-radius: 50%;
+  font-size: 12px;
+  color: #fff;
+  font-weight: bold;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.zr-progressbar li.active {
+  color: #0a8269;
+  font-weight: 600;
+}
+
+.zr-progressbar li.active::before {
+  background: linear-gradient(145deg, #0a8269, #1ebc98);
+}
+
+.zr-progressbar li.active::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 100%;
+  background: #0a8269;
+  left: 10px;
+  top: 0;
+  z-index: -1;
+}
+.zr-progressbar-main {
+  position: sticky;
+  top: 0px;
+  height: 100vh;
+  background: #0a826908;
+  overflow-y: auto;
+  margin: 0;
+  padding: 50px 18px 18px 18px;
+}
+
+/******************** Progressbar ends **********************/
+/* #zrform fieldset {
+  margin-top: 60px;
+} */
+.container{
+  max-width: 1440px;
+}
+
+.zr-form-title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #0a3d62;
+}
+
+.zr-form-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  color: #333;
+  margin-top: 10px;
+  font-style: italic;
+
+}
+
+.zr-forminator-border {
+  opacity: 1;
+  border: 0.2px dashed #b1c9db;
+  margin-bottom: 30px;
+}
+
+
+.zr-progressbar li.active::before {
+  content: "\f00c";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 12px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #0a8269, #1ebc98) !important;
+  border-radius: 50%;
+}
+
+/******************** Tooltip ***************/
+.tooltip-icon {
+  cursor: pointer;
+  background: linear-gradient(145deg, #0a8269, #1ebc98);
+  border-radius: 10px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-family: times new roman;
+  text-align: center;
+  width: 16px;
+  margin: 5px 5px;
+  color: #fff;
+  font-weight: 800;
+  line-height: 16px;
+}
+
+.tooltip.show {
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip .tooltip-arrow::before {
+  border-top-color: #262626;
+}
+
+.req-red {
+  color: #e30000;
+}
+
+.tooltip-inner {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  text-align: center !important;
+  width: 100%;
+  max-width: 400px;
+  padding: 7px 8px;
+  background-color: #262626;
+}
+
+.zr-assessment-form-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 0px;
+  color: #0a3d62;
+}
+
+.zr-radi0-btn {
+  font-size: 14px;
+  font-weight: 500;
+  color: #0a3d62;
+}
+
+/*  */
+
+.zr-canada-detaik-heading {
+  font-size: 17px;
+  font-weight: 500;
+  color: #0a3d62;
+}
+
+.addMoreBtn {
+  background-color: #1E5A97;
+  color: #fff;
+  padding: 5px 24px;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 12px;
+  cursor: pointer;
+  border: none;
+}
+
+.addMoreBtn:hover {
+  background-color: #164777
+}
+
+.zr-paragraph p {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+}
+
+
+
+
+
+.zr-assessment-form .form-check-input:checked {
+  background-color: #0a8269;
+  border-color: #0065A2;
+}
+
+.zr-assessment-form-input:focus {
+  border: 2px solid rgba(10, 61, 98, 0.1);
+  ;
+  background-color: rgba(10, 61, 98, 0.05);
+  box-shadow: none;
+}
+
+.zr-assessment-form-input {
+  margin-top: 4px;
+  padding: 8px 15px;
+  font-size: 13px;
+  color: #333;
+  border-radius: 6px;
+  border: 2px solid rgba(10, 61, 98, 0.1);
+  background-color:rgb(10 61 98 / 3%);
+}
+
+.zr-assessment-form-input::placeholder {
+  color: #333;
+}
+
+/* form 2 */
+.zr-assessment-form2 {
+  padding-top: 60px;
+}
+
+.zr-assessment-form3 {
+  padding-top: 40px;
+}
+
+.zr-multiform-step {
+  margin-top: 50px;
+}
+
+
+.zr-action-button {
+  position: relative;
+  display: inline-block;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.zr-multiform-step1 span {
+  border: 2px solid #0065A2 !important;
+}
+.zr-multiform-step1 span:hover {
+  color: #0065A2 !important;
+}
+
+.action-button-previous span {
+  border: 2px solid #6c757d !important;
+}
+
+.action-button-previous span:hover {
+  color: #6c757d !important;
+}
+
+.zr-action-button span {
+  position: relative;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 7px 35px;
+  color: #fff;
+  margin: -1px !important;
+  border-radius: 5px !important;
+  border: 2px solid #0A8269;
+  transition: 0.2s 0.1s;
+}
+
+.zr-action-button span:hover {
+  color: #0A8269;
+  transition: 0.2s 0.1s;
+}
+
+.zr-action-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: #0A8269;
+  transition: width 0.5s ease-out;
+}
+.zr-multiform-step1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: #0065A2;
+  transition: width 0.5s ease-out;
+}
+
+.action-button-previous::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  background-color: #6c757d;
+  transition: width 0.5s ease-out;
+}
+
+.zr-multiform-step1:hover::before {
+  width: 0%;
+}
+.zr-action-button:hover::before {
+  width: 0%;
+}
+
+.zr-submit {
+  background: #0A8269;
+  color: white;
+  border: none;
+  padding: 9px 20px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+
+
+
+.zr-form-detail {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 7px;
+  margin-top: 10px;
+  /* border-left: 2px solid #0a8269; */
+  background: #0a826908;
+}
+
+
+@media screen and (max-width: 1199px) {
+  .zr-progressbar li {
+    line-height: 22px;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .zr-progressbar li {
+    line-height: 22px;
+    font-size: 12px;
+  }
+
+  .container {
+    max-width: 880px;
+  }
+  .zr-progressbar-main {
+    margin-bottom: 47px;
+}
+
+}
+
+@media screen and (max-width: 767px) {
+  .zr-progressbar {
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+  }
+  .zr-progressbar-main1 {
+    border-left: none;
+}
+  .zr-form-title {
+    font-size: 20px;
+  }
+  .zr-progressbar-main{
+    height: 100%;
+  }
+  .zr-form-subtitle {
+    font-size: 14px;
+  }
+
+  .zr-progressbar li {
+    margin-bottom: 4px;
+  }
+
+  .zr-progressbar-main {
+    margin-bottom: 47px;
+  }
+
+  .zr-progressbar::before {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 21px;
+    width: 2px;
+    height: 100%;
+    background: #696363;
+  }
+
+  .zr-progressbar li {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px 0 10px 30px;
+    position: relative;
+  }
+
+  .zr-progressbar li::before {
+    content: counter(step-counter);
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #696363;
+    border-radius: 50%;
+    font-size: 12px;
+    color: #fff;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+    top: 19px;
+    left: -30px;
+  }
+
+  .zr-progressbar li.active::after {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background: #0a8269;
+    top: 20px;
+    left: 9px;
+    z-index: -1;
+  }
+
+  .container {
+    max-width: 730px;
+  }
+}
+
+@media screen and (max-width: 475px) {
+  .zr-form-title {
+    font-size: 18px;
+  }
+
+  .zr-form-subtitle {
+    font-size: 13px;
+  }
+
+  .zr-radi0-btn {
+    font-size: 13px;
+  }
+
+  .zr-canada-detaik-heading {
+    font-size: 16px;
+  }
+}
