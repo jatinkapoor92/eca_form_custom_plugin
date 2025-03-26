@@ -440,6 +440,7 @@ if (spouse_eca_issue_date === "") {
 return isValid;
 }   
 function validateForm3(){
+    alert();
     let isValid = true;
     let employed_before = $("input[name='employed_before']:checked").val();
     // Employed Before validation

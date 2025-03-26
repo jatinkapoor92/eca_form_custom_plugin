@@ -65,7 +65,7 @@
                         </label>
                         <div class="d-flex align-item-center py-1">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="services_looking_for" id="services_looking_for1">
+                            <input class="form-check-input" type="radio" name="services_looking_for" id="services_looking_for1" value="consultation">
                             <label class="form-check-label zr-radi0-btn" for="services_looking_for1">
                               Consultation <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
                                 data-bs-placement="top"
@@ -76,7 +76,7 @@
                           </div>
                           <div class="form-check ms-4">
                             <input class="form-check-input" type="radio" name="services_looking_for" id="services_looking_for2"
-                              checked>
+                              checked value="application-review">
                             <label class="form-check-label zr-radi0-btn" for="services_looking_for2">
                               Application Review
                               <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -707,6 +707,8 @@
               </fieldset>
               <!--2 fieldset start -->
               <fieldset>
+                
+                <input type="hidden" class="lead_id" name="lead_id" value="">
                 <!-- 1 step start here -->
                 <div class="">
                   <h2 class="zr-form-title">Education Details</h2>
@@ -1594,6 +1596,8 @@
               </fieldset>
               <!--3 fieldset start -->
               <fieldset>
+                
+                <input type="hidden" class="lead_id" name="lead_id" value="">
                 <div class="">
                   <h2 class="zr-form-title">Employment History</h2>
                   <h3 class="zr-form-subtitle">Please provide details of your current and previous employment. Use the
@@ -1783,7 +1787,7 @@
                                 data-bs-original-title="List specific tasks and responsibilities you performed in this role (e.g.,  'Developed test cases, executed manual testing, reported bugs, and expand on  other tasks').">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                            <input type="text" name="job_duties" class="form-control zr-assessment-form-input job_duties" placeholder="">
+                            <input type="text" name="job_duties[]" class="form-control zr-assessment-form-input job_duties" placeholder="">
                           </div>
                         </div>
                       </div>
@@ -1811,6 +1815,8 @@
               </fieldset>
               <!--4 fieldset start -->
               <fieldset>
+                
+                <input type="hidden" class="lead_id" name="lead_id" value="">
                 <!-- STEP 1 -->
                 <h2 class="zr-form-title">Admissibility and Additional Information</h2>
                 <h3 class="zr-form-subtitle">Provide details about your travel history, immigration applications,
