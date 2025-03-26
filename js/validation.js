@@ -15,7 +15,8 @@ function validateForm1() {
     let status_in_current_country = $("select[name='status_in_current_country']").val();
     let marital_status = $("select[name='marital_status']").val();
     let previous_relationship = $("input[name='previous_relationship']:checked").val();
-    let family_freind =  $("input[name='family_friends_in_canada']:checked").val(); 
+    let family_freind =  $("input[name='family_friends_in_canada']:checked").val();
+    let redidential_country = $(".redidential_country").val();
     // Regular expression for email validation
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -162,7 +163,17 @@ function validateForm1() {
     if (marital_status === 'widowed') {
         commonvalidation2();
     }
-
+    
+    // Current Residential Address validation
+    if(redidential_country === "Canada"){
+        $(".status_in_canada,.status_start_date,.status_end_date").each(function () {
+            if ($(this).val().trim() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
+    }
+        
     // previous relationship validation
     let radioContainer = $("input[name='previous_relationship']").parent().parent(); 
     if (!previous_relationship) {
@@ -174,35 +185,33 @@ function validateForm1() {
 
     // if radio button select yes in relatioship
     if (previous_relationship === "Yes") {
-       
-            $(".additional_previous_relationship_name").each(function () {
-                if ($(this).val().trim() === "") {
-                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                    isValid = false;
-                }
-            });
-       
-            $(".additional_previous_relationship_type").each(function () {
-                if ($(this).val().trim() === "") {
-                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                    isValid = false;
-                }
-            });
+        $(".additional_previous_relationship_name").each(function () {
+            if ($(this).val().trim() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
     
-            $(".additional_previous_relationship_start_date").each(function () {
-                if ($(this).val().trim() === "") {
-                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                    isValid = false;
-                }
-            });
-    
-            $(".additional_previous_relationship_end_date").each(function () {
-                if ($(this).val().trim() === "") {
-                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                    isValid = false;
-                }
-            });
-       
+        $(".additional_previous_relationship_type").each(function () {
+            if ($(this).val().trim() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
+
+        $(".additional_previous_relationship_start_date").each(function () {
+            if ($(this).val().trim() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
+
+        $(".additional_previous_relationship_end_date").each(function () {
+            if ($(this).val().trim() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });    
     }
 
 
@@ -377,16 +386,21 @@ function validateForm2(){
         }
         isValid = false;
     }
-    // Spouse Work Experience Canada validation
-    if (spouse_work_experience_canada === "") {
-        $("input[name='spouse_work_experience_canada']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
+
+    // Spouse Work Experience validation in case Yes
+    if(spouse_work_experience === "Yes"){
+      // Spouse Work Experience Canada validation
+        if (spouse_work_experience_canada === "") {
+            $("input[name='spouse_work_experience_canada']").after("<span class='error' style='color: red;'>This field is required.</span>");
+            isValid = false;
+        }
+        // Spouse Work Experience Outside Canada validation
+        if (spouse_work_experience_outside_canada === "") {
+            $("input[name='spouse_work_experience_outside_canada']").after("<span class='error' style='color: red;'>This field is required.</span>");
+            isValid = false;
+        }
     }
-    // Spouse Work Experience Outside Canada validation
-    if (spouse_work_experience_outside_canada === "") {
-        $("input[name='spouse_work_experience_outside_canada']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
-    }
+    
     // Spouse Language Test Taken  validation
     let spouse_language_test_taken_error = $("input[name='spouse_language_test_taken']").parent().parent(); 
     if (!spouse_language_test_taken) {
@@ -422,27 +436,31 @@ if (!spouse_received_eca_educational) {
     }
     isValid = false;
 }
-// Spouse Organization Issued Eca validation
-if (spouse_organization_issued_eca === "") {
-    $("select[name='spouse_organization_issued_eca']").after("<span class='error' style='color: red;'>This field is required.</span>");
-    isValid = false;
+if(spouse_received_eca_educational === "Yes"){
+
+    // Spouse Organization Issued Eca validation
+    if (spouse_organization_issued_eca === "") {
+        $("select[name='spouse_organization_issued_eca']").after("<span class='error' style='color: red;'>This field is required.</span>");
+        isValid = false;
+    }
+    // Spouse Canadian Equivalency validation
+    if (spouse_canadian_equivalency === "") {
+        $("input[name='spouse_canadian_equivalency']").after("<span class='error' style='color: red;'>This field is required.</span>");
+        isValid = false;
+    }
+    // Spouse Eca Issue Date validation
+    if (spouse_eca_issue_date === "") {
+        $("input[name='spouse_eca_issue_date']").after("<span class='error' style='color: red;'>This field is required.</span>");
+        isValid = false;
+    }
 }
-// Spouse Canadian Equivalency validation
-if (spouse_canadian_equivalency === "") {
-    $("input[name='spouse_canadian_equivalency']").after("<span class='error' style='color: red;'>This field is required.</span>");
-    isValid = false;
-}
-// Spouse Eca Issue Date validation
-if (spouse_eca_issue_date === "") {
-    $("input[name='spouse_eca_issue_date']").after("<span class='error' style='color: red;'>This field is required.</span>");
-    isValid = false;
-}
+
 return isValid;
 }   
 function validateForm3(){
-    alert();
     let isValid = true;
     let employed_before = $("input[name='employed_before']:checked").val();
+    let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
     // Employed Before validation
     let employed_before_error = $("input[name='employed_before']").parent().parent(); 
     $(".error").remove();
@@ -454,8 +472,8 @@ function validateForm3(){
     }
 
     if( employed_before === "yes"){
-        // // Emplopye Details validation
-        $(".company_name,.occupation,.job_description,.first_working_date,.last_working_date,.where_did_you_work,.where_did_you_work_status_start_date,.where_did_you_work_status_end_date,.noc_code,.job_duties").each(function () {
+        // Emplopye Details validation
+        $(".company_name,.occupation,.job_description,.where_did_you_work,.where_did_you_work_status_start_date,.where_did_you_work_status_end_date,.noc_code,.job_duties").each(function () {
             if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
@@ -469,6 +487,21 @@ function validateForm3(){
                 isValid = false;
             }
         });
+        if(currently_working_in_company === "no"){
+        $(".first_working_date,.last_working_date").each(function () {
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        })
+        }else{   
+        $(".first_working_date").each(function () {
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        })   
+        }
     }
         return isValid;
         
@@ -658,6 +691,10 @@ function commonvalidation(){
         }
         if (spouse_status_in_country === "") {
             $("select[name='spouse_status_in_country']").after("<span class='error' style='color: red;'> This field is required.</span>");
+            isValid = false;
+        }
+        if(spouse_status_in_country === "Other"){
+            $("select[name='spouse_status_in_country_other']").after("<span class='error' style='color: red;'> This field is required.</span>");
             isValid = false;
         }
         // return isValid;

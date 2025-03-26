@@ -264,8 +264,8 @@
                                   <i class="tool-tip__icon">i</i>
                                 </span>
                               </label>
-                              <select name="status_in_canada[]" class="form-select zr-assessment-form-input">
-                                <option selected disabled value="">Select status</option>
+                              <select name="status_in_canada[]" class="form-select zr-assessment-form-input status_in_canada">
+                                <option value="">Select status</option>
                                 <option value="Citizen">Citizen</option>
                                 <option value="Permanent Resident">Permanent Resident</option>
                                 <option value="Worker">Worker</option>
@@ -287,7 +287,7 @@
                                   <i class="tool-tip__icon">i</i>
                                 </span>
                               </label>
-                              <input type="text" name="status_start_date[]" class="form-control zr-assessment-form-input datepicker" placeholder="Choose Date">
+                              <input type="text" name="status_start_date[]" class="form-control zr-assessment-form-input datepicker status_start_date" placeholder="Choose Date">
                             </div>
                           </div>
                           <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
@@ -298,7 +298,7 @@
                                   <i class="tool-tip__icon">i</i>
                                 </span>
                               </label>
-                              <input type="text" name="status_end_date[]" class="form-control zr-assessment-form-input datepicker" placeholder="Choose Date">
+                              <input type="text" name="status_end_date[]" class="form-control zr-assessment-form-input datepicker status_end_date" placeholder="Choose Date">
                             </div>
                           </div>
                         </div>
@@ -408,8 +408,7 @@
                                 title="Provide the current age of your spouse or common-law partner in years.">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                            <input type="number" name="spouse_age" class="form-control zr-assessment-form-input" placeholder="">
-
+                            <input type="number" name="spouse_age" class="form-control zr-assessment-form-input" placeholder="" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);">
                           </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
@@ -879,7 +878,7 @@
                         </div>
                       </div>
                     </div>
-                    <div id="eca_educational_block" class="zr-provide-detail pt-2">
+                    <div id="eca_educational_block" class="zr-provide-detail pt-2 ">
                       <div id="" class="zr-form-detail">
                         <h5 class="zr-canada-detaik-heading">Please provide details</h5>
                         <div class="row">
@@ -1146,7 +1145,7 @@
                 </div>
 
                 <!-- 3 step start -->
-                <div class="zr-assessment-form2">
+                <div class="zr-assessment-form2" id="spouse_div">
                   <h2 class="zr-form-title">Spouse Education Details</h2>
                   <h3 class="zr-form-subtitle">Provide details about your spouse education details such as education
                     level
@@ -1196,7 +1195,7 @@
                       </div>
                     </div>
                     <div class="zr-provide-detail pt-4">
-                      <div id="canadaDetails" class="zr-form-detail">
+                      <div id="canadaDetails" class="zr-form-detail canadaDetails">
                         <div class="row">
                           <div class="col-md-6 pt-3">
                             <div class="form-group">
@@ -1519,7 +1518,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="zr-provide-detail pt-2">
+                    <div class="zr-provide-detail pt-2 spouse_details">
                       <div id="" class="zr-form-detail">
                         <h5 class="zr-canada-detaik-heading">Please provide details</h5>
                         <div class="row">

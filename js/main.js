@@ -26,61 +26,62 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-    if (formDataObj['fieldset'] == 1) {
-        if (!validateForm1()) {
-            return false;
-        }
-    }
-    else if (formDataObj['fieldset'] == 2) {
-      if (!validateForm2()) {
-          return false;
-      }
-    }
-    else if (formDataObj['fieldset'] == 3) {
+    // if (formDataObj['fieldset'] == 1) {
+    //     if (!validateForm1()) {
+    //         return false;
+    //     }
+    // }
+    // else if (formDataObj['fieldset'] == 2) {
+    //   if (!validateForm2()) {
+    //       return false;
+    //   }
+    // }
+    // else 
+    if (formDataObj['fieldset'] == 3) {
       if (!validateForm3()) {
           return false;
       }
     }
-    else if (formDataObj['fieldset'] == 4) {
-      if (!validateForm4()) {
-          return false;
-      }
-    }
+    // else if (formDataObj['fieldset'] == 4) {
+    //   if (!validateForm4()) {
+    //       return false;
+    //   }
+    // }
 
-    try {
-      $.ajax({
-          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-          type: "POST",
-          header : "Content-Type: application/json",
-          data: formData,
-          success: function(response) {
-              // Move to next fieldset if submission is successful
-              if (response.lead && response.lead.id) {
-                  // Append the ID to the hidden input field
-                  $("input[name='lead_id']").val(response.lead.id);
-              }
-              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-              next_fs.fadeIn();
-              current_fs.fadeOut(function() {
-                  animating = false;
-              });
-          },
-          error: function(xhr, status, error) {
-              console.log("Error:", error);
-              animating = false;
-          }
+    // try {
+    //   $.ajax({
+    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+    //       type: "POST",
+    //       header : "Content-Type: application/json",
+    //       data: formData,
+    //       success: function(response) {
+    //           // Move to next fieldset if submission is successful
+    //           if (response.lead && response.lead.id) {
+    //               // Append the ID to the hidden input field
+    //               $("input[name='lead_id']").val(response.lead.id);
+    //           }
+    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //           next_fs.fadeIn();
+    //           current_fs.fadeOut(function() {
+    //               animating = false;
+    //           });
+    //       },
+    //       error: function(xhr, status, error) {
+    //           console.log("Error:", error);
+    //           animating = false;
+    //       }
+    //   });
+    // } catch (error) {
+    //   console.error("Try-Catch Error:", error.message);
+    // }
+
+      if (animating) return false;
+      animating = true;
+      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      next_fs.fadeIn();
+      current_fs.fadeOut(function() {
+          animating = false;
       });
-    } catch (error) {
-      console.error("Try-Catch Error:", error.message);
-    }
-
-      // if (animating) return false;
-      // animating = true;
-      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      // next_fs.fadeIn();
-      // current_fs.fadeOut(function() {
-      //     animating = false;
-      // });
      
   });
 });
@@ -220,7 +221,6 @@ $(document).ready(function () {
     
         console.log("selectedCountry:", selectedCountry);
         console.log("selectedStatus:", selectedStatus);
-    
         if (selectedCountry === "Canada" && selectedStatus !== "citizen" && selectedStatus !== "other") {
             $("#canada_details_block").show();
             $("#other_statuses_in_canada").hide();
@@ -272,6 +272,30 @@ $(document).ready(function () {
       }
     });
 
+    // Spouse Work Experience
+    $(document).ready(function () {
+      $(".canadaDetails").hide(); // Hide the section initially
+      $("input[name='spouse_work_experience']").on("change", function () {
+          if ($(this).val() === "Yes") {
+              $(".canadaDetails").show();
+          } else {
+              $(".canadaDetails").hide();
+          }
+      });
+    });
+
+    // spouse received an Educational Credential Assessment (ECA)
+    $(document).ready(function () {
+      $(".spouse_details").hide(); // Hide the section initially
+      $("input[name='spouse_received_eca_educational']").on("change", function () {
+          if ($(this).val() === "Yes") {
+              $(".spouse_details").show();
+          } else {
+              $(".spouse_details").hide();
+          }
+      });
+    });
+  
 
     /// Previous relationships additional
 
@@ -324,6 +348,18 @@ $(document).ready(function () {
     
     $(document).on("click", ".removeRelationship", function() {
         $(this).closest("#additional_relationsips").remove();
+    });
+
+    // Marital Status
+    $(document).ready(function(){
+      $("#marital_status").change(function(){
+        let val = $(this).val();
+        if(val === "annulled-marriage" ||  val === "divorced" || val === "legally-separated" || val === "single" ||val === "unknown" || val === "widowed" ){
+          $("#spouse_div").hide();
+        }else{
+          $("#spouse_div").show();
+        }
+      });
     });
 
     //Family members
