@@ -270,7 +270,7 @@ function validateForm2(){
     let spouse_eca_issue_date = $("input[name='spouse_eca_issue_date']").val();
     let spouse_received_eca_educational = $("input[name='spouse_received_eca_educational']:checked").val();
     let marital_status = $("#marital_status").val();
-    
+    alert(marital_status);
     
     let formal_education = $("input[name='formal_education_completed']").parent().parent(); 
      // Clear previous errors
