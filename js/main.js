@@ -26,66 +26,103 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-    // if (formDataObj['fieldset'] == 1) {
-    //     if (!validateForm1()) {
-    //         return false;
-    //     }
-    // }
-    // else if (formDataObj['fieldset'] == 2) {
-    //   if (!validateForm2()) {
-    //       return false;
-    //   }
-    // }
-    // else 
-    if (formDataObj['fieldset'] == 3) {
+    if (formDataObj['fieldset'] == 1) {
+        if (!validateForm1()) {
+            return false;
+        }
+    }
+    else if (formDataObj['fieldset'] == 2) {
+      if (!validateForm2()) {
+          return false;
+      }
+    }
+    else if (formDataObj['fieldset'] == 3) {
       if (!validateForm3()) {
           return false;
       }
     }
-    // else if (formDataObj['fieldset'] == 4) {
-    //   if (!validateForm4()) {
-    //       return false;
-    //   }
-    // }
+    else if (formDataObj['fieldset'] == 4) {
+      if (!validateForm4()) {
+          return false;
+      }
+    }
 
-    // try {
-    //   $.ajax({
-    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-    //       type: "POST",
-    //       header : "Content-Type: application/json",
-    //       data: formData,
-    //       success: function(response) {
-    //           // Move to next fieldset if submission is successful
-    //           if (response.lead && response.lead.id) {
-    //               // Append the ID to the hidden input field
-    //               $("input[name='lead_id']").val(response.lead.id);
-    //           }
-    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    //           next_fs.fadeIn();
-    //           current_fs.fadeOut(function() {
-    //               animating = false;
-    //           });
-    //       },
-    //       error: function(xhr, status, error) {
-    //           console.log("Error:", error);
-    //           animating = false;
-    //       }
-    //   });
-    // } catch (error) {
-    //   console.error("Try-Catch Error:", error.message);
-    // }
-
-      if (animating) return false;
-      animating = true;
-      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      next_fs.fadeIn();
-      current_fs.fadeOut(function() {
-          animating = false;
+    try {
+      $.ajax({
+          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+          type: "POST",
+          header : "Content-Type: application/json",
+          data: formData,
+          success: function(response) {
+            $(".marital_status").val(response.lead.marital_status);
+              // Move to next fieldset if submission is successful
+              if (response.lead && response.lead.id) {
+                  // Append the ID to the hidden input field
+                  $("input[name='lead_id']").val(response.lead.id);
+              }
+              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+              next_fs.fadeIn();
+              current_fs.fadeOut(function() {
+                  animating = false;
+              });
+          },
+          error: function(xhr, status, error) {
+              console.log("Error:", error);
+              animating = false;
+          }
       });
+    } catch (error) {
+      console.error("Try-Catch Error:", error.message);
+    }
+
+      // if (animating) return false;
+      // animating = true;
+      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      // next_fs.fadeIn();
+      // current_fs.fadeOut(function() {
+      //     animating = false;
+      // });
      
   });
 });
 
+// Employment History Perivious date disabled First Working Day
+$(document).ready(function () {
+  $(".first_working_date").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+      onSelect: function (selectedDate) {
+          var minDate = $(this).datepicker("getDate"); // Get selected date
+          $(".last_working_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+      }
+  });
+
+  $(".last_working_date").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+  });
+});
+
+// Employment History Perivious date disabled Status Start Date 
+$(document).ready(function () {
+  $(".where_did_you_work_status_start_date").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+      onSelect: function (selectedDate) {
+          var minDate = $(this).datepicker("getDate"); // Get selected date
+          $(".where_did_you_work_status_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+      }
+  });
+
+  $(".where_did_you_work_status_end_date").datepicker({
+      dateFormat: "dd/mm/yy",
+      changeMonth: true,
+      changeYear: true,
+  });
+});
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -537,34 +574,42 @@ $(document).ready(function () {
 
         initializeDatepicker($("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
 
-
+        // EmploymentHistory append div with remove
         $("#addMoreCompany").click(function () {
             let newBlock = $("#company_details_block").first().clone();
-        
+            newBlock.addClass("company-details-block"); // Add class for easier removal
             newBlock.find("input").val("");
             newBlock.find("select").prop("selectedIndex", 0);
             newBlock.find("input[type='radio']").prop("checked", false);
             newBlock.find("input[type='radio']").first().prop("checked", true);
         
-            let uniqueId = new Date().getTime();
-        
+            // let uniqueId = new Date().getTime();
             newBlock.find("input[type='radio']").each(function () {
                 let name = $(this).attr("name");
-                let newName = name + "_" + uniqueId;
+                let newName = name ;
                 $(this).attr("name", newName);
             });
             newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
         
+            if (!newBlock.find(".EmploymentHistory").length) {
+              newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger EmploymentHistory">REMOVE</button></div>');
+          }
             $("#employment_history").append(newBlock);
-        
+            // Append an <hr> line after the newly added company details block
+            newBlock.after('<hr class="company-divider">');
+
             initializeDatepicker(newBlock.find("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
         });
         
-      
+        // Remove the block 
+          $(document).on("click", ".EmploymentHistory", function () {
+              let block = $(this).closest(".company-details-block");
+              block.next("hr.company-divider").remove(); // Remove the <hr> line next to the block
+              block.remove(); // Remove the block itself
+          });
     
         $(".company_details_block").each(function () {
             var parentBlock = $(this);
-    
             parentBlock.find(".currently_working_in_companys").change(function () {
                 var selectedValue = $(this).val();
     

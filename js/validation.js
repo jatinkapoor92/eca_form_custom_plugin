@@ -252,7 +252,6 @@ function validateForm1() {
     return isValid;
 }
 
-
 function validateForm2(){
     let isValid = true;
     let formal_education_completed =  $("input[name='formal_education_completed']:checked").val();
@@ -270,6 +269,7 @@ function validateForm2(){
     let spouse_canadian_equivalency = $("input[name='spouse_canadian_equivalency']").val();
     let spouse_eca_issue_date = $("input[name='spouse_eca_issue_date']").val();
     let spouse_received_eca_educational = $("input[name='spouse_received_eca_educational']:checked").val();
+    let marital_status = $("#marital_status").val();
     
     
     let formal_education = $("input[name='formal_education_completed']").parent().parent(); 
@@ -317,6 +317,15 @@ function validateForm2(){
                 isValid = false;
             }
         });
+    }
+
+
+    // remove validation on second form page
+
+    if(marital_status === "annulled-marriage" ||  marital_status === "divorced" || marital_status === "legally-separated" || marital_status === "single" ||val === "unknown" || val === "widowed" ){
+        alert('yes');
+        $("input[name='spouse_highest_education'], input[name='spouse_country_of_study'],input[name='spouse_work_experience'],input[name='spouse_language_test_taken'],input[name='spouse_english_language_ability'],input[name='spouse_french_language_ability'],input[name='spouse_received_eca_educational']").removeClass(".error");
+
     }
 
     // ECA validation
