@@ -37,51 +37,51 @@ $(document).ready(function() {
     //   }
     // }
     // else 
-    if (formDataObj['fieldset'] == 3) {
-      if (!validateForm3()) {
-          return false;
-      }
-    }
+    // if (formDataObj['fieldset'] == 3) {
+    //   if (!validateForm3()) {
+    //       return false;
+    //   }
+    // }
     // else if (formDataObj['fieldset'] == 4) {
     //   if (!validateForm4()) {
     //       return false;
     //   }
     // }
 
-    // try {
-    //   $.ajax({
-    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-    //       type: "POST",
-    //       header : "Content-Type: application/json",
-    //       data: formData,
-    //       success: function(response) {
-    //           // Move to next fieldset if submission is successful
-    //           if (response.lead && response.lead.id) {
-    //               // Append the ID to the hidden input field
-    //               $("input[name='lead_id']").val(response.lead.id);
-    //           }
-    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    //           next_fs.fadeIn();
-    //           current_fs.fadeOut(function() {
-    //               animating = false;
-    //           });
-    //       },
-    //       error: function(xhr, status, error) {
-    //           console.log("Error:", error);
-    //           animating = false;
-    //       }
-    //   });
-    // } catch (error) {
-    //   console.error("Try-Catch Error:", error.message);
-    // }
-
-      if (animating) return false;
-      animating = true;
-      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      next_fs.fadeIn();
-      current_fs.fadeOut(function() {
-          animating = false;
+    try {
+      $.ajax({
+          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+          type: "POST",
+          header : "Content-Type: application/json",
+          data: formData,
+          success: function(response) {
+              // Move to next fieldset if submission is successful
+              if (response.lead && response.lead.id) {
+                  // Append the ID to the hidden input field
+                  $("input[name='lead_id']").val(response.lead.id);
+              }
+              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+              next_fs.fadeIn();
+              current_fs.fadeOut(function() {
+                  animating = false;
+              });
+          },
+          error: function(xhr, status, error) {
+              console.log("Error:", error);
+              animating = false;
+          }
       });
+    } catch (error) {
+      console.error("Try-Catch Error:", error.message);
+    }
+
+      // if (animating) return false;
+      // animating = true;
+      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      // next_fs.fadeIn();
+      // current_fs.fadeOut(function() {
+      //     animating = false;
+      // });
      
   });
 });

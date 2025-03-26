@@ -1988,7 +1988,7 @@
                                 </span> </label>
                               <div class="py-2 d-flex align-items-center decision-group">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="decision[]"
+                                  <input class="form-check-input" type="radio" name="decision[]" value="granted"
                                     id="" class="decision">
                                   <label class="form-check-label zr-radi0-btn" for="decision1">
                                     Granted
@@ -1996,14 +1996,14 @@
                                   </label>
                                 </div>
                                 <div class="form-check ms-3">
-                                  <input class="form-check-input" type="radio" name="decision[]"
+                                  <input class="form-check-input" type="radio" name="decision[]" value="refused"
                                     id="" class="decision">
                                   <label class="form-check-label zr-radi0-btn" for="decision2">
                                     Refused
                                   </label>
                                 </div>
                                 <div class="form-check ms-3">
-                                  <input class="form-check-input" type="radio" name="decision[]"
+                                  <input class="form-check-input" type="radio" name="decision[]" value="pending"
                                     id="" class="decision">
                                   <label class="form-check-label zr-radi0-btn" for="decision3">
                                     Pending
@@ -2021,7 +2021,7 @@
                                   data-bs-original-title="Immegration application type">
                                   <i class="tool-tip__icon">i</i>
                                 </span> </label>
-                                <textarea class="form-control zr-assessment-form-input" id="immegration_application_other" name="immegration_application_other" rows="3"></textarea>
+                                <textarea class="form-control zr-assessment-form-input" id="immegration_application_other" name="immegration_application_other[]" rows="3"></textarea>
                             </div>
                           </div>
                         </div>
@@ -2248,14 +2248,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police"
+                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="yes"
                               id="flexRadioDefault74">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault74">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police"
+                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="no"
                               id="flexRadioDefault75">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault75">
                               No
@@ -2480,7 +2480,7 @@
                           <label for="exampleFormControlTextarea1" class="zr-assessment-form-label">Briefly describe
                             your
                             immigration matter to help us better assist you. <span class="req-red">*</span> </label>
-                          <textarea class="form-control zr-assessment-form-input exampleFormControlTextarea1" id="exampleFormControlTextarea1"
+                          <textarea name="immegration_matter_description" class="form-control zr-assessment-form-input exampleFormControlTextarea1" id="exampleFormControlTextarea1"
                             placeholder="Summarize your immigration concerns or questions to ensure we provide the most effective assistance."
                             style="height: 100px;"></textarea>
                         </div>
@@ -2839,7 +2839,7 @@
                     class="previous action-button-previous zr-action-button  zr-multiform-step "
                     value="Previous"><span>Previous</span></button>
 
-                  <button type="button" name="next" class="next action-button zr-action-button zr-multiform-step ms-2 save-next"
+                  <button type="button" name="save-next" class="next action-button zr-action-button zr-multiform-step ms-2 save-next"
                     value="Next"><span>Submit Application</span></button>
 </div>
               </fieldset>
