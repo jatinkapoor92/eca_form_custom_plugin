@@ -270,7 +270,6 @@ function validateForm2(){
     let spouse_eca_issue_date = $("input[name='spouse_eca_issue_date']").val();
     let spouse_received_eca_educational = $("input[name='spouse_received_eca_educational']:checked").val();
     let marital_status = $("#marital_status").val();
-    alert(marital_status);
     
     let formal_education = $("input[name='formal_education_completed']").parent().parent(); 
      // Clear previous errors
@@ -318,13 +317,9 @@ function validateForm2(){
             }
         });
     }
-
-
     // remove validation on second form page
-
-    if(marital_status === "annulled-marriage" ||  marital_status === "divorced" || marital_status === "legally-separated" || marital_status === "single" ||val === "unknown" || val === "widowed" ){
-        alert('yes');
-        $("input[name='spouse_highest_education'], input[name='spouse_country_of_study'],input[name='spouse_work_experience'],input[name='spouse_language_test_taken'],input[name='spouse_english_language_ability'],input[name='spouse_french_language_ability'],input[name='spouse_received_eca_educational']").removeClass(".error");
+    if(marital_status === "annulled-marriage" ||  marital_status === "divorced" || marital_status === "legally-separated" || marital_status === "single" ||marital_status === "unknown" || marital_status === "widowed" ){
+        $("input[name='spouse_highest_education'], input[name='spouse_country_of_study'],input[name='spouse_work_experience'],input[name='spouse_language_test_taken'],input[name='spouse_english_language_ability'],input[name='spouse_french_language_ability'],input[name='spouse_received_eca_educational'],input[name='taken_english_test']").removeClass(".error");
 
     }
 
