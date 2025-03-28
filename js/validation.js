@@ -318,8 +318,14 @@ function validateForm2(){
         });
     }
     // remove validation on second form page
-    if(marital_status === "annulled-marriage" ||  marital_status === "divorced" || marital_status === "legally-separated" || marital_status === "single" ||marital_status === "unknown" || marital_status === "widowed" ){
-        $("input[name='spouse_highest_education'], input[name='spouse_country_of_study'],input[name='spouse_work_experience'],input[name='spouse_language_test_taken'],input[name='spouse_english_language_ability'],input[name='spouse_french_language_ability'],input[name='spouse_received_eca_educational'],input[name='taken_english_test']").removeClass(".error");
+    if(marital_status === "annulled-marriage" ||  
+          marital_status === "divorced" ||
+          marital_status === "legally-separated" ||   
+          marital_status === "single" ||
+          marital_status === "unknown" || 
+          marital_status === "widowed" ){
+            $("#spouse_highest_education, #countrySelect_spouse,.spouse_work_experience,.spouse_language_test_taken,.Englishlanguageability,.Frenchlanguageability,.EducationalCredential").removeClass("error");
+            return true;
 
     }
 
@@ -659,9 +665,6 @@ function past_test_taken(){
     });
 }
 function commonvalidation(){
-    //    let isValid = true;
-    // // Clear previous error messages
-    //     $(".error").remove();
         let spouse_name = $("input[name='spouse_name']").val();
         let spouse_age  = $("input[name='spouse_age']").val();
         let spouse_gender   = $("select[name='spouse_gender']").val();

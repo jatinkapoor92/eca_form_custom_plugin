@@ -517,7 +517,7 @@
                         </div>
                         <div class="form-check d-flex align-items-center ms-4">
                           <input class="form-check-input me-2" type="radio" name="previous_relationship" value="No"
-                            id="previous_relationship2">
+                            id="previous_relationship2" checked>
                           <label class="form-check-label zr-radio-btn" for="previous_relationship">
                             No
                           </label>
@@ -609,7 +609,7 @@
                           </div>
                           <div class="form-check d-flex align-items-center ms-4">
                             <input class="form-check-input me-2" type="radio" name="family_friends_in_canada" value="No"
-                              id="family_friends_in_canada2">
+                              id="family_friends_in_canada2" checked>
                             <label class="form-check-label zr-radio-btn" for="family_friends_in_canada">
                               No
                             </label>
@@ -729,7 +729,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="formal_education_completed"
-                              id="formal_education_completed_no" value="no">
+                              id="formal_education_completed_no" value="no" checked>
                             <label class="form-check-label zr-radi0-btn" for="formal_education_completed2">
                               No
                             </label>
@@ -863,7 +863,7 @@
                           </div>
                           <div class="form-check mx-4">
                             <input class="form-check-input" type="radio" name="eca_educational" value="No"
-                              id="eca_educational2">
+                              id="eca_educational2" checked>
                             <label class="form-check-label zr-radi0-btn" for="eca_educational2">
                               No
                             </label>
@@ -1156,7 +1156,7 @@
                       <div class="form-group">
                         <label class="form-label zr-assessment-form-label">Spouse highest education <span
                             class="req-red">*</span></label>
-                        <input type="text" name="spouse_highest_education" class="form-control zr-assessment-form-input" placeholder="Highest Education" >
+                        <input type="text" name="spouse_highest_education" class="form-control zr-assessment-form-input" placeholder="Highest Education" id="spouse_highest_education">
                       </div>
                     </div>
                     <div class="col-md-6 pt-3">
@@ -1178,15 +1178,15 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="spouse_work_experience" value="Yes"
+                            <input class="form-check-input spouse_work_experience" type="radio" name="spouse_work_experience" value="Yes"
                               id="spouse_work_experience">
                             <label class="form-check-label zr-radi0-btn" for="spouse_work_experience">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="spouse_work_experience" value="No"
-                              id="spouse_work_experience1">
+                            <input class="form-check-input spouse_work_experience" type="radio" name="spouse_work_experience" value="No"
+                              id="spouse_work_experience1" checked>
                             <label class="form-check-label zr-radi0-btn" for="spouse_work_experience1">
                               No
                             </label>
@@ -1228,14 +1228,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="spouse_language_test_taken" value="Yes"
+                            <input class="form-check-input spouse_language_test_taken" type="radio" name="spouse_language_test_taken" value="Yes"
                               id="spouse_taken_english_test_yes">
                             <label class="form-check-label zr-radi0-btn" for="spouse_taken_english_test_yes">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="spouse_language_test_taken" value="No"
+                            <input class="form-check-input spouse_language_test_taken" type="radio" name="spouse_language_test_taken" value="No"
                               id="spouse_taken_english_test_no">
                             <label class="form-check-label zr-radi0-btn" for="spouse_taken_english_test_no">
                               No
@@ -1427,23 +1427,23 @@
                               </label>
                               <div class="py-2 zr-french-language-test">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_english_language_ability" id="flexRadioDefault35" value="None">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="flexRadioDefault35" value="None">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefault35">None</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_english_language_ability" id="flexRadioDefault34" value="Basic">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="flexRadioDefault34" value="Basic">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefault34">Basic</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_english_language_ability" id="flexRadioDefault33" value="Intermediate">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="flexRadioDefault33" value="Intermediate">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefault33">Intermediate</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_english_language_ability" id="referred_by" value="Advanced">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="referred_by" value="Advanced">
                                   <label class="form-check-label zr-radi0-btn" for="referred_by">Advanced</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_english_language_ability" id="immigration_matter_would_you_like_to_discuss" value="Fluent/Native Language">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="immigration_matter_would_you_like_to_discuss" value="Fluent/Native Language">
                                   <label class="form-check-label zr-radi0-btn" for="immigration_matter_would_you_like_to_discuss">Fluent/Native Language</label>
                                 </div>
                               </div>
@@ -1458,23 +1458,23 @@
                               </label>
                               <div class="py-2 zr-french-language-test">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta35" value="None">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta35" value="None">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta35">None</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta34" value="Basic">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta34" value="Basic">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta34">Basic</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta33" value="Intermediate">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta33" value="Intermediate">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta33">Intermediate</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta32" value="Advanced">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta32" value="Advanced">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta32">Advanced</label>
                                 </div>
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta31" value="Fluent/Native Language">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta31" value="Fluent/Native Language">
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta31">Fluent/Native Language</label>
                                 </div>
                               </div>
@@ -1495,21 +1495,21 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="spouse_received_eca_educational" value="Yes"
+                            <input class="form-check-input EducationalCredential" type="radio" name="spouse_received_eca_educational" value="Yes"
                               id="flexRadioDefault38">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault38">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="spouse_received_eca_educational" value="No"
-                              id="flexRadioDefault37">
+                            <input class="form-check-input EducationalCredential" type="radio" name="spouse_received_eca_educational" value="No"
+                              id="flexRadioDefault37" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault37">
                               No
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="spouse_received_eca_educational" value="Not-Applicable"
+                            <input class="form-check-input EducationalCredential" type="radio" name="spouse_received_eca_educational" value="Not-Applicable"
                               id="flexRadioDefault39">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault39">
                               Not Applicable
@@ -1623,7 +1623,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input emp1" type="radio" name="employed_before" value="no"
-                              id="flexRadioDefault41">
+                              id="flexRadioDefault41" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault41">
                               No
                             </label>
@@ -1690,7 +1690,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 closeestdiv">
                             <label class="form-label zr-assessment-form-label">First Working Day<span
                                 class="req-red">*</span>
                               <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -1699,7 +1699,7 @@
                               </span></label>
                               <input type="text"  name="first_working_date[]" class="form-control zr-assessment-form-input first_working_date">
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 LastWorkingDaydiv">
                             <label class="form-label zr-assessment-form-label">Last Working Day<span
                                 class="req-red">*</span>
                               <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -1923,7 +1923,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="submitted_immegration_application" value="no"
-                              id="submitted_immegration_application1">
+                              id="submitted_immegration_application1" checked>
                             <label class="form-check-label zr-radi0-btn" for="submitted_immegration_application1">
                               No
                             </label>
@@ -2052,7 +2052,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="refused_immegration_applications" value="no"
-                              id="flexRadioDefault56">
+                              id="flexRadioDefault56" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault56">
                               No
                             </label>
@@ -2132,7 +2132,7 @@
                         </div>
                         <div class="form-check ms-3">
                           <input class="form-check-input" type="radio" name="have_you_ever_stayed" value="no"
-                            id="have_you_ever_stayed2">
+                            id="have_you_ever_stayed2" checked>
                           <label class="form-check-label zr-radi0-btn" for="have_you_ever_stayed2">
                             No
                           </label>
@@ -2161,7 +2161,7 @@
                         </div>
                         <div class="form-check ms-3">
                           <input class="form-check-input" type="radio" name="unauthorized_work_of_study" value="no"
-                            id="unauthorized_work_of_study2">
+                            id="unauthorized_work_of_study2" checked>
                           <label class="form-check-label zr-radi0-btn" for="unauthorized_work_of_study2">
                             No
                           </label>
@@ -2197,7 +2197,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="serious_diseases"
-                              id="flexRadioDefault71">
+                              id="flexRadioDefault71" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault71">
                               No
                             </label>
@@ -2225,7 +2225,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="served_in_govt_job" value="no"
-                              id="flexRadioDefault73">
+                              id="flexRadioDefault73" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault73">
                               No
                             </label>
@@ -2257,7 +2257,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="no"
-                              id="flexRadioDefault75">
+                              id="flexRadioDefault75" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault75">
                               No
                             </label>
@@ -2287,7 +2287,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="charged_with_impaired_driving"
-                              id="flexRadioDefault76">
+                              id="flexRadioDefault76" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault76">
                               No
                             </label>
@@ -2690,15 +2690,6 @@
                                       </span></label>
                                     <input type="text" name="referral_code[]" class="form-control zr-assessment-form-input referral_code" placeholder=""
                                       >
-                                  </div>
-                                  <div class="col-md-12 mt-3">
-                                    <div class="form-group">
-                                      <label for="exampleFormControlTextarea1 zr-assessment-form-label">Please provide
-                                        details<span class="req-red">*</span></label>
-                                      <textarea class="form-control zr-assessment-form-input textrefer"
-                                        id="exampleFormControlTextarea1" rows="3"></textarea>
-                                    </div>
-
                                   </div>
                                 </div>
                               </div>

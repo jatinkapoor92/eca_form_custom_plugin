@@ -26,62 +26,62 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-    if (formDataObj['fieldset'] == 1) {
-        if (!validateForm1()) {
-            return false;
-        }
-    }
-    else if (formDataObj['fieldset'] == 2) {
-      if (!validateForm2()) {
-          return false;
-      }
-    }
-    else if (formDataObj['fieldset'] == 3) {
-      if (!validateForm3()) {
-          return false;
-      }
-    }
-    else if (formDataObj['fieldset'] == 4) {
-      if (!validateForm4()) {
-          return false;
-      }
-    }
+    // if (formDataObj['fieldset'] == 1) {
+    //     if (!validateForm1()) {
+    //         return false;
+    //     }
+    // }
+    // else if (formDataObj['fieldset'] == 2) {
+    //   if (!validateForm2()) {
+    //       return false;
+    //   }
+    // }
+    // else if (formDataObj['fieldset'] == 3) {
+    //   if (!validateForm3()) {
+    //       return false;
+    //   }
+    // }
+    // else if (formDataObj['fieldset'] == 4) {
+    //   if (!validateForm4()) {
+    //       return false;
+    //   }
+    // }
 
-    try {
-      $.ajax({
-          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-          type: "POST",
-          header : "Content-Type: application/json",
-          data: formData,
-          success: function(response) {
-            $(".marital_status").val(response.lead.marital_status);
-              // Move to next fieldset if submission is successful
-              if (response.lead && response.lead.id) {
-                  // Append the ID to the hidden input field
-                  $("input[name='lead_id']").val(response.lead.id);
-              }
-              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-              next_fs.fadeIn();
-              current_fs.fadeOut(function() {
-                  animating = false;
-              });
-          },
-          error: function(xhr, status, error) {
-              console.log("Error:", error);
-              animating = false;
-          }
+    // try {
+    //   $.ajax({
+    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+    //       type: "POST",
+    //       header : "Content-Type: application/json",
+    //       data: formData,
+    //       success: function(response) {
+    //         $(".marital_status").val(response.lead.marital_status);
+    //           // Move to next fieldset if submission is successful
+    //           if (response.lead && response.lead.id) {
+    //               // Append the ID to the hidden input field
+    //               $("input[name='lead_id']").val(response.lead.id);
+    //           }
+    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //           next_fs.fadeIn();
+    //           current_fs.fadeOut(function() {
+    //               animating = false;
+    //           });
+    //       },
+    //       error: function(xhr, status, error) {
+    //           console.log("Error:", error);
+    //           animating = false;
+    //       }
+    //   });
+    // } catch (error) {
+    //   console.error("Try-Catch Error:", error.message);
+    // }
+
+      if (animating) return false;
+      animating = true;
+      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      next_fs.fadeIn();
+      current_fs.fadeOut(function() {
+          animating = false;
       });
-    } catch (error) {
-      console.error("Try-Catch Error:", error.message);
-    }
-
-      // if (animating) return false;
-      // animating = true;
-      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      // next_fs.fadeIn();
-      // current_fs.fadeOut(function() {
-      //     animating = false;
-      // });
      
   });
 });
@@ -255,16 +255,16 @@ $(document).ready(function () {
     function toggleCanadaDetails() {
         var selectedCountry = $("#countrySelect2").val();
         var selectedStatus = $("#status_in_current_country").val();
-    
         console.log("selectedCountry:", selectedCountry);
         console.log("selectedStatus:", selectedStatus);
-        if (selectedCountry === "Canada" && selectedStatus !== "citizen" && selectedStatus !== "other") {
+        if (selectedCountry === "Canada" && selectedStatus !== "citizen" && selectedStatus !== "Other") {
             $("#canada_details_block").show();
             $("#other_statuses_in_canada").hide();
         } else if(selectedStatus === "Other"){
             $("#other_statuses_in_canada").show();
             $("#canada_details_block").hide();
-        }else{
+        }
+        else{
             $("#other_statuses_in_canada").hide();
             $("#canada_details_block").hide();
         }
@@ -583,10 +583,10 @@ $(document).ready(function () {
             newBlock.find("input[type='radio']").prop("checked", false);
             newBlock.find("input[type='radio']").first().prop("checked", true);
         
-            // let uniqueId = new Date().getTime();
+            let uniqueId = new Date().getTime();
             newBlock.find("input[type='radio']").each(function () {
-                let name = $(this).attr("name");
-                let newName = name ;
+                let oldName = $(this).attr("name");
+                let newName = oldName + "_" + uniqueId; // Make the name unique
                 $(this).attr("name", newName);
             });
             newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
@@ -608,21 +608,19 @@ $(document).ready(function () {
               block.remove(); // Remove the block itself
           });
     
-        $(".company_details_block").each(function () {
-            var parentBlock = $(this);
-            parentBlock.find(".currently_working_in_companys").change(function () {
-                var selectedValue = $(this).val();
-    
-                if (selectedValue === "yes") {
-                    parentBlock.find(".last_working_date").closest(".col-lg-4").hide();
-                } else {
-                    parentBlock.find(".last_working_date").closest(".col-lg-4").show();
-                }
-            });
-    
-            parentBlock.find(".currently_working_in_companys:checked").trigger("change");
-        });
+          $(".LastWorkingDaydiv").hide();
+          $(document).on("change", ".currently_working_in_companys", function () {
+            var parentBlock = $(this).closest(".company_details_block");
+            var lastWorkingDateField = parentBlock.find(".LastWorkingDaydiv");
         
+            if ($(this).val() === "yes") {
+                lastWorkingDateField.closest(".col-lg-4").hide();
+                lastWorkingDateField.val('');
+            } else {
+                lastWorkingDateField.closest(".col-lg-4").show();
+            }
+        });
+          
         // Travelled History
 
         $("#travelled_history").hide();
@@ -664,10 +662,9 @@ $(document).ready(function () {
           newBlock.find("select").val("");
       
           if (newBlock.find(".remove-travel-record").length === 0) {
-            newBlock.append('<button type="button" class="remove-travel-record btn btn-danger mt-3">Remove</button>');
-          }
-      
-          $("#travelled_history_block").append(newBlock);
+            newBlock.append('<div class="col-12 mt-2"><button type="button" class="remove-travel-record btn btn-danger mt-3">Remove</button></div>');
+          }      
+          $("#travelled_history_block").last().after(newBlock);
         });
       
         $(document).on("click", ".remove-travel-record", function () {
@@ -748,7 +745,7 @@ $(document).ready(function () {
           if ($(this).val() === "Referred by a friend or family member") {
             $("#referrals").show();
           } else {
-            $("#referrals").hide();
+            $("#other_referral_text").hide();
           }
 
           if ($(this).val() === "Other") {
