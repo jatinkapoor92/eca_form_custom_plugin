@@ -26,69 +26,86 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-    // if (formDataObj['fieldset'] == 1) {
-    //     if (!validateForm1()) {
-    //         return false;
-    //     }
-    // }
-    // else if (formDataObj['fieldset'] == 2) {
-    //   if (!validateForm2()) {
-    //       return false;
-    //   }
-    // }
-    // else if (formDataObj['fieldset'] == 3) {
-    //   if (!validateForm3()) {
-    //       return false;
-    //   }
-    // }
-    // else if (formDataObj['fieldset'] == 4) {
-    //   if (!validateForm4()) {
-    //       return false;
-    //   }
-    // }
+    if (formDataObj['fieldset'] == 1) {
+        if (!validateForm1()) {
+            return false;
+        }
+    }
+    else if (formDataObj['fieldset'] == 2) {
+      if (!validateForm2()) {
+          return false;
+      }
+    }
+    else if (formDataObj['fieldset'] == 3) {
+      if (!validateForm3()) {
+          return false;
+      }
+    }
+    else if (formDataObj['fieldset'] == 4) {
+      if (!validateForm4()) {
+          return false;
+      }
+    }
 
-    // try {
-    //   $.ajax({
-    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-    //       type: "POST",
-    //       header : "Content-Type: application/json",
-    //       data: formData,
-    //       success: function(response) {
-    //         $(".marital_status").val(response.lead.marital_status);
-    //           // Move to next fieldset if submission is successful
-    //           if (response.lead && response.lead.id) {
-    //               // Append the ID to the hidden input field
-    //               $("input[name='lead_id']").val(response.lead.id);
-    //           }
-    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    //           next_fs.fadeIn();
-    //           current_fs.fadeOut(function() {
-    //               animating = false;
-    //           });
-    //       },
-    //       error: function(xhr, status, error) {
-    //           console.log("Error:", error);
-    //           animating = false;
-    //       }
-    //   });
-    // } catch (error) {
-    //   console.error("Try-Catch Error:", error.message);
-    // }
-
-      if (animating) return false;
-      animating = true;
-      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      next_fs.fadeIn();
-      current_fs.fadeOut(function() {
-          animating = false;
+    try {
+      $.ajax({
+          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+          type: "POST",
+          header : "Content-Type: application/json",
+          data: formData,
+          success: function(response) {
+            $(".marital_status").val(response.lead.marital_status);
+              // Move to next fieldset if submission is successful
+              if (response.lead && response.lead.id) {
+                  // Append the ID to the hidden input field
+                  $("input[name='lead_id']").val(response.lead.id);
+              }
+              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+              next_fs.fadeIn();
+              current_fs.fadeOut(function() {
+                  animating = false;
+              });
+          },
+          error: function(xhr, status, error) {
+              console.log("Error:", error);
+              animating = false;
+          }
       });
+    } catch (error) {
+      console.error("Try-Catch Error:", error.message);
+    }
+
+      // if (animating) return false;
+      // animating = true;
+      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      // next_fs.fadeIn();
+      // current_fs.fadeOut(function() {
+      //     animating = false;
+      // });
      
   });
 });
 
-// Employment History Perivious date disabled First Working Day
-$(document).ready(function () {
-  $(".first_working_date").datepicker({
+  function initializeDatePickers() {
+    // Employment History Perivious date disabled Status Start Date 
+    $(".where_did_you_work_status_start_date").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function (selectedDate) {
+            var minDate = $(this).datepicker("getDate"); // Get selected date
+            $(this).closest('.form-group').parent().next().find(".where_did_you_work_status_end_date").datepicker("option", "minDate", minDate);
+        }
+    });
+
+    $(".where_did_you_work_status_end_date").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+    });
+
+    // Employment History Perivious date disabled First Working Day
+    $(".first_working_date").datepicker({
       dateFormat: "dd/mm/yy",
       changeMonth: true,
       changeYear: true,
@@ -103,26 +120,11 @@ $(document).ready(function () {
       changeMonth: true,
       changeYear: true,
   });
-});
+  }
 
-// Employment History Perivious date disabled Status Start Date 
-$(document).ready(function () {
-  $(".where_did_you_work_status_start_date").datepicker({
-      dateFormat: "dd/mm/yy",
-      changeMonth: true,
-      changeYear: true,
-      onSelect: function (selectedDate) {
-          var minDate = $(this).datepicker("getDate"); // Get selected date
-          $(".where_did_you_work_status_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
-      }
-  });
+// Initialize datepickers for existing fields
+initializeDatePickers();
 
-  $(".where_did_you_work_status_end_date").datepicker({
-      dateFormat: "dd/mm/yy",
-      changeMonth: true,
-      changeYear: true,
-  });
-});
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -131,21 +133,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return new bootstrap.Tooltip(tooltipTriggerEl);
   });
 });
-
-// 
-
-document.getElementById("countrySelect").addEventListener("change", function () {
-var selectedCountry = this.value;
-var canadaForm = document.getElementById("canadaDetails");
-
-if (selectedCountry === "Canada") {
-    canadaForm.style.display = "block"; 
-} else {
-    canadaForm.style.display = "none"; 
-}
-});
-
-
 
 $(document).ready(function () {
     var phoneInput = document.querySelector("#phone");
@@ -188,9 +175,6 @@ $(document).ready(function () {
         startView: 2
     });
     
-
-    
-
     fetch("https://restcountries.com/v3.1/all")
     .then(response => response.json())
     .then(data => {
@@ -252,21 +236,27 @@ $(document).ready(function () {
         $(this).closest(".statuses_in_canada").remove();
     });
     
+    $("#other_statuses_in_canada").hide();
+    $("#canada_details_block").hide();
     function toggleCanadaDetails() {
         var selectedCountry = $("#countrySelect2").val();
         var selectedStatus = $("#status_in_current_country").val();
         console.log("selectedCountry:", selectedCountry);
         console.log("selectedStatus:", selectedStatus);
-        if (selectedCountry === "Canada" && selectedStatus !== "citizen" && selectedStatus !== "Other") {
+        if (selectedCountry === "Canada"){
             $("#canada_details_block").show();
-            $("#other_statuses_in_canada").hide();
-        } else if(selectedStatus === "Other"){
+        }else{
+          $("#canada_details_block").hide();
+        }
+        if(selectedStatus === "Other"){
             $("#other_statuses_in_canada").show();
             $("#canada_details_block").hide();
+        }else{
+          $("#other_statuses_in_canada").hide();
         }
-        else{
-            $("#other_statuses_in_canada").hide();
-            $("#canada_details_block").hide();
+        if(selectedCountry === "Canada" && selectedStatus === "Other"){
+          $("#canada_details_block").show();
+          $("#other_statuses_in_canada").show();
         }
     }
     
@@ -584,10 +574,15 @@ $(document).ready(function () {
             newBlock.find("input[type='radio']").first().prop("checked", true);
         
             let uniqueId = new Date().getTime();
-            newBlock.find("input[type='radio']").each(function () {
+            newBlock.find("input[type='radio']").each(function (index) {
                 let oldName = $(this).attr("name");
                 let newName = oldName + "_" + uniqueId; // Make the name unique
                 $(this).attr("name", newName);
+                if (index === 0) {
+                  $(this).val("yes"); 
+                } else {
+                    $(this).val("no"); 
+                }
             });
             newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
         
@@ -598,7 +593,22 @@ $(document).ready(function () {
             // Append an <hr> line after the newly added company details block
             newBlock.after('<hr class="company-divider">');
 
-            initializeDatepicker(newBlock.find("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
+            // **Ensure LastWorkingDaydiv exists before hiding**
+            if (newBlock.find(".LastWorkingDaydiv").length > 0) {
+                setTimeout(function() {
+                  newBlock.find(".LastWorkingDaydiv").hide();
+              }, 10);
+            }
+
+            // Attach event listener to dynamically added radio buttons
+            newBlock.find(".currently_working_in_companys").change(function () {
+                toggleLastWorkingDateField($(this));
+            });
+            let selectedRadio = newBlock.find(".currently_working_in_companys:checked");
+            toggleLastWorkingDateField(selectedRadio);
+            initializeDatePickers(newBlock);
+            toggleLastWorkingDateField(newBlock);
+            initializeDatepicker(newBlock.find("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));       
         });
         
         // Remove the block 
@@ -608,23 +618,26 @@ $(document).ready(function () {
               block.remove(); // Remove the block itself
           });
     
-          $(".LastWorkingDaydiv").hide();
-          $(document).on("change", ".currently_working_in_companys", function () {
-            var parentBlock = $(this).closest(".company_details_block");
+        $(".LastWorkingDaydiv").hide();
+        function toggleLastWorkingDateField(element) {
+            var sel = element.val();
+            var parentBlock = element.closest(".company_details_block"); 
             var lastWorkingDateField = parentBlock.find(".LastWorkingDaydiv");
         
-            if ($(this).val() === "yes") {
-                lastWorkingDateField.closest(".col-lg-4").hide();
-                lastWorkingDateField.val('');
+            if (sel === "yes") {
+                lastWorkingDateField.hide();
+                lastWorkingDateField.find("input").val(''); // Clear input field properly
             } else {
-                lastWorkingDateField.closest(".col-lg-4").show();
+                lastWorkingDateField.show();
             }
+        }
+        $(document).on("change", ".currently_working_in_companys", function () {
+          toggleLastWorkingDateField($(this));
         });
-          
+        
         // Travelled History
 
         $("#travelled_history").hide();
-
         $("input[name='travelled_country']").change(function () {
           if ($(this).val() === "yes") {
             $("#travelled_history").show();

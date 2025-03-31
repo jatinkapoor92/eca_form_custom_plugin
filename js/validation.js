@@ -124,44 +124,62 @@ function validateForm1() {
     }
     // Validation for  annulled-marriage
     if (marital_status === 'annulled-marriage') {
-        commonvalidation2();
+        if (! commonvalidation2()) {
+            return false;
+        };
     }
     // Validation for  common-law
     if (marital_status === 'common-law') {
-        commonvalidation();
+        if (!commonvalidation()) {
+            return false;
+        }
     }
 
     // Validation for  conjugal
     if (marital_status === 'conjugal') {
-        commonvalidation();
+        if (!commonvalidation()) {
+            return false;
+        }
     }
 
     // Validation for  conjugal
     if (marital_status === 'married-not-present') {
-        commonvalidation();
+        if (!commonvalidation()) {
+            return false;
+        };
     }
 
     // Validation for  divorced
     if (marital_status === 'divorced') {
-        commonvalidation2();
+        if (!commonvalidation2()) {
+            return false;
+        }
     }
 
     // Validation for  legally-separated
     if (marital_status === 'legally-separated') {
-        commonvalidation2();
+        if (!commonvalidation2()) {
+            return false;
+        }
     }
 
     // Validation for married
     if (marital_status === 'married') {
-        commonvalidation();
+        if (!commonvalidation()) {
+            return false;
+        }
     }
     // Validation for married-present
     if (marital_status === 'married-present') {
-        commonvalidation();
+        if (!commonvalidation()) {
+            return false;
+        }
     }
     // Validation for widowed
     if (marital_status === 'widowed') {
-        commonvalidation2();
+        if (!commonvalidation2()) {
+            return false;
+        }
     }
     
     // Current Residential Address validation
@@ -186,28 +204,28 @@ function validateForm1() {
     // if radio button select yes in relatioship
     if (previous_relationship === "Yes") {
         $(".additional_previous_relationship_name").each(function () {
-            if ($(this).val().trim() === "") {
+            if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         });
     
         $(".additional_previous_relationship_type").each(function () {
-            if ($(this).val().trim() === "") {
+            if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         });
 
         $(".additional_previous_relationship_start_date").each(function () {
-            if ($(this).val().trim() === "") {
+            if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         });
 
         $(".additional_previous_relationship_end_date").each(function () {
-            if ($(this).val().trim() === "") {
+            if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
@@ -376,7 +394,9 @@ function validateForm2(){
         isValid = false;
     }
     if(taken_english_test === 'Yes'){
-        past_test_taken();
+        if (!past_test_taken()) {
+            return false;
+        }
     }
     // Spouse Highest Education validation
     if (spouse_highest_education === "") {
@@ -419,24 +439,26 @@ function validateForm2(){
         }
         isValid = false;
     }
-// If Select yes Spouse Language Test Taken  validation
-if(spouse_french_language_ability === "Yes"){
-    past_test_taken();
-}else{
-    let spouse_english_language_ability_error = $("input[name='spouse_english_language_ability']").parent().parent(); 
-    if (!spouse_english_language_ability) {
-        if (spouse_english_language_ability_error.next(".error").length === 0) { 
-            spouse_english_language_ability_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+    // If Select yes Spouse Language Test Taken  validation
+    if(spouse_language_test_taken === "Yes"){
+        if (!past_test_taken()) {
+            return false;
         }
-        isValid = false;
-    }   
-    let spouse_french_language_ability_error = $("input[name='spouse_french_language_ability']").parent().parent(); 
-    if (!spouse_french_language_ability) {
-        if (spouse_french_language_ability_error.next(".error").length === 0) { 
-            spouse_french_language_ability_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+    }else{
+        let spouse_english_language_ability_error = $("input[name='spouse_english_language_ability']").parent().parent(); 
+        if (!spouse_english_language_ability) {
+            if (spouse_english_language_ability_error.next(".error").length === 0) { 
+                spouse_english_language_ability_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+            }
+            isValid = false;
+        }   
+        let spouse_french_language_ability_error = $("input[name='spouse_french_language_ability']").parent().parent(); 
+        if (!spouse_french_language_ability) {
+            if (spouse_french_language_ability_error.next(".error").length === 0) { 
+                spouse_french_language_ability_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+            }
+            isValid = false;
         }
-        isValid = false;
-    }
 }
 // Spouse Received Eca Educational validation
 let spouse_received_eca_educational_error = $("input[name='spouse_received_eca_educational']").parent().parent(); 
@@ -658,13 +680,14 @@ function past_test_taken(){
     $(".language_test_type, .cerficate_number, .language_test_date, .language_result_date, .listening_score, .speaking_score, .reading_score, .writing_score, .clb_equivalent").each(function () {
         // Remove existing error before adding a new one
         $(this).next(".error").remove(); 
-        if ($(this).val().trim() === "") {
+        if ($(this).val() === "") {
             $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
             isValid = false;
         }
     });
 }
 function commonvalidation(){
+        let isValid = true;
         let spouse_name = $("input[name='spouse_name']").val();
         let spouse_age  = $("input[name='spouse_age']").val();
         let spouse_gender   = $("select[name='spouse_gender']").val();
@@ -672,6 +695,7 @@ function commonvalidation(){
         let date_of_marriage   = $("input[name='date_of_marriage']").val();
         let spouse_current_country_residence   = $("select[name='spouse_current_country_residence']").val();
         let spouse_status_in_country   = $("select[name='spouse_status_in_country']").val();
+        let spouse_status_in_country_other = $("textarea[name='spouse_status_in_country_other']").val();
         if (spouse_name=== "") {
             $("input[name='spouse_name']").after("<span class='error' style='color: red;'>This field is required.</span>");
             isValid = false;
@@ -700,13 +724,14 @@ function commonvalidation(){
             $("select[name='spouse_status_in_country']").after("<span class='error' style='color: red;'> This field is required.</span>");
             isValid = false;
         }
-        if(spouse_status_in_country === "Other"){
-            $("select[name='spouse_status_in_country_other']").after("<span class='error' style='color: red;'> This field is required.</span>");
+        if(spouse_status_in_country === "Other" && spouse_status_in_country_other === ""){
+            $("textarea[name='spouse_status_in_country_other']").after("<span class='error' style='color: red;'> This field is required.</span>");
             isValid = false;
         }
-        // return isValid;
+        return isValid;
 }
 function commonvalidation2(){
+        let isValid = true;
         let previous_spouse_name = $("input[name='previous_spouse_name']").val();
         let relationship_start_date = $("#relationship_start_date").val();
         let relationship_end_date = $("#relationship_end_date").val(); 
@@ -722,4 +747,5 @@ function commonvalidation2(){
             $("#relationship_end_date").after("<span class='error' style='color: red;'>This field is required.</span>");
             isValid = false;
         }
+        return isValid;
 }
