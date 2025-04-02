@@ -19,6 +19,7 @@ $(document).ready(function() {
     current_fs = $(this).closest("fieldset");
     next_fs = current_fs.next("fieldset");
     var formData = current_fs.find("input, select, textarea, radio").serialize();
+    // let marital_status_val = $("#marital_status").val();alert(marital_status_val);
     var formDataObj = {};
     // get feildset value
     formData.split('&').forEach(function(item) {
@@ -26,16 +27,33 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-    if (formDataObj['fieldset'] == 1) {
-        if (!validateForm1()) {
-            return false;
-        }
-    }
-    else if (formDataObj['fieldset'] == 2) {
+      if (formDataObj['fieldset'] == 1) {
+          if (!validateForm1()) {
+              return false;
+          }
+      }
+      else if (formDataObj['fieldset'] == 2) {
       if (!validateForm2()) {
           return false;
       }
+      // else if(marital_status_val === "annulled-marriage" ||  
+      //   marital_status_val === "divorced" ||
+      //   marital_status_val === "legally-separated" ||   
+      //   marital_status_val === "single" ||
+      //   marital_status_val === "unknown" || 
+      //   marital_status_val === "widowed" ){
+      //     alert('inside');
+      //   $("#spouse_highest_education, #countrySelect_spouse").removeClass("error");
+      //     if (animating) return false;
+      //     animating = true;
+      //     $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      //     next_fs.fadeIn();
+      //     current_fs.fadeOut(function() {
+      //         animating = false;
+      //     });       
+      //   }
     }
+    
     else if (formDataObj['fieldset'] == 3) {
       if (!validateForm3()) {
           return false;
@@ -46,7 +64,7 @@ $(document).ready(function() {
           return false;
       }
     }
-
+    
     try {
       $.ajax({
           url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
@@ -247,12 +265,14 @@ $(document).ready(function () {
             $("#canada_details_block").show();
         }else{
           $("#canada_details_block").hide();
+          $(".status_in_canada,.status_start_date,.status_end_date").val('');
         }
         if(selectedStatus === "Other"){
             $("#other_statuses_in_canada").show();
             $("#canada_details_block").hide();
         }else{
           $("#other_statuses_in_canada").hide();
+          $("#other_statuses_in_canada textarea").val('');
         }
         if(selectedCountry === "Canada" && selectedStatus === "Other"){
           $("#canada_details_block").show();
@@ -280,12 +300,21 @@ $(document).ready(function () {
         if (hideBoth.includes(maritalStatus)) {
             $('#previouse_spouse_details').hide();
             $('#previouse_spouse_details_married').hide();
+            $("#previouse_spouse_details_married input,#ppreviouse_spouse_details_married select").val('');
+            $("#previouse_spouse_details input,#previouse_spouse_details select").val('');
+            $("#spouse_highest_education, #countrySelect_spouse").val('');
         } else if (showPreviousSpouseDetails.includes(maritalStatus)) {
             $('#previouse_spouse_details').show();
+            $("#previouse_spouse_details_married input,#previouse_spouse_details_married select").val('');
+            $("#previouse_spouse_details input,#previouse_spouse_details select").val('');
+            $("#spouse_highest_education, #countrySelect_spouse").val('');
             $('#previouse_spouse_details_married').hide();
         } else {
             $('#previouse_spouse_details').hide();
             $('#previouse_spouse_details_married').show();
+            $("#previouse_spouse_details_married input,#previouse_spouse_details_married select").val('');
+            $("#previouse_spouse_details input,#previouse_spouse_details select").val('');
+            $("#spouse_highest_education, #countrySelect_spouse").val('');
         }
     });
 
@@ -296,6 +325,7 @@ $(document).ready(function () {
         $("#spouse_status_in_country_other").show();
       } else {
         $("#spouse_status_in_country_other").hide();
+        $("#spouse_status_in_country_other textarea").val('');
       }
     });
 
@@ -307,6 +337,7 @@ $(document).ready(function () {
               $(".canadaDetails").show();
           } else {
               $(".canadaDetails").hide();
+              $(".canadaDetails input, .canadaDetails select").val('');
           }
       });
     });
@@ -319,6 +350,7 @@ $(document).ready(function () {
               $(".spouse_details").show();
           } else {
               $(".spouse_details").hide();
+              $(".spouse_details input, .spouse_details select").val('');
           }
       });
     });
@@ -332,6 +364,7 @@ $(document).ready(function () {
           $('#previous_all_relationships').show();
         } else {
           $('#previous_all_relationships').hide();
+          $("#previous_all_relationships input, #previous_all_relationships select").val('');
         }
       });
   
@@ -412,6 +445,7 @@ $(document).ready(function () {
           $("#family_members_block").show();
         } else {
           $("#family_members_block").hide();
+          $("#family_members_block input, #family_members_block select").val('');
         }
       }
   
@@ -427,6 +461,7 @@ $(document).ready(function () {
           $('#education_field_of_study').show();
         } else {
           $('#education_field_of_study').hide();
+          $("#education_field_of_study input, #education_field_of_study select").val('');
         }
       });
 
@@ -456,6 +491,7 @@ $(document).ready(function () {
               $("#eca_educational_block").show();
             } else {
               $("#eca_educational_block").hide();
+              $("#eca_educational_block input, #eca_educational_block select").val('');
             }
           }
       
@@ -488,6 +524,7 @@ $(document).ready(function () {
         $('input[name="taken_english_test"]').change(function () {
         if ($("#taken_english_test_yes").is(":checked")) {
             detailsDiv.show();
+            $("#language_test_details input, #language_test_details select").val('');
         } else {
             detailsDiv.hide();
         }
@@ -531,6 +568,7 @@ $(document).ready(function () {
         if ($("#spouse_taken_english_test_yes").is(":checked")) {
             spouseDetailsDiv.show();
             spouseLangAbility.hide();
+            $("#spouse_language_test_details input, #spouse_language_test_details select").val('');
         } else {
             spouseDetailsDiv.hide();
             spouseLangAbility.show();
@@ -643,6 +681,7 @@ $(document).ready(function () {
             $("#travelled_history").show();
           } else {
             $("#travelled_history").hide();
+            $("#travelled_history select").val('');
           }
         });
 
@@ -656,6 +695,8 @@ $(document).ready(function () {
             $("#immegration_applications").show();
           } else {
             $("#immegration_applications").hide();
+            $("#immegration_applications select").val('');
+            $("#immegration_applications input[type='radio']").prop('checked', false);
           }
         });
 
@@ -666,6 +707,7 @@ $(document).ready(function () {
             $("#refused_details").show();
           } else {
             $("#refused_details").hide();
+            $("#refused_details select,#refused_details input").val('');
           }
         });
       
@@ -708,17 +750,18 @@ $(document).ready(function () {
           $("#addMoreImmegrationApplications").on("click", function () {
             let newApplicationBlock = $("#immegration_applications_row").first().clone();
         
-            newApplicationBlock.find("input, select, textarea").val("");
+            newApplicationBlock.find("input, select").not("input[type='radio']").val("");
         
             let uniqueId = new Date().getTime();
         
-            newApplicationBlock.find("input[type='radio']").each(function () {
-              let newName = "decision_" + uniqueId;
+            newApplicationBlock.find("input[type='radio']").each(function (index) {
+              let newName = "decision_" + index;
               $(this).attr("name", newName);
+              $(this).prop("checked", false); // Uncheck by default
             });
         
             if (!newApplicationBlock.find(".removeImmegrationApplication").length) {
-              newApplicationBlock.append('<button type="button" class="removeImmegrationApplication btn btn-danger mt-3">Remove</button>');
+              newApplicationBlock.append('<div class="col-12 mt-2"><button type="button" class="removeImmegrationApplication btn btn-danger mt-3">Remove</button></div>');
             }
         
             $("#immegration_applications_row").last().after(newApplicationBlock);
@@ -739,7 +782,7 @@ $(document).ready(function () {
             newRefusedBlock.find("input, select").val("");
     
             if (!newRefusedBlock.find(".removeRefusedApplication").length) {
-                newRefusedBlock.append('<button type="button" class="removeRefusedApplication btn btn-danger mt-3">Remove</button>');
+                newRefusedBlock.append('<div class="col-12 mt-2"><button type="button" class="removeRefusedApplication btn btn-danger mt-3">Remove</button></div>');
             }
     
             $("#refused_immegration_block").last().after(newRefusedBlock);
@@ -759,6 +802,8 @@ $(document).ready(function () {
             $("#referrals").show();
           } else {
             $("#other_referral_text").hide();
+            $("#referrals").hide();
+            $("#referrals input").val('');
           }
 
           if ($(this).val() === "Other") {
@@ -766,6 +811,7 @@ $(document).ready(function () {
             $("#other_referral_text").show();
           } else {
             $("#other_referral_text").hide();
+            $("#other_referral_text textarea").val('');
           }
 
         });
@@ -773,7 +819,7 @@ $(document).ready(function () {
         $("#addMoreReferrals").click(function () {
             let newReferralBlock = $("#referral_block").first().clone();
             newReferralBlock.find("input, textarea").val("");
-            newReferralBlock.append('<button type="button" class="removeReferral btn btn-danger mt-2">Remove</button>');
+            newReferralBlock.append('<div class="col-12 mt-2"><button type="button" class="removeReferral btn btn-danger mt-2">Remove</button></div>');
             $("#zr-form-detail-referral").append(newReferralBlock);
         });
     
@@ -788,6 +834,7 @@ $(document).ready(function () {
              $("#company_details").show();
           }else{
             $("#company_details").hide();
+            $("#company_details input, #company_details select").val('');
           }
         });
         

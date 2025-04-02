@@ -1427,7 +1427,7 @@
                               </label>
                               <div class="py-2 zr-french-language-test">
                                 <div class="form-check">
-                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="flexRadioDefault35" value="None">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="spouse_english_language_ability" id="flexRadioDefault35" value="None" checked>
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefault35">None</label>
                                 </div>
                                 <div class="form-check">
@@ -1458,7 +1458,7 @@
                               </label>
                               <div class="py-2 zr-french-language-test">
                                 <div class="form-check">
-                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta35" value="None">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="spouse_french_language_ability" id="flexRadioDefaulta35" value="None" checked>
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta35">None</label>
                                 </div>
                                 <div class="form-check">
@@ -1989,23 +1989,23 @@
                                 </span> </label>
                               <div class="py-2 d-flex align-items-center decision-group">
                                 <div class="form-check">
-                                  <input class="form-check-input" type="radio" name="decision[]" value="granted"
-                                    id="" class="decision">
+                                  <input class="form-check-input" type="radio" name="decision[]"  data-group="group1" value="granted"
+                                    id="granted1" class="decision">
                                   <label class="form-check-label zr-radi0-btn" for="decision1">
                                     Granted
 
                                   </label>
                                 </div>
                                 <div class="form-check ms-3">
-                                  <input class="form-check-input" type="radio" name="decision[]" value="refused"
-                                    id="" class="decision">
+                                  <input class="form-check-input" type="radio" name="decision[]" data-group="group1" value="refused"
+                                    id="granted1" class="decision">
                                   <label class="form-check-label zr-radi0-btn" for="decision2">
                                     Refused
                                   </label>
                                 </div>
                                 <div class="form-check ms-3">
-                                  <input class="form-check-input" type="radio" name="decision[]" value="pending"
-                                    id="" class="decision">
+                                  <input class="form-check-input" type="radio" name="decision[]" data-group="group1" value="pending"
+                                    id="granted1" class="decision">
                                   <label class="form-check-label zr-radi0-btn" for="decision3">
                                     Pending
                                   </label>
@@ -2016,7 +2016,7 @@
                           <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
                             <div class="form-group">
                               <label class="form-label zr-assessment-form-label">
-                                Please provide details * <span class="req-red">*</span>
+                                Please provide details <span class="req-red">*</span>
                                 <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
                                   data-bs-placement="top"
                                   data-bs-original-title="Immegration application type">
@@ -2826,6 +2826,7 @@
                   </div>
                   
                 <input type="hidden" class="hidden" name="fieldset" value="4">
+                <input type="hidden" name="consent" value="website-agreement">
                  <div class="d-flex justify-content-end">
                   <button type="button" name="previous"
                     class="previous action-button-previous zr-action-button  zr-multiform-step "

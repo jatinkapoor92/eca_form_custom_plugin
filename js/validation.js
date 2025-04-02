@@ -13,10 +13,10 @@ function validateForm1() {
     let zipcode = $("input[name='zipcode']").val();
     let country = $("select[name='country']").val();
     let status_in_current_country = $("select[name='status_in_current_country']").val();
-    let marital_status = $("select[name='marital_status']").val();
     let previous_relationship = $("input[name='previous_relationship']:checked").val();
     let family_freind =  $("input[name='family_friends_in_canada']:checked").val();
     let redidential_country = $(".redidential_country").val();
+    let marital_status = $("select[name='marital_status']").val();
     // Regular expression for email validation
     let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -288,7 +288,6 @@ function validateForm2(){
     let spouse_eca_issue_date = $("input[name='spouse_eca_issue_date']").val();
     let spouse_received_eca_educational = $("input[name='spouse_received_eca_educational']:checked").val();
     let marital_status = $("#marital_status").val();
-    
     let formal_education = $("input[name='formal_education_completed']").parent().parent(); 
      // Clear previous errors
      $(".error").remove();
@@ -334,19 +333,9 @@ function validateForm2(){
                 isValid = false;
             }
         });
-    }
-    // remove validation on second form page
-    if(marital_status === "annulled-marriage" ||  
-          marital_status === "divorced" ||
-          marital_status === "legally-separated" ||   
-          marital_status === "single" ||
-          marital_status === "unknown" || 
-          marital_status === "widowed" ){
-            $("#spouse_highest_education, #countrySelect_spouse,.spouse_work_experience,.spouse_language_test_taken,.Englishlanguageability,.Frenchlanguageability,.EducationalCredential").removeClass("error");
-            return true;
-
-    }
-
+    }   
+    
+    
     // ECA validation
     let eca_educational_error = $("input[name='eca_educational']").parent().parent(); 
     if (!eca_educational) {
@@ -371,19 +360,20 @@ function validateForm2(){
             }
         });
 
-        $(".eca_educational_other").each(function () {
-            if ($(this).val().trim() === "") {
-                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                isValid = false;
-            }
-        });
-
         $(".eca_educational_issue_date").each(function () {
             if ($(this).val().trim() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         });
+        let other = $("select[name='organization_issue_eca']").val();
+        if(other === 'other'){
+            let otherInputValue = $("textarea[name='eca_educational_other']").val(); 
+            if (otherInputValue === "") {
+                $("textarea[name='eca_educational_other']").after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        }
     }
     // Taken English Test validation
     let taken_english_test_error = $("input[name='taken_english_test']").parent().parent(); 
@@ -396,18 +386,20 @@ function validateForm2(){
     if(taken_english_test === 'Yes'){
         if (!past_test_taken()) {
             return false;
-        }
+        };
     }
     // Spouse Highest Education validation
-    if (spouse_highest_education === "") {
-        $("input[name='spouse_highest_education']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
-    }
-    // Spouse Country of Study validation
-    if (spouse_country_of_study === "") {
-        $("select[name='spouse_country_of_study']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
-    }
+    // if (spouse_highest_education === "") {
+    //     alert('1');
+    //     $("input[name='spouse_highest_education']").after("<span class='error' style='color: red;'>This field is required.</span>");
+    //     isValid = false;
+    // }
+    // // Spouse Country of Study validation
+    // if (spouse_country_of_study === "") {
+    //     alert('2');
+    //     $("select[name='spouse_country_of_study']").after("<span class='error' style='color: red;'>This field is required.</span>");
+    //     isValid = false;
+    // }
     // Spouse Work Experience validation
     let spouse_work_experience_error = $("input[name='spouse_work_experience']").parent().parent(); 
     if (!spouse_work_experience) {
@@ -441,9 +433,9 @@ function validateForm2(){
     }
     // If Select yes Spouse Language Test Taken  validation
     if(spouse_language_test_taken === "Yes"){
-        if (!past_test_taken()) {
+        if (!English_French_language_test()) {
             return false;
-        }
+        };
     }else{
         let spouse_english_language_ability_error = $("input[name='spouse_english_language_ability']").parent().parent(); 
         if (!spouse_english_language_ability) {
@@ -459,36 +451,36 @@ function validateForm2(){
             }
             isValid = false;
         }
-}
+    }
 // Spouse Received Eca Educational validation
-let spouse_received_eca_educational_error = $("input[name='spouse_received_eca_educational']").parent().parent(); 
-if (!spouse_received_eca_educational) {
-    if (spouse_received_eca_educational_error.next(".error").length === 0) { 
-        spouse_received_eca_educational_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+    let spouse_received_eca_educational_error = $("input[name='spouse_received_eca_educational']").parent().parent(); 
+    if (!spouse_received_eca_educational) {
+        if (spouse_received_eca_educational_error.next(".error").length === 0) { 
+            spouse_received_eca_educational_error.after("<span class='error' style='color: red;'>This field is required.</span>");
+        }
+        isValid = false;
     }
-    isValid = false;
-}
-if(spouse_received_eca_educational === "Yes"){
+    
+    if(spouse_received_eca_educational === "Yes"){
+        // Spouse Organization Issued Eca validation
+        if (spouse_organization_issued_eca === "") {
+            $("select[name='spouse_organization_issued_eca']").after("<span class='error' style='color: red;'>This field is required.</span>");
+            isValid = false;
+        }
+        // Spouse Canadian Equivalency validation
+        if (spouse_canadian_equivalency === "") {
+            $("input[name='spouse_canadian_equivalency']").after("<span class='error' style='color: red;'>This field is required.</span>");
+            isValid = false;
+        }
+        // Spouse Eca Issue Date validation
+        if (spouse_eca_issue_date === "") {
+            $("input[name='spouse_eca_issue_date']").after("<span class='error' style='color: red;'>This field is required.</span>");
+            isValid = false;
+        }
+    }
 
-    // Spouse Organization Issued Eca validation
-    if (spouse_organization_issued_eca === "") {
-        $("select[name='spouse_organization_issued_eca']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
-    }
-    // Spouse Canadian Equivalency validation
-    if (spouse_canadian_equivalency === "") {
-        $("input[name='spouse_canadian_equivalency']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
-    }
-    // Spouse Eca Issue Date validation
-    if (spouse_eca_issue_date === "") {
-        $("input[name='spouse_eca_issue_date']").after("<span class='error' style='color: red;'>This field is required.</span>");
-        isValid = false;
-    }
-}
-
-return isValid;
-}   
+    return isValid;
+    }   
 function validateForm3(){
     let isValid = true;
     let employed_before = $("input[name='employed_before']:checked").val();
@@ -526,7 +518,7 @@ function validateForm3(){
                 isValid = false;
             }
         })
-        }else{   
+        }else if(currently_working_in_company === "yes"){   
         $(".first_working_date").each(function () {
             if ($(this).val() === "") {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
@@ -546,8 +538,20 @@ function validateForm4(){
     let submitted_immegration_application =  $("input[name='submitted_immegration_application']:checked").val(); 
     let refused_immegration_applications =  $("input[name='refused_immegration_applications']:checked").val(); 
     let referred_by_other =  $("#referred_by_other").val();
+    let selectedType = $("select[name='immegration_application_type[]']").val();
     $(".error").remove();
 
+    // **Checkbox Validation**
+    let consentCheckbox = $("#flexCheckDefault");
+    let consentLabel = consentCheckbox.next("label"); 
+    let consentErrorSpan = "<span class='error' style='color: red; display: block; margin-top: 5px;'>This field is required.</span>";
+    
+    if (!consentCheckbox.is(":checked")) {
+        if (consentLabel.next(".error").length === 0) {
+            consentLabel.after(consentErrorSpan); 
+        }
+        isValid = false;
+    }
 
     // Submitted Immegration Application Validation
 
@@ -575,6 +579,17 @@ function validateForm4(){
                 isValid = false;
             }
         });
+
+        if(selectedType ==="other"){
+            let otherField = $("textarea[name='immegration_application_other[]']");
+            otherField.each(function () {
+            $(this).next(".error").remove(); 
+                if ($(this).val() === "") {
+                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                    isValid = false;
+                }
+            });
+        }
     }
 
     // Refused Immegration Applications Validation
@@ -676,15 +691,60 @@ function validateForm4(){
     });
     return isValid;
 }
-function past_test_taken(){
-    $(".language_test_type, .cerficate_number, .language_test_date, .language_result_date, .listening_score, .speaking_score, .reading_score, .writing_score, .clb_equivalent").each(function () {
-        // Remove existing error before adding a new one
-        $(this).next(".error").remove(); 
-        if ($(this).val() === "") {
-            $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-            isValid = false;
-        }
+function past_test_taken() {
+    let isValid = true;
+    const fields = [
+        "select[name='language_test_type[]']",
+        "input[name='cerficate_number[]']",
+        "input[name='language_test_date[]']",
+        "input[name='language_result_date[]']",
+        "select[name='listening_score[]']",
+        "select[name='speaking_score[]']",
+        "select[name='reading_score[]']",
+        "select[name='writing_score[]']",
+        "select[name='clb_equivalent[]']"
+    ];
+    // Loop through each field and validate
+    fields.forEach(function(selector) {
+        $(selector).each(function() {
+            // Remove existing error before adding a new one
+            $(this).next(".error").remove(); 
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
     });
+
+    return isValid;
+}
+function  English_French_language_test() {
+    let isValid = true;
+    const fields = [
+        "select[name='spouse_language_test_type[]']",
+        "input[name='spouse_language_certificate_number[]']",
+        "input[name='spouse_language_test_date[]']",
+        "input[name='spouse_language_result_date[]']",
+        "select[name='spouse_listening_score[]']",
+        "select[name='spouse_speaking_score[]']",
+        "select[name='spouse_reading_score[]']",
+        "select[name='spouse_writing_score[]']",
+        "select[name='spouse_clb_score[]']",
+    ];
+
+    // Loop through each field and validate
+    fields.forEach(function(selector) {
+        $(selector).each(function() {
+            // Remove existing error before adding a new one
+            $(this).next(".error").remove(); 
+            if ($(this).val() === "") {
+                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
+    });
+
+    return isValid;
 }
 function commonvalidation(){
         let isValid = true;
