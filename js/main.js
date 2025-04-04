@@ -562,7 +562,7 @@ $(document).ready(function () {
 
         spouseDetailsDiv.hide();
         spouseLangAbility.show();
-        $("#spouse_taken_english_test_no").prop("checked", true);
+        // $("#spouse_taken_english_test_no").prop("checked", true);
 
         $('input[name="spouse_language_test_taken"]').change(function () {
         if ($("#spouse_taken_english_test_yes").is(":checked")) {
@@ -756,7 +756,7 @@ $(document).ready(function () {
             let newApplicationBlock = $("#immegration_applications_row").first().clone();
         
             
-        
+
             let uniqueId = new Date().getTime();
         
             newApplicationBlock.find("input[type='radio']").each(function (index) {
