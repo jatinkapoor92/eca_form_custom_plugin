@@ -27,79 +27,70 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-      // if (formDataObj['fieldset'] == 1) {
-      //     if (!validateForm1()) {
-      //         return false;
-      //     }
-      // }
-      // else if (formDataObj['fieldset'] == 2) {
-      // if (!validateForm2()) {
-      //     return false;
-      // }
-      // else if(marital_status_val === "annulled-marriage" ||  
-      //   marital_status_val === "divorced" ||
-      //   marital_status_val === "legally-separated" ||   
-      //   marital_status_val === "single" ||
-      //   marital_status_val === "unknown" || 
-      //   marital_status_val === "widowed" ){
-      //     alert('inside');
-      //   $("#spouse_highest_education, #countrySelect_spouse").removeClass("error");
-      //     if (animating) return false;
-      //     animating = true;
-      //     $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      //     next_fs.fadeIn();
-      //     current_fs.fadeOut(function() {
-      //         animating = false;
-      //     });       
-      //   }
-    // }
+      if (formDataObj['fieldset'] == 1) {
+          if (!validateForm1()) {
+              return false;
+          }
+      }
+      else if (formDataObj['fieldset'] == 2) {
+      if (!validateForm2()) {
+          return false;
+      }
+  
+    }
     
-    // else if (formDataObj['fieldset'] == 3) {
-    //   if (!validateForm3()) {
-    //       return false;
-    //   }
-    // }
-    // else if (formDataObj['fieldset'] == 4) {
-    //   if (!validateForm4()) {
-    //       return false;
-    //   }
-    // }
-    
-    // try {
-    //   $.ajax({
-    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-    //       type: "POST",
-    //       header : "Content-Type: application/json",
-    //       data: formData,
-    //       success: function(response) {
-    //         $(".marital_status").val(response.lead.marital_status);
-    //           // Move to next fieldset if submission is successful
-    //           if (response.lead && response.lead.id) {
-    //               // Append the ID to the hidden input field
-    //               $("input[name='lead_id']").val(response.lead.id);
-    //           }
-    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    //           next_fs.fadeIn();
-    //           current_fs.fadeOut(function() {
-    //               animating = false;
-    //           });
-    //       },
-    //       error: function(xhr, status, error) {
-    //           console.log("Error:", error);
-    //           animating = false;
-    //       }
-    //   });
-    // } catch (error) {
-    //   console.error("Try-Catch Error:", error.message);
-    // }
+    if (formDataObj['fieldset'] == 2) {
+      if (!validateForm2()) {
+          return false;
+      }
+    }
 
-      if (animating) return false;
-      animating = true;
-      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      next_fs.fadeIn();
-      current_fs.fadeOut(function() {
-          animating = false;
+    else if (formDataObj['fieldset'] == 3) {
+      if (!validateForm3()) {
+          return false;
+      }
+    }
+    else if (formDataObj['fieldset'] == 4) {
+      if (!validateForm4()) {
+          return false;
+      }
+    }
+  
+    try {
+      $.ajax({
+          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+          type: "POST",
+          header : "Content-Type: application/json",
+          data: formData,
+          success: function(response) {
+            $(".marital_status_1").val(response.lead.marital_status);
+              // Move to next fieldset if submission is successful
+              if (response.lead && response.lead.id) {
+                  // Append the ID to the hidden input field
+                  $("input[name='lead_id']").val(response.lead.id);
+              }
+              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+              next_fs.fadeIn();
+              current_fs.fadeOut(function() {
+                  animating = false;
+              });
+          },
+          error: function(xhr, status, error) {
+              console.log("Error:", error);
+              animating = false;
+          }
       });
+    } catch (error) {
+      console.error("Try-Catch Error:", error.message);
+    }
+
+      // if (animating) return false;
+      // animating = true;
+      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      // next_fs.fadeIn();
+      // current_fs.fadeOut(function() {
+      //     animating = false;
+      // });
      
   });
 });
@@ -193,7 +184,7 @@ $(document).ready(function () {
         startView: 2
     });
     
-    fetch("https://restcountries.com/v3.1/all")
+    fetch("https://restcountries.com/v3.1/independent?status=true")
     .then(response => response.json())
     .then(data => {
       data.sort((a, b) => a.name.common.localeCompare(b.name.common));
@@ -259,25 +250,28 @@ $(document).ready(function () {
     function toggleCanadaDetails() {
         var selectedCountry = $("#countrySelect2").val();
         var selectedStatus = $("#status_in_current_country").val();
-        console.log("selectedCountry:", selectedCountry);
-        console.log("selectedStatus:", selectedStatus);
-        if (selectedCountry === "Canada"){
+        // console.log("selectedCountry:", selectedCountry);
+        // console.log("selectedStatus:", selectedStatus);
+        if (selectedCountry === "Canada" ){
             $("#canada_details_block").show();
         }else{
           $("#canada_details_block").hide();
           $(".status_in_canada,.status_start_date,.status_end_date").val('');
         }
-        if(selectedStatus === "Other"){
+        if (selectedStatus === "Citizen") {
+          $("#other_statuses_in_canada").hide();
+          $("#other_statuses_in_canada select input").val('');
+        } else if (selectedStatus === "Other") {
             $("#other_statuses_in_canada").show();
-            $("#canada_details_block").hide();
         }else{
           $("#other_statuses_in_canada").hide();
-          $("#other_statuses_in_canada textarea").val('');
+          $("#other_statuses_in_canada textarea").val('')
         }
-        if(selectedCountry === "Canada" && selectedStatus === "Other"){
-          $("#canada_details_block").show();
-          $("#other_statuses_in_canada").show();
-        }
+        if(selectedCountry === "Canada" && selectedStatus === "Citizen"){
+              $("#other_statuses_in_canada").hide();
+              $("#canada_details_block").hide();
+          }
+       
     }
     
     $("#countrySelect2, #status_in_current_country").on("input change", toggleCanadaDetails);
@@ -730,54 +724,50 @@ $(document).ready(function () {
 
         //Immegration APPLICATIONS 
 
-        function toggleOtherTextArea(container) {
-            // const select = container.find('select[name="immegration_application_type[]"]');
-            // const otherTextArea = container.find("#immegration_application_other").closest(".form-group");
-            const select = container.find('select[name="immegration_application_type[]"]');
-            const otherTextAreaGroup = container.find("#immegration_application_other").closest(".form-group");
-            const otherTextArea = container.find("#immegration_application_other");
+        handleOtherApplicationDisplay($("#immegration_applications_row"));
 
-        
-            if (select.val() === "other") {
-              otherTextAreaGroup.show();
-            } else {
-              otherTextAreaGroup.hide();
-              otherTextArea.val('');
-            }
-          }
-        
-          toggleOtherTextArea($("#immegration_applications"));
-        
-          $(document).on("change", 'select[name="immegration_application_type[]"]', function () {
-            toggleOtherTextArea($(this).closest("#immegration_applications"));
-          });
-        
-          $("#addMoreImmegrationApplications").on("click", function () {
+      
+        function handleOtherApplicationDisplay(container) {
+            container.find(".immegration_application_type").on("change", function () {
+                const selectedValue = $(this).val();
+                const otherDetails = $(this).closest(".row").find(".other-application-details");
+                if (selectedValue === "other") {
+                    otherDetails.show();
+                } else {
+                    otherDetails.hide();
+                }
+            });
+        }
+      
+        $("#addMoreImmegrationApplications").on("click", function () {
             let newApplicationBlock = $("#immegration_applications_row").first().clone();
         
-            
-
             let uniqueId = new Date().getTime();
         
-            newApplicationBlock.find("input[type='radio']").each(function (index) {
+            newApplicationBlock.find("input[type='radio']").each(function () {
                 let oldName = $(this).attr("name");
-                let newName = oldName + "_" + uniqueId; 
-                $(this).attr("name", newName); 
+                let newName = oldName + "_" + uniqueId;
+                $(this).attr("name", newName);
             });
         
-            if (!newApplicationBlock.find(".removeImmegrationApplication").length) {
-              newApplicationBlock.append('<div class="col-12 mt-2"><button type="button" class="removeImmegrationApplication btn btn-danger mt-3">Remove</button></div>');
-            }
-            
-            $("#immegration_applications_row").last().after(newApplicationBlock);
-          });
+            // Reset all input/select/textarea values
+            newApplicationBlock.find("select").val("");
+            newApplicationBlock.find("textarea").val("");
+            newApplicationBlock.find("input[type='radio']").prop("checked", false);
+            newApplicationBlock.find(".other-application-details").hide();
         
-          $(document).on("click", ".removeImmegrationApplication", function () {
-            var $row = $(this).closest("#immegration_applications_row");
-            $row.find("input, select").val("");
-            $row.find("input[type='radio']").prop("checked", false);
-            $row.remove();
-          });
+            if (!newApplicationBlock.find(".removeImmegrationApplication").length) {
+                newApplicationBlock.append('<div class="col-12 mt-2"><button type="button" class="removeImmegrationApplication btn btn-danger mt-3">Remove</button></div>');
+            }
+        
+            $("#immegration_applications").append(newApplicationBlock);
+            handleOtherApplicationDisplay(newApplicationBlock); // Attach change listener
+        });
+      
+        $(document).on("click", ".removeImmegrationApplication", function () {
+            $(this).closest(".row").remove();
+        });
+      
 
 
 
