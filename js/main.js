@@ -27,15 +27,15 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
     // Check validation conditions
-      if (formDataObj['fieldset'] == 1) {
-          if (!validateForm1()) {
-              return false;
-          }
-      }
-      else if (formDataObj['fieldset'] == 2) {
-      if (!validateForm2()) {
-          return false;
-      }
+      // if (formDataObj['fieldset'] == 1) {
+      //     if (!validateForm1()) {
+      //         return false;
+      //     }
+      // }
+      // else if (formDataObj['fieldset'] == 2) {
+      // if (!validateForm2()) {
+      //     return false;
+      // }
       // else if(marital_status_val === "annulled-marriage" ||  
       //   marital_status_val === "divorced" ||
       //   marital_status_val === "legally-separated" ||   
@@ -52,54 +52,54 @@ $(document).ready(function() {
       //         animating = false;
       //     });       
       //   }
-    }
+    // }
     
-    else if (formDataObj['fieldset'] == 3) {
-      if (!validateForm3()) {
-          return false;
-      }
-    }
-    else if (formDataObj['fieldset'] == 4) {
-      if (!validateForm4()) {
-          return false;
-      }
-    }
+    // else if (formDataObj['fieldset'] == 3) {
+    //   if (!validateForm3()) {
+    //       return false;
+    //   }
+    // }
+    // else if (formDataObj['fieldset'] == 4) {
+    //   if (!validateForm4()) {
+    //       return false;
+    //   }
+    // }
     
-    try {
-      $.ajax({
-          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-          type: "POST",
-          header : "Content-Type: application/json",
-          data: formData,
-          success: function(response) {
-            $(".marital_status").val(response.lead.marital_status);
-              // Move to next fieldset if submission is successful
-              if (response.lead && response.lead.id) {
-                  // Append the ID to the hidden input field
-                  $("input[name='lead_id']").val(response.lead.id);
-              }
-              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-              next_fs.fadeIn();
-              current_fs.fadeOut(function() {
-                  animating = false;
-              });
-          },
-          error: function(xhr, status, error) {
-              console.log("Error:", error);
-              animating = false;
-          }
-      });
-    } catch (error) {
-      console.error("Try-Catch Error:", error.message);
-    }
+    // try {
+    //   $.ajax({
+    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+    //       type: "POST",
+    //       header : "Content-Type: application/json",
+    //       data: formData,
+    //       success: function(response) {
+    //         $(".marital_status").val(response.lead.marital_status);
+    //           // Move to next fieldset if submission is successful
+    //           if (response.lead && response.lead.id) {
+    //               // Append the ID to the hidden input field
+    //               $("input[name='lead_id']").val(response.lead.id);
+    //           }
+    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //           next_fs.fadeIn();
+    //           current_fs.fadeOut(function() {
+    //               animating = false;
+    //           });
+    //       },
+    //       error: function(xhr, status, error) {
+    //           console.log("Error:", error);
+    //           animating = false;
+    //       }
+    //   });
+    // } catch (error) {
+    //   console.error("Try-Catch Error:", error.message);
+    // }
 
-      // if (animating) return false;
-      // animating = true;
-      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      // next_fs.fadeIn();
-      // current_fs.fadeOut(function() {
-      //     animating = false;
-      // });
+      if (animating) return false;
+      animating = true;
+      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      next_fs.fadeIn();
+      current_fs.fadeOut(function() {
+          animating = false;
+      });
      
   });
 });
@@ -731,13 +731,18 @@ $(document).ready(function () {
         //Immegration APPLICATIONS 
 
         function toggleOtherTextArea(container) {
+            // const select = container.find('select[name="immegration_application_type[]"]');
+            // const otherTextArea = container.find("#immegration_application_other").closest(".form-group");
             const select = container.find('select[name="immegration_application_type[]"]');
-            const otherTextArea = container.find("#immegration_application_other").closest(".form-group");
+            const otherTextAreaGroup = container.find("#immegration_application_other").closest(".form-group");
+            const otherTextArea = container.find("#immegration_application_other");
+
         
             if (select.val() === "other") {
-              otherTextArea.show();
+              otherTextAreaGroup.show();
             } else {
-              otherTextArea.hide();
+              otherTextAreaGroup.hide();
+              otherTextArea.val('');
             }
           }
         
@@ -750,25 +755,28 @@ $(document).ready(function () {
           $("#addMoreImmegrationApplications").on("click", function () {
             let newApplicationBlock = $("#immegration_applications_row").first().clone();
         
-            newApplicationBlock.find("input, select").not("input[type='radio']").val("");
+            
         
             let uniqueId = new Date().getTime();
         
             newApplicationBlock.find("input[type='radio']").each(function (index) {
-              let newName = "decision_" + index;
-              $(this).attr("name", newName);
-              $(this).prop("checked", false); // Uncheck by default
+                let oldName = $(this).attr("name");
+                let newName = oldName + "_" + uniqueId; 
+                $(this).attr("name", newName); 
             });
         
             if (!newApplicationBlock.find(".removeImmegrationApplication").length) {
               newApplicationBlock.append('<div class="col-12 mt-2"><button type="button" class="removeImmegrationApplication btn btn-danger mt-3">Remove</button></div>');
             }
-        
+            
             $("#immegration_applications_row").last().after(newApplicationBlock);
           });
         
           $(document).on("click", ".removeImmegrationApplication", function () {
-            $(this).closest("#immegration_applications_row").remove();
+            var $row = $(this).closest("#immegration_applications_row");
+            $row.find("input, select").val("");
+            $row.find("input[type='radio']").prop("checked", false);
+            $row.remove();
           });
 
 
