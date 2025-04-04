@@ -266,7 +266,7 @@ $(document).ready(function () {
         }else{
           $("#other_statuses_in_canada").hide();
           $("#other_statuses_in_canada textarea").val('');
-          $(".error").hide()
+          
           
         }
         if(selectedCountry === "Canada" && selectedStatus === "Citizen"){
