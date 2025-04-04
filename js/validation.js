@@ -388,18 +388,27 @@ function validateForm2(){
             return false;
         };
     }
-    // Spouse Highest Education validation
-    // if (spouse_highest_education === "") {
-    //     alert('1');
-    //     $("input[name='spouse_highest_education']").after("<span class='error' style='color: red;'>This field is required.</span>");
-    //     isValid = false;
-    // }
-    // // Spouse Country of Study validation
-    // if (spouse_country_of_study === "") {
-    //     alert('2');
-    //     $("select[name='spouse_country_of_study']").after("<span class='error' style='color: red;'>This field is required.</span>");
-    //     isValid = false;
-    // }
+    let marital_status_val = $("#marital_status_1").val();
+    if(marital_status_val === "married-present" ||  
+        marital_status_val === "married-not-present" ||
+        marital_status_val === "married" ||  
+        marital_status_val === "conjugal" || 
+        marital_status_val === "common-law" ){
+
+            // Spouse Highest Education validation
+    if (spouse_highest_education === "") {
+        alert('1');
+        $("input[name='spouse_highest_education']").after("<span class='error' style='color: red;'>This field is required.</span>");
+        isValid = false;
+    }
+    // Spouse Country of Study validation
+    if (spouse_country_of_study === "") {
+        alert('2');
+        $("select[name='spouse_country_of_study']").after("<span class='error' style='color: red;'>This field is required.</span>");
+        isValid = false;
+    }
+    
+            alert('test');
     // Spouse Work Experience validation
     let spouse_work_experience_error = $("input[name='spouse_work_experience']").parent().parent(); 
     if (!spouse_work_experience) {
@@ -478,6 +487,7 @@ function validateForm2(){
             isValid = false;
         }
     }
+}
 
     return isValid;
     }   
