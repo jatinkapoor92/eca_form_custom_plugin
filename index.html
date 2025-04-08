@@ -368,7 +368,7 @@
                               title="Enter the date when this relationship began.">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                              <input type="text" id="relationship_start_date" class="form-control zr-assessment-form-input" placeholder="Select Date of Birth">
+                              <input type="text" id="relationship_start_date" class="form-control zr-assessment-form-input relationship_start_date" placeholder="Select Date of Birth">
                           </div>
 
                         </div>
@@ -379,7 +379,7 @@
                               title="Enter the date when this relationship ended (divorce/separation/death of  former spouse/etc.)">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                              <input type="text" id="relationship_end_date" class="form-control zr-assessment-form-input" placeholder="Select Date of Birth">
+                              <input type="text" id="relationship_end_date" class="form-control zr-assessment-form-input relationship_end_date" placeholder="Select Date of Birth">
                           </div>
                         </div>
                       </div>
@@ -1623,7 +1623,7 @@
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input emp1" type="radio" name="employed_before" value="no"
-                              id="flexRadioDefault41" checked>
+                              id="flexRadioDefault41" >
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault41">
                               No
                             </label>
@@ -1631,7 +1631,7 @@
                         </div>
                       </div>
                     </div>
-                    <div id="company_details" class="zr-provide-detail pt-2">
+                    <div id="company_details" class="zr-provide-detail pt-2 company_details">
                       <div id="" class="zr-form-detail">
                         <h5 class="zr-canada-detaik-heading">Please provide employment details</h5>
                         <div id="employment_history">
@@ -1673,9 +1673,9 @@
                                 </span>
                               </label>
                               <div class="py-2 d-flex align-items-center empdetails">
-                                <div class="form-check">
+                                <div class="form-check form-group">
                                   <input class="form-check-input currently_working_in_companys" type="radio" name="currently_working_in_company[]" value="yes"
-                                    id="" checked>
+                                    id="" >
                                   <label class="form-check-label zr-radi0-btn currently_working_in_company" for="currently_employed">
                                     Yes
                                   </label>
@@ -1690,7 +1690,7 @@
                               </div>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 closeestdiv">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 form-group closeestdiv">
                             <label class="form-label zr-assessment-form-label">First Working Day<span
                                 class="req-red">*</span>
                               <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip" data-bs-placement="top"
@@ -2191,15 +2191,15 @@
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="serious_diseases"
-                              id="flexRadioDefault70">
+                              id="flexRadioDefault70" value="yes">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault70">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="serious_diseases"
-                              id="flexRadioDefault71" checked>
-                            <label class="form-check-label zr-radi0-btn" for="flexRadioDefault71">
+                              id="flexRadioDefault71" checked value="no">
+                            <label class="form-check-label zr-radi0-btn" for="flexRadioDefault71" >
                               No
                             </label>
                           </div>
@@ -2281,15 +2281,15 @@
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="charged_with_impaired_driving"
-                              id="flexRadioDefault77">
+                              id="flexRadioDefault77" value="yes">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault77">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="charged_with_impaired_driving"
-                              id="flexRadioDefault76" checked>
-                            <label class="form-check-label zr-radi0-btn" for="flexRadioDefault76">
+                              id="flexRadioDefault76" checked value="no">
+                            <label class="form-check-label zr-radi0-btn" for="flexRadioDefault76" >
                               No
                             </label>
                           </div>
@@ -2478,7 +2478,7 @@
                         </div>
                       </div>
                       <div class="col-md-12 mt-3">
-                        <div class="mb-4">
+                        <div class="mb-4 form-group">
                           <label for="exampleFormControlTextarea1" class="zr-assessment-form-label">Briefly describe
                             your
                             immigration matter to help us better assist you. <span class="req-red">*</span> </label>
@@ -2576,7 +2576,7 @@
                             </div>
                             <div class="row">
                               <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                                <div class="form-check">
+                                <div class="form-check ">
                                   <input class="form-check-input" type="radio" name="referred_by" id="flexRadioDefault217" value="Referred by a friend or family member" >
                                   <label class="form-check-label zr-radi0-btn" for="flexRadioDefault217">
                                     Referred by a friend or family member
@@ -2682,7 +2682,7 @@
                                     <input type="email" name="referral_email[]" class="form-control zr-assessment-form-input referral_email" placeholder=""
                                       >
                                   </div>
-                                  <div class="col-md-12 mt-3">
+                                  <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
                                     <label class="form-label zr-assessment-form-label">Referral Code<span
                                         class="req-red">*</span> <span class="custom-tooltip tooltip-icon"
                                         data-bs-toggle="tooltip" data-bs-placement="top"
@@ -2715,7 +2715,7 @@
                       <hr class="zr-forminator-border">
                       <div class="row">
                         <div class="col-md-12 mt-3">
-                          <div class="form-check">
+                          <div class="form-check form-group">
                             <input name="concent" class="form-check-input" type="checkbox" value="Yes, I consent to receiving emails about immigration updates and programs, in compliance with Canada's Anti-Spam Legislation (CASL). I understand that I can unsubscribe at any time, and my contact information will remain confidential" id="flexCheckDefault">
                             <label class="form-check-label zr-assessment-form-label" for="flexCheckDefault">
                               Yes, I consent to receiving emails about immigration updates and programs, in compliance

@@ -26,34 +26,37 @@ $(document).ready(function() {
         var parts = item.split('=');
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
+
+    // Scroll helper function
+    function scrollToFirstError() {
+      let firstError = $(".error:visible").first();
+      if (firstError.length) {
+          $('html, body').animate({
+              scrollTop: firstError.offset().top - 100
+          }, 500);
+      }
+    }
     // Check validation conditions
       if (formDataObj['fieldset'] == 1) {
-          if (!validateForm1()) {
-              return false;
-          }
-      }
-      else if (formDataObj['fieldset'] == 2) {
-      if (!validateForm2()) {
-          return false;
-      }
-  
-    }
-    
-    if (formDataObj['fieldset'] == 2) {
-      if (!validateForm2()) {
-          return false;
-      }
-    }
-
-    else if (formDataObj['fieldset'] == 3) {
-      if (!validateForm3()) {
-          return false;
-      }
-    }
-    else if (formDataObj['fieldset'] == 4) {
-      if (!validateForm4()) {
-          return false;
-      }
+        if (!validateForm1()) {
+            scrollToFirstError();
+            return false;
+        }
+    } else if (formDataObj['fieldset'] == 2) {
+        if (!validateForm2()) {
+            scrollToFirstError();
+            return false;
+        }
+    } else if (formDataObj['fieldset'] == 3) {
+        if (!validateForm3()) {
+            scrollToFirstError();
+            return false;
+        }
+    } else if (formDataObj['fieldset'] == 4) {
+        if (!validateForm4()) {
+            scrollToFirstError();
+            return false;
+        }
     }
   
     try {
@@ -94,42 +97,130 @@ $(document).ready(function() {
      
   });
 });
+    // error remove on input
+      function handleInputChange() {
+        const $error = $(this).next('.error');
+        if ($(this).val().trim() !== '') {
+            $error.hide();
+        } else {
+            $error.show();
+        }
+      }
+
+      $(document).on('input change click blur', 'input, select, textarea', handleInputChange);
 
   function initializeDatePickers() {
-    // Employment History Perivious date disabled Status Start Date 
-    $(".where_did_you_work_status_start_date").datepicker({
+        // Employment History Perivious date disabled Status Start Date 
+        $(".where_did_you_work_status_start_date").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+            onSelect: function (selectedDate) {
+                var minDate = $(this).datepicker("getDate"); // Get selected date
+                $(this).closest('.form-group').parent().next().find(".where_did_you_work_status_end_date").datepicker("option", "minDate", minDate);
+                handleInputChange.call(this);
+            }
+        });
+
+        $(".where_did_you_work_status_end_date").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+        });
+
+        // Employment History Perivious date disabled First Working Day
+        $(".first_working_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+          onSelect: function (selectedDate) {
+              var minDate = $(this).datepicker("getDate"); // Get selected date
+              $(".last_working_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+              handleInputChange.call(this);
+          }
+      });
+
+      $(".last_working_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+      });
+
+      // provide details of all previous relationship
+      $(".additional_previous_relationship_start_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+          onSelect: function (selectedDate) {
+              var minDate = $(this).datepicker("getDate"); // Get selected date
+              $(".additional_previous_relationship_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+              handleInputChange.call(this);
+          }
+          
+      });
+
+      $(".additional_previous_relationship_end_date").datepicker({
+            dateFormat: "dd/mm/yy",
+            changeMonth: true,
+            changeYear: true,
+      });
+
+      // provide details of all previous relationship
+      $(".relationship_start_date").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
         onSelect: function (selectedDate) {
             var minDate = $(this).datepicker("getDate"); // Get selected date
-            $(this).closest('.form-group').parent().next().find(".where_did_you_work_status_end_date").datepicker("option", "minDate", minDate);
+            $(".relationship_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+            handleInputChange.call(this);
         }
-    });
+      });
 
-    $(".where_did_you_work_status_end_date").datepicker({
+      $(".relationship_end_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+      });
+
+      // provide details of your status in Canada
+      $(".status_start_date").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
-    });
+        onSelect: function (selectedDate) {
+            var minDate = $(this).datepicker("getDate"); // Get selected date
+            $(".status_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+            handleInputChange.call(this);
+        }
+      });
 
-    // Employment History Perivious date disabled First Working Day
-    $(".first_working_date").datepicker({
-      dateFormat: "dd/mm/yy",
-      changeMonth: true,
-      changeYear: true,
-      onSelect: function (selectedDate) {
-          var minDate = $(this).datepicker("getDate"); // Get selected date
-          $(".last_working_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
-      }
-  });
+      $(".status_end_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+      });
 
-  $(".last_working_date").datepicker({
-      dateFormat: "dd/mm/yy",
-      changeMonth: true,
-      changeYear: true,
-  });
+       // provide your details for all the test you have taken in past
+       $(".language_test_date").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function (selectedDate) {
+            var minDate = $(this).datepicker("getDate"); // Get selected date
+            $(".language_result_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+            handleInputChange.call(this);
+        }
+      });
+
+      $(".language_result_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+      });
+      
   }
+  
 
 // Initialize datepickers for existing fields
 initializeDatePickers();
@@ -223,8 +314,7 @@ $(document).ready(function () {
     
     initializeDatepicker($("input[name='status_start_date[]'], input[name='status_end_date[]"));
 
-    $(".addMoreBtn").click(function() {
-      
+    $("#addMoreBtn").click(function() {
         let newRow = $(".statuses_in_canada:first").clone();
 
         newRow.find("input").val("");
@@ -237,7 +327,8 @@ $(document).ready(function () {
         }
 
         $("#canadaDetails").append(newRow);
-
+        initializeDatePickers(newRow);
+        $('input, select, textarea').on('input change click blur', handleInputChange);
         initializeDatepicker(newRow.find("input[name='status_start_date[]'], input[name='status_end_date[]']"));
     });
 
@@ -266,8 +357,8 @@ $(document).ready(function () {
         }else{
           $("#other_statuses_in_canada").hide();
           $("#other_statuses_in_canada textarea").val('');
-          
-          
+          $("#other_statuses_in_canada").find("span.error").remove();
+          $("#other_statuses_in_canada").next("span.error").remove(); 
         }
         if(selectedCountry === "Canada" && selectedStatus === "Citizen"){
               $("#other_statuses_in_canada").hide();
@@ -293,10 +384,10 @@ $(document).ready(function () {
         
         let hideBoth = ['unknown', 'single'];
 
-        if (hideBoth.includes(maritalStatus)) {
+        if (hideBoth.includes(maritalStatus)) {     
             $('#previouse_spouse_details').hide();
             $('#previouse_spouse_details_married').hide();
-            $("#previouse_spouse_details_married input,#ppreviouse_spouse_details_married select").val('');
+            $("#previouse_spouse_details_married input,#previouse_spouse_details_married select").val('');
             $("#previouse_spouse_details input,#previouse_spouse_details select").val('');
             $("#spouse_highest_education, #countrySelect_spouse").val('');
         } else if (showPreviousSpouseDetails.includes(maritalStatus)) {
@@ -311,6 +402,7 @@ $(document).ready(function () {
             $("#previouse_spouse_details_married input,#previouse_spouse_details_married select").val('');
             $("#previouse_spouse_details input,#previouse_spouse_details select").val('');
             $("#spouse_highest_education, #countrySelect_spouse").val('');
+            $("#spouse_status_in_country_other textarea").val('');
         }
     });
 
@@ -398,7 +490,8 @@ $(document).ready(function () {
         }
     
         $("#additional_relationsips").after(newRow);
-    
+        initializeDatePickers(newRow);
+        $('input, select, textarea').on('input change click blur', handleInputChange);
         initializeDatepicker(newRow.find("input[name='additional_previous_relationship_start_date[]'], input[name='additional_previous_relationship_end_date[]']"));
     });
     
@@ -421,14 +514,13 @@ $(document).ready(function () {
     //Family members
     $("#addMoreFamilyFriends").click(function () {
         let newRow = $("#family_members").first().clone();
-
         newRow.find("input").val("");
         newRow.find("select").prop("selectedIndex", 0);
 
         if (!newRow.find(".removeFamilyMember").length) {
             newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeFamilyMember">REMOVE</button></div>');
         }
-
+        $('input, select, textarea').on('input change click blur', handleInputChange);
         $("#family_members").after(newRow);
     });
 
@@ -471,7 +563,7 @@ $(document).ready(function () {
             if (!newRow.find(".removeEducation").length) {
                 newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeEducation">REMOVE</button></div>');
             }
-
+            $('input, select, textarea').on('input change click blur', handleInputChange);
             $("#education_block").last().after(newRow);
         });
 
@@ -488,6 +580,7 @@ $(document).ready(function () {
             } else {
               $("#eca_educational_block").hide();
               $("#eca_educational_block input, #eca_educational_block select").val('');
+              $("#other_eca_container textarea").val('');
             }
           }
       
@@ -500,6 +593,7 @@ $(document).ready(function () {
               $("#other_eca_container").show();
             } else {
               $("#other_eca_container").hide();
+              $("#other_eca_container textarea").val('');
             }
           }
       
@@ -540,7 +634,8 @@ $(document).ready(function () {
                 newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeLanguageTest">REMOVE</button></div>');
             }
             $("#language_test_block").last().after(newBlock);
-    
+            initializeDatePickers(newBlock);
+            $('input, select, textarea').on('input change click blur', handleInputChange);
             initializeDatepicker(newBlock.find("input[name='language_test_date[]'], input[name='language_result_date[]']"));
         });
     
@@ -585,7 +680,8 @@ $(document).ready(function () {
                 newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeSpouseLanguageTest">REMOVE</button></div>');
             }
             $("#spouse_language_test_block").last().after(newBlock);
-    
+            initializeDatePickers(newBlock);
+            $('input, select, textarea').on('input change click blur', handleInputChange);
             initializeDatepicker(newBlock.find("input[name='spouse_language_test_date[]'], input[name='spouse_language_result_date[]']"));
         });
     

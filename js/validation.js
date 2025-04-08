@@ -109,7 +109,7 @@ function validateForm1() {
 
     if(status_in_current_country === "Other"){
         let otherStatus = $("textarea[name='other_statuses_in_canada']").val().trim();
-        let status_in_current_country_error = $("textarea[name='other_statuses_in_canada']").parent(); 
+        let status_in_current_country_error = $("textarea[name='other_statuses_in_canada']"); 
         if (otherStatus === "") {
             if (status_in_current_country_error.next(".error").length === 0) { 
                 status_in_current_country_error.after("<span class='error' style='color: red;'>This field is required.</span>");
@@ -509,38 +509,42 @@ function validateForm3(){
         }
         isValid = false;
     }
-
+    
     if( employed_before === "yes"){
         // Emplopye Details validation
-        $(".company_name,.occupation,.job_description,.where_did_you_work,.where_did_you_work_status_start_date,.where_did_you_work_status_end_date,.noc_code,.job_duties").each(function () {
+        $(".company_name, .occupation, .job_description, .first_working_date, .where_did_you_work, .where_did_you_work_status, .where_did_you_work_status_start_date, .where_did_you_work_status_end_date, .noc_code, .job_duties").each(function() {
             if ($(this).val() === "") {
-                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                isValid = false;
-            }
-        })
-        // Employment History page radio button validation
-        $(".empdetails").each(function () {
-            let radioGroup = $(this).find("input[type='radio']");
-            if (radioGroup.filter(":checked").length === 0) {
                 $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                 isValid = false;
             }
         });
-        if(currently_working_in_company === "no"){
-        $(".first_working_date,.last_working_date").each(function () {
-            if ($(this).val() === "") {
-                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                isValid = false;
-            }
-        })
-        }else if(currently_working_in_company === "yes"){   
-        $(".first_working_date").each(function () {
-            if ($(this).val() === "") {
-                $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                isValid = false;
-            }
-        })   
+
+
+        // Validate radio buttons
+        if (!$("input[name='currently_working_in_company[]']:checked").length) {
+            $(".currently_working_in_companys").parent().parent().first().closest('.form-group').after("<span class='error' style='color: red;'>This field is required.</span>");
+            isValid = false;
         }
+
+        if (currently_working_in_company === "no") {
+            $(".LastWorkingDaydiv").each(function () {
+                let lastWorkingDateField = $(this).find(".last_working_date");
+        
+                // Only validate if the field is visible
+                if (lastWorkingDateField.is(":visible") && lastWorkingDateField.val().trim() === "") {
+                    // Remove existing error if any
+                    lastWorkingDateField.siblings(".error").remove();
+        
+                    // Add new error
+                    lastWorkingDateField.after("<span class='error' style='color: red;'>This field is required.</span>");
+                    isValid = false;
+                } else {
+                    // Remove error if field is filled or hidden
+                    lastWorkingDateField.siblings(".error").remove();
+                }
+            });
+        }
+        
     }
         return isValid;
         
