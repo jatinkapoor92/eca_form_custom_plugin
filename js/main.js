@@ -37,17 +37,18 @@ $(document).ready(function() {
       }
     }
     // Check validation conditions
-      if (formDataObj['fieldset'] == 1) {
-        if (!validateForm1()) {
-            scrollToFirstError();
-            return false;
-        }
-    } else if (formDataObj['fieldset'] == 2) {
-        if (!validateForm2()) {
-            scrollToFirstError();
-            return false;
-        }
-    } else if (formDataObj['fieldset'] == 3) {
+    //   if (formDataObj['fieldset'] == 1) {
+    //     if (!validateForm1()) {
+    //         scrollToFirstError();
+    //         return false;
+    //     }
+    // } else if (formDataObj['fieldset'] == 2) {
+    //     if (!validateForm2()) {
+    //         scrollToFirstError();
+    //         return false;
+    //     }
+    // } else
+     if (formDataObj['fieldset'] == 3) {
         if (!validateForm3()) {
             scrollToFirstError();
             return false;
@@ -59,55 +60,72 @@ $(document).ready(function() {
         }
     }
   
-    try {
-      $.ajax({
-          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-          type: "POST",
-          header : "Content-Type: application/json",
-          data: formData,
-          success: function(response) {
-            $(".marital_status_1").val(response.lead.marital_status);
-              // Move to next fieldset if submission is successful
-              if (response.lead && response.lead.id) {
-                  // Append the ID to the hidden input field
-                  $("input[name='lead_id']").val(response.lead.id);
-              }
-              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-              next_fs.fadeIn();
-              current_fs.fadeOut(function() {
-                  animating = false;
-              });
-          },
-          error: function(xhr, status, error) {
-              console.log("Error:", error);
-              animating = false;
-          }
-      });
-    } catch (error) {
-      console.error("Try-Catch Error:", error.message);
-    }
+    // try {
+    //   $.ajax({
+    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+    //       type: "POST",
+    //       header : "Content-Type: application/json",
+    //       data: formData,
+    //       success: function(response) {
+    //         $(".marital_status_1").val(response.lead.marital_status);
+    //           // Move to next fieldset if submission is successful
+    //           if (response.lead && response.lead.id) {
+    //               // Append the ID to the hidden input field
+    //               $("input[name='lead_id']").val(response.lead.id);
+    //           }
+    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //           next_fs.fadeIn();
+    //           current_fs.fadeOut(function() {
+    //               animating = false;
+    //           });
+    //       },
+    //       error: function(xhr, status, error) {
+    //           console.log("Error:", error);
+    //           animating = false;
+    //       }
+    //   });
+    // } catch (error) {
+    //   console.error("Try-Catch Error:", error.message);
+    // }
 
-      // if (animating) return false;
-      // animating = true;
-      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      // next_fs.fadeIn();
-      // current_fs.fadeOut(function() {
-      //     animating = false;
-      // });
+      if (animating) return false;
+      animating = true;
+      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      next_fs.fadeIn();
+      current_fs.fadeOut(function() {
+          animating = false;
+      });
      
   });
 });
     // error remove on input
-      function handleInputChange() {
-        const $error = $(this).next('.error');
-        if ($(this).val().trim() !== '') {
-            $error.hide();
-        } else {
-            $error.show();
-        }
+    function handleInputChange() {
+      const $error = $(this).next('.error');
+      const radioName = $(this).attr('name');
+      const checkbox = $(this).attr('type');
+      if ($(this).is(':radio')) {
+          if (radioName) {
+            $(this).closest('.erroremove').next('.error').hide(); 
+          }else{
+            $(this).closest('.erroremove').next('.error').show();
+          }
+      } else if(checkbox == "checkbox"){
+         if ($(this).is(':checked')) {
+          $(this).closest('.erroremove').next('.error').hide(); 
+         }else{
+          $(this).closest('.erroremove').next('.error').show();
+         }
       }
-
-      $(document).on('input change click blur', 'input, select, textarea', handleInputChange);
+      else{
+          if ($(this).val().trim() !== '') {
+            $error.hide();
+          } else {
+            $error.show();
+          }
+      }
+  }
+  
+  $(document).on('input change click blur', 'input, select, textarea', handleInputChange);
 
   function initializeDatePickers() {
         // Employment History Perivious date disabled Status Start Date 
@@ -652,7 +670,7 @@ $(document).ready(function () {
   const spouseLangAbility = $("#spouse_language_ability");
 
         spouseDetailsDiv.hide();
-        spouseLangAbility.show();
+        spouseLangAbility.hide();
         // $("#spouse_taken_english_test_no").prop("checked", true);
 
         $('input[name="spouse_language_test_taken"]').change(function () {
@@ -701,10 +719,12 @@ $(document).ready(function () {
             newBlock.find("input").val("");
             newBlock.find("select").prop("selectedIndex", 0);
             newBlock.find("input[type='radio']").prop("checked", false);
-            newBlock.find("input[type='radio']").first().prop("checked", true);
+            // newBlock.find("input[type='radio']").first().prop("checked", true);
         
             let uniqueId = new Date().getTime();
             newBlock.find("input[type='radio']").each(function (index) {
+                let selectedValue = newBlock.find("input[type='radio']:checked").val();
+                console.log("inside"+selectedValue);
                 let oldName = $(this).attr("name");
                 let newName = oldName + "_" + uniqueId; // Make the name unique
                 $(this).attr("name", newName);
@@ -713,6 +733,10 @@ $(document).ready(function () {
                 } else {
                     $(this).val("no"); 
                 }
+                newBlock.find("input[type='radio']").on("change", function () {
+                let selectedValue = newBlock.find("input[type='radio']:checked").val();
+                validateForm3(selectedValue);
+              });
             });
             newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
         

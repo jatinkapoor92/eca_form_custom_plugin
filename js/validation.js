@@ -496,10 +496,11 @@ function validateForm2(){
 
     return isValid;
     }   
-function validateForm3(){
+function validateForm3(selectedValue){
     let isValid = true;
     let employed_before = $("input[name='employed_before']:checked").val();
-    let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
+    // let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
+    let currently_working_in_company = selectedValue;
     // Employed Before validation
     let employed_before_error = $("input[name='employed_before']").parent().parent(); 
     $(".error").remove();
@@ -518,29 +519,29 @@ function validateForm3(){
                 isValid = false;
             }
         });
+        
+        // Validate EACH radio 
+        $(".empdetails").each(function () {
+            const radioGroup = $(this).find(".currently_working_in_companys");
+            if (!radioGroup.is(":checked")) {
+                $(this).find(".currently_working_in_companys").parent().parent().last()
+                    .after("<span class='error' style='color: red;'>This field is required.</span>");
+                isValid = false;
+            }
+        });
 
-
-        // Validate radio buttons
-        if (!$("input[name='currently_working_in_company[]']:checked").length) {
-            $(".currently_working_in_companys").parent().parent().first().closest('.form-group').after("<span class='error' style='color: red;'>This field is required.</span>");
-            isValid = false;
-        }
-
+        // If "no" is selected, check last working date
         if (currently_working_in_company === "no") {
-            $(".LastWorkingDaydiv").each(function () {
-                let lastWorkingDateField = $(this).find(".last_working_date");
-        
-                // Only validate if the field is visible
-                if (lastWorkingDateField.is(":visible") && lastWorkingDateField.val().trim() === "") {
-                    // Remove existing error if any
-                    lastWorkingDateField.siblings(".error").remove();
-        
-                    // Add new error
-                    lastWorkingDateField.after("<span class='error' style='color: red;'>This field is required.</span>");
+            $(".company_name, .occupation, .job_description, .first_working_date, .where_did_you_work, .where_did_you_work_status, .where_did_you_work_status_start_date, .where_did_you_work_status_end_date, .noc_code, .job_duties").each(function() {
+                if ($(this).val() === "") {
+                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                     isValid = false;
-                } else {
-                    // Remove error if field is filled or hidden
-                    lastWorkingDateField.siblings(".error").remove();
+                }
+            });
+            $(".last_working_date").each(function () {
+                if ($(this).val() === "") {
+                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
+                    isValid = false;
                 }
             });
         }
@@ -562,12 +563,11 @@ function validateForm4(){
 
     // **Checkbox Validation**
     let consentCheckbox = $("#flexCheckDefault");
-    let consentLabel = consentCheckbox.next("label"); 
-    let consentErrorSpan = "<span class='error' style='color: red; display: block; margin-top: 5px;'>This field is required.</span>";
-    
+    let formCheckDiv = consentCheckbox.closest(".form-check");
+
     if (!consentCheckbox.is(":checked")) {
-        if (consentLabel.next(".error").length === 0) {
-            consentLabel.after(consentErrorSpan); 
+        if (formCheckDiv.next(".error").length === 0) {
+            formCheckDiv.after("<span class='error' style='color: red;'>This field is required.</span>");
         }
         isValid = false;
     }
