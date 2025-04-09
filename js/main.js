@@ -47,8 +47,8 @@ $(document).ready(function() {
     //         scrollToFirstError();
     //         return false;
     //     }
-    // } else
-     if (formDataObj['fieldset'] == 3) {
+    // } else 
+    if (formDataObj['fieldset'] == 3) {
         if (!validateForm3()) {
             scrollToFirstError();
             return false;
@@ -339,7 +339,7 @@ $(document).ready(function () {
         newRow.find("select").prop("selectedIndex", 0);
 
         newRow.find(".datepicker").removeClass("hasDatepicker").removeAttr("id");
-
+        newRow.find(".error").remove();
         if (!newRow.find(".removeRow").length) {
             newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeRow">REMOVE</button></div>');
         }
@@ -502,7 +502,7 @@ $(document).ready(function () {
         newRow.find("select").prop("selectedIndex", 0);
     
         newRow.find(".hasDatepicker").removeClass("hasDatepicker").removeAttr("id");
-    
+        newRow.find(".error").remove();
         if (!newRow.find(".removeRelationship").length) {
             newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeRelationship">REMOVE</button></div>');
         }
@@ -538,6 +538,7 @@ $(document).ready(function () {
         if (!newRow.find(".removeFamilyMember").length) {
             newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeFamilyMember">REMOVE</button></div>');
         }
+        newRow.find(".error").remove();
         $('input, select, textarea').on('input change click blur', handleInputChange);
         $("#family_members").after(newRow);
     });
@@ -577,7 +578,7 @@ $(document).ready(function () {
             newRow.find("input").val("");
 
             newRow.find("select").prop("selectedIndex", 0);
-
+            newRow.find(".error").remove();
             if (!newRow.find(".removeEducation").length) {
                 newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeEducation">REMOVE</button></div>');
             }
@@ -647,7 +648,7 @@ $(document).ready(function () {
             newBlock.find("select").prop("selectedIndex", 0);
     
             newBlock.find(".hasDatepicker").removeClass("hasDatepicker").removeAttr("id");
-    
+            newBlock.find(".error").remove();
             if (!newBlock.find(".removeLanguageTest").length) {
                 newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeLanguageTest">REMOVE</button></div>');
             }
@@ -693,7 +694,7 @@ $(document).ready(function () {
             newBlock.find("select").prop("selectedIndex", 0);
     
             newBlock.find(".hasDatepicker").removeClass("hasDatepicker").removeAttr("id");
-    
+            newBlock.find(".error").remove();
             if (!newBlock.find(".removeLanguageTest").length) {
                 newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeSpouseLanguageTest">REMOVE</button></div>');
             }
@@ -719,7 +720,7 @@ $(document).ready(function () {
             newBlock.find("input").val("");
             newBlock.find("select").prop("selectedIndex", 0);
             newBlock.find("input[type='radio']").prop("checked", false);
-            // newBlock.find("input[type='radio']").first().prop("checked", true);
+            newBlock.find("input[type='radio']").first().prop("checked", true);
         
             let uniqueId = new Date().getTime();
             newBlock.find("input[type='radio']").each(function (index) {
@@ -733,11 +734,8 @@ $(document).ready(function () {
                 } else {
                     $(this).val("no"); 
                 }
-                newBlock.find("input[type='radio']").on("change", function () {
-                let selectedValue = newBlock.find("input[type='radio']:checked").val();
-                validateForm3(selectedValue);
-              });
             });
+            newBlock.find(".error").remove();
             newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
         
             if (!newBlock.find(".EmploymentHistory").length) {
@@ -831,7 +829,7 @@ $(document).ready(function () {
           let newBlock = $("#travelled_history_block").first().clone();
       
           newBlock.find("select").val("");
-      
+          newBlock.find(".error").remove();
           if (newBlock.find(".remove-travel-record").length === 0) {
             newBlock.append('<div class="col-12 mt-2"><button type="button" class="remove-travel-record btn btn-danger mt-3">Remove</button></div>');
           }      
@@ -865,7 +863,7 @@ $(document).ready(function () {
             let newApplicationBlock = $("#immegration_applications_row").first().clone();
         
             let uniqueId = new Date().getTime();
-        
+            newApplicationBlock.find(".error").remove();
             newApplicationBlock.find("input[type='radio']").each(function () {
                 let oldName = $(this).attr("name");
                 let newName = oldName + "_" + uniqueId;
@@ -900,7 +898,7 @@ $(document).ready(function () {
             let newRefusedBlock = $("#refused_immegration_block").first().clone();
     
             newRefusedBlock.find("input, select").val("");
-    
+            newRefusedBlock.find(".error").remove();
             if (!newRefusedBlock.find(".removeRefusedApplication").length) {
                 newRefusedBlock.append('<div class="col-12 mt-2"><button type="button" class="removeRefusedApplication btn btn-danger mt-3">Remove</button></div>');
             }
@@ -941,6 +939,7 @@ $(document).ready(function () {
             newReferralBlock.find("input, textarea").val("");
             newReferralBlock.append('<div class="col-12 mt-2"><button type="button" class="removeReferral btn btn-danger mt-2">Remove</button></div>');
             $("#zr-form-detail-referral").append(newReferralBlock);
+            newReferralBlock.find(".error").remove();
         });
     
         $(document).on("click", ".removeReferral", function () {

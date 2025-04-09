@@ -496,11 +496,10 @@ function validateForm2(){
 
     return isValid;
     }   
-function validateForm3(selectedValue){
+function validateForm3(){
     let isValid = true;
     let employed_before = $("input[name='employed_before']:checked").val();
-    // let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
-    let currently_working_in_company = selectedValue;
+    let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
     // Employed Before validation
     let employed_before_error = $("input[name='employed_before']").parent().parent(); 
     $(".error").remove();
