@@ -532,12 +532,6 @@ function validateForm3(selectedValue){
 
         // If "no" is selected, check last working date
         if (currently_working_in_company === "no") {
-            $(".company_name, .occupation, .job_description, .first_working_date, .where_did_you_work, .where_did_you_work_status, .where_did_you_work_status_start_date, .where_did_you_work_status_end_date, .noc_code, .job_duties").each(function() {
-                if ($(this).val() === "") {
-                    $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
-                    isValid = false;
-                }
-            });
             $(".last_working_date").each(function () {
                 if ($(this).val() === "") {
                     $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
