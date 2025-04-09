@@ -713,6 +713,10 @@ $(document).ready(function () {
 
         initializeDatepicker($("input[name='first_working_date[]'], input[name='last_working_date[]'], input[name='where_did_you_work_status_start_date[]'], input[name='where_did_you_work_status_end_date[]']"));
 
+        // Employment History multiple radio val
+        function employmentdetailsradio(selectedValue){
+          return selectedValue;
+        }
         // EmploymentHistory append div with remove
         $("#addMoreCompany").click(function () {
             let newBlock = $("#company_details_block").first().clone();
@@ -755,6 +759,12 @@ $(document).ready(function () {
             // Attach event listener to dynamically added radio buttons
             newBlock.find(".currently_working_in_companys").change(function () {
                 toggleLastWorkingDateField($(this));
+            });
+
+            newBlock.find("input[type='radio']").on("change", function () {
+              let selectedValue = newBlock.find("input[type='radio']:checked").val();
+              let Multipleradioval = employmentdetailsradio(selectedValue);
+              $("#employmentRadioVal").val(Multipleradioval);
             });
             let selectedRadio = newBlock.find(".currently_working_in_companys:checked");
             toggleLastWorkingDateField(selectedRadio);

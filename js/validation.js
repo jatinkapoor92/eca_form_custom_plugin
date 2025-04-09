@@ -500,9 +500,12 @@ function validateForm3(){
     let isValid = true;
     let employed_before = $("input[name='employed_before']:checked").val();
     let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
+    let Multipleradioval = $("#employmentRadioVal").val();
+    console.log(Multipleradioval);
+    $(".error").remove();
+
     // Employed Before validation
     let employed_before_error = $("input[name='employed_before']").parent().parent(); 
-    $(".error").remove();
     if (!employed_before) {
         if (employed_before_error.next(".error").length === 0) { 
             employed_before_error.after("<span class='error' style='color: red;'>This field is required.</span>");
@@ -519,20 +522,10 @@ function validateForm3(){
             }
         });
         
-        // Validate EACH radio 
-        $(".empdetails").each(function () {
-            const radioGroup = $(this).find(".currently_working_in_companys");
-            if (!radioGroup.is(":checked")) {
-                $(this).find(".currently_working_in_companys").parent().parent().last()
-                    .after("<span class='error' style='color: red;'>This field is required.</span>");
-                isValid = false;
-            }
-        });
-
         // If "no" is selected, check last working date
-        if (currently_working_in_company === "no") {
-            $(".last_working_date").each(function () {
-                if ($(this).val() === "") {
+        if (currently_working_in_company === "no" || Multipleradioval === "no") {
+            $(".last_working_date:visible").each(function () {
+                if ($(this).val().trim() === "") {
                     $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                     isValid = false;
                 }
