@@ -13,10 +13,11 @@ $(document).ready(function() {
     });
 });
   
-  // Save & Next Button
-  $(".save-next").click(function() {
     var current_fs, next_fs, previous_fs;
     var animating;
+  // Save & Next Button
+  $(".save-next").click(function() {
+    
     current_fs = $(this).closest("fieldset");
     next_fs = current_fs.next("fieldset");
     var formData = current_fs.find("input, select, textarea, radio").serialize();
