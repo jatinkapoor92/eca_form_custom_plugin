@@ -501,7 +501,6 @@ function validateForm3(){
     let employed_before = $("input[name='employed_before']:checked").val();
     let currently_working_in_company = $("input[name='currently_working_in_company[]']:checked").val();
     let Multipleradioval = $("#employmentRadioVal").val();
-    console.log(Multipleradioval);
     $(".error").remove();
 
     // Employed Before validation

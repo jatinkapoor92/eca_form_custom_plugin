@@ -12,14 +12,14 @@ $(document).ready(function() {
         animating = false;
     });
 });
-  var current_fs, next_fs, previous_fs;
-  var animating;
+  
   // Save & Next Button
   $(".save-next").click(function() {
+    var current_fs, next_fs, previous_fs;
+    var animating;
     current_fs = $(this).closest("fieldset");
     next_fs = current_fs.next("fieldset");
     var formData = current_fs.find("input, select, textarea, radio").serialize();
-    // let marital_status_val = $("#marital_status").val();alert(marital_status_val);
     var formDataObj = {};
     // get feildset value
     formData.split('&').forEach(function(item) {
@@ -36,19 +36,26 @@ $(document).ready(function() {
           }, 500);
       }
     }
+    // Loader Show
+    function showLoader() {
+      $(".form-loader").show();
+    }
+    // Loader hide
+    function hideLoader() {
+        $(".form-loader").fadeOut();
+    }
     // Check validation conditions
-    //   if (formDataObj['fieldset'] == 1) {
-    //     if (!validateForm1()) {
-    //         scrollToFirstError();
-    //         return false;
-    //     }
-    // } else if (formDataObj['fieldset'] == 2) {
-    //     if (!validateForm2()) {
-    //         scrollToFirstError();
-    //         return false;
-    //     }
-    // } else 
-    if (formDataObj['fieldset'] == 3) {
+      if (formDataObj['fieldset'] == 1) {
+        if (!validateForm1()) {
+            scrollToFirstError();
+            return false;
+        }
+    } else if (formDataObj['fieldset'] == 2) {
+        if (!validateForm2()) {
+            scrollToFirstError();
+            return false;
+        }
+    } else if (formDataObj['fieldset'] == 3) {
         if (!validateForm3()) {
             scrollToFirstError();
             return false;
@@ -59,42 +66,59 @@ $(document).ready(function() {
             return false;
         }
     }
-  
-    // try {
-    //   $.ajax({
-    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-    //       type: "POST",
-    //       header : "Content-Type: application/json",
-    //       data: formData,
-    //       success: function(response) {
-    //         $(".marital_status_1").val(response.lead.marital_status);
-    //           // Move to next fieldset if submission is successful
-    //           if (response.lead && response.lead.id) {
-    //               // Append the ID to the hidden input field
-    //               $("input[name='lead_id']").val(response.lead.id);
-    //           }
-    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-    //           next_fs.fadeIn();
-    //           current_fs.fadeOut(function() {
-    //               animating = false;
-    //           });
-    //       },
-    //       error: function(xhr, status, error) {
-    //           console.log("Error:", error);
-    //           animating = false;
-    //       }
-    //   });
-    // } catch (error) {
-    //   console.error("Try-Catch Error:", error.message);
-    // }
-
-      if (animating) return false;
-      animating = true;
-      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      next_fs.fadeIn();
-      current_fs.fadeOut(function() {
-          animating = false;
+    showLoader();
+    try {
+      $.ajax({
+          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+          type: "POST",
+          header : "Content-Type: application/json",
+          data: formData,
+          success: function(response) {
+            hideLoader();
+            if (response.message === "Successfully Submitted") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+              $("form")[0].reset();
+              $(".zr-progressbar li").removeClass("active");
+              $(".zr-progressbar li").eq(0).addClass("active");
+              $("fieldset").hide();
+              $("fieldset").eq(0).show();
+              $(".show_message").css({"width": "100%","display": "block","important": true });
+              setTimeout(function () {
+                $(".show_message").fadeOut();
+                hideLoader();
+              }, 7000);
+              return;
+            }
+            $(".marital_status_1").val(response.lead.marital_status);
+              // Move to next fieldset if submission is successful
+              if (response.lead && response.lead.id) {
+                  // Append the ID to the hidden input field
+                  $("input[name='lead_id']").val(response.lead.id);
+              }
+              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+              next_fs.fadeIn();
+              current_fs.fadeOut(function() {
+                  animating = false;
+              });
+          },
+          error: function(xhr, status, error) {
+              console.log("Error:", error);
+              animating = false;
+              hideLoader();
+          }
       });
+    } catch (error) {
+      console.error("Try-Catch Error:", error.message);
+      hideLoader();
+    }
+
+      // if (animating) return false;
+      // animating = true;
+      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      // next_fs.fadeIn();
+      // current_fs.fadeOut(function() {
+      //     animating = false;
+      // });
      
   });
 });
@@ -232,6 +256,24 @@ $(document).ready(function() {
       });
 
       $(".language_result_date").datepicker({
+          dateFormat: "dd/mm/yy",
+          changeMonth: true,
+          changeYear: true,
+      });
+
+      // provide your details  of your status in Canada
+      $(".status_start_date").datepicker({
+        dateFormat: "dd/mm/yy",
+        changeMonth: true,
+        changeYear: true,
+        onSelect: function (selectedDate) {
+            var minDate = $(this).datepicker("getDate"); // Get selected date
+            $(".status_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
+            handleInputChange.call(this);
+        }
+      });
+
+      $(".status_end_date").datepicker({
           dateFormat: "dd/mm/yy",
           changeMonth: true,
           changeYear: true,
@@ -865,6 +907,7 @@ $(document).ready(function () {
                     otherDetails.show();
                 } else {
                     otherDetails.hide();
+                    otherDetails.val('');
                 }
             });
         }
