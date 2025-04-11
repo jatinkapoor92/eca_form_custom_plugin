@@ -30,7 +30,7 @@ $(document).ready(function() {
 
     // Scroll helper function
     function scrollToFirstError() {
-      let firstError = $(".error:visible").first();
+      let firstError = $(".error:visible,.checkbox:visible").first();
       if (firstError.length) {
           $('html, body').animate({
               scrollTop: firstError.offset().top - 100
