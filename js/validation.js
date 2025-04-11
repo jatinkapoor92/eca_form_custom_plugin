@@ -40,7 +40,7 @@ function validateForm1() {
 
     //  phone validation
     if (phone === "") {
-        $("input[name='phone']").after("<span class='error' style='color: red;'>Enter a valid  phone number.</span>");
+        $("input[name='phone']").after("<span class='error' style='color: red;'>This field is required.</span>");
         isValid = false;
     }else if(phone.length < 10){
         $("input[name='phone']").after("<span class='error' style='color: red;'>Enter a valid  phone number.</span>");
@@ -545,14 +545,13 @@ function validateForm4(){
     let referred_by_other =  $("#referred_by_other").val();
     let selectedType = $("select[name='immegration_application_type[]']").val();
     $(".error").remove();
-
     // **Checkbox Validation**
     let consentCheckbox = $("#flexCheckDefault");
     let formCheckDiv = consentCheckbox.closest(".form-check");
 
     if (!consentCheckbox.is(":checked")) {
-        if (formCheckDiv.next(".error").length === 0) {
-            formCheckDiv.after("<span class='error' style='color: red;'>This field is required.</span>");
+        if (formCheckDiv.next(".checkbox").length === 0) {
+            formCheckDiv.after("<span class='checkbox' style='color: red;'>This field is required.</span>");
         }
         isValid = false;
     }

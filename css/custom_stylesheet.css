@@ -516,3 +516,13 @@ fieldset {
     font-size: 16px;
   }
 }
+.iti {
+  width: 100% !important;
+}
+.iti__selected-flag{
+  height: 63% !important;
+  margin-top: 6px !important;
+}
+.iti--separate-dial-code .iti__selected-flag {
+  background-color: transparent !important;
+}

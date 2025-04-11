@@ -125,27 +125,29 @@ $(document).ready(function() {
 });
     // error remove on input
     function handleInputChange() {
-      const $error = $(this).next('.error');
-      const radioName = $(this).attr('name');
+      // const radioName = $(this).attr('name');
       const checkbox = $(this).attr('type');
       if ($(this).is(':radio')) {
-          if (radioName) {
+          if (checkbox) {
+            console.log('if first');
             $(this).closest('.erroremove').next('.error').hide(); 
           }else{
             $(this).closest('.erroremove').next('.error').show();
           }
-      } else if(checkbox == "checkbox"){
+      } 
+      else if(checkbox == "checkbox"){
          if ($(this).is(':checked')) {
-          $(this).closest('.erroremove').next('.error').hide(); 
-         }else{
-          $(this).closest('.erroremove').next('.error').show();
-         }
+          console.log('checkbox first');
+            $(this).closest('.checkbox').next('.checkbox').hide(); 
+          }else{
+            $(this).closest('.checkbox').next('.checkbox').show();
+          }
       }
       else{
           if ($(this).val().trim() !== '') {
-            $error.hide();
+              $(this).next('.error').hide();
           } else {
-            $error.show();
+              $(this).next('.error').show();
           }
       }
   }
@@ -315,9 +317,6 @@ $(document).ready(function () {
         });
     });
     
-
-
-
     $(".iti__country-list").attr("tabindex", "-1");
 
     setTimeout(function () {
