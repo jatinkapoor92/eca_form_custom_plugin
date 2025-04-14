@@ -28,15 +28,15 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
 
-    // Scroll helper function
-    function scrollToFirstError() {
-      let firstError = $(".error:visible,.checkbox:visible").first();
-      if (firstError.length) {
-          $('html, body').animate({
-              scrollTop: firstError.offset().top - 100
-          }, 500);
-      }
-    }
+    // // Scroll helper function
+    // function scrollToFirstError() {
+    //   let firstError = $(".error:visible,.checkbox:visible").first();
+    //   if (firstError.length) {
+    //       $('html, body').animate({
+    //           scrollTop: firstError.offset().top - 100
+    //       }, 500);
+    //   }
+    // }
     // Loader Show
     function showLoader() {
       $(".form-loader").show();
@@ -67,59 +67,59 @@ $(document).ready(function() {
             return false;
         }
     }
-    showLoader();
-    try {
-      $.ajax({
-          url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
-          type: "POST",
-          header : "Content-Type: application/json",
-          data: formData,
-          success: function(response) {
-            hideLoader();
-            if (response.message === "Successfully Submitted") {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-              $("form")[0].reset();
-              $(".zr-progressbar li").removeClass("active");
-              $(".zr-progressbar li").eq(0).addClass("active");
-              $("fieldset").hide();
-              $("fieldset").eq(0).show();
-              $(".show_message").css({"width": "100%","display": "block","important": true });
-              setTimeout(function () {
-                $(".show_message").fadeOut();
-                hideLoader();
-              }, 7000);
-              return;
-            }
-            $(".marital_status_1").val(response.lead.marital_status);
-              // Move to next fieldset if submission is successful
-              if (response.lead && response.lead.id) {
-                  // Append the ID to the hidden input field
-                  $("input[name='lead_id']").val(response.lead.id);
-              }
-              $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-              next_fs.fadeIn();
-              current_fs.fadeOut(function() {
-                  animating = false;
-              });
-          },
-          error: function(xhr, status, error) {
-              console.log("Error:", error);
-              animating = false;
-              hideLoader();
-          }
-      });
-    } catch (error) {
-      console.error("Try-Catch Error:", error.message);
-      hideLoader();
-    }
+    // showLoader();
+    // try {
+    //   $.ajax({
+    //       url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+    //       type: "POST",
+    //       header : "Content-Type: application/json",
+    //       data: formData,
+    //       success: function(response) {
+    //         hideLoader();
+    //         if (response.message === "Successfully Submitted") {
+    //           window.scrollTo({ top: 0, behavior: "smooth" });
+    //           $("form")[0].reset();
+    //           $(".zr-progressbar li").removeClass("active");
+    //           $(".zr-progressbar li").eq(0).addClass("active");
+    //           $("fieldset").hide();
+    //           $("fieldset").eq(0).show();
+    //           $(".show_message").css({"width": "100%","display": "block","important": true });
+    //           setTimeout(function () {
+    //             $(".show_message").fadeOut();
+    //             hideLoader();
+    //           }, 7000);
+    //           return;
+    //         }
+    //         $(".marital_status_1").val(response.lead.marital_status);
+    //           // Move to next fieldset if submission is successful
+    //           if (response.lead && response.lead.id) {
+    //               // Append the ID to the hidden input field
+    //               $("input[name='lead_id']").val(response.lead.id);
+    //           }
+    //           $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+    //           next_fs.fadeIn();
+    //           current_fs.fadeOut(function() {
+    //               animating = false;
+    //           });
+    //       },
+    //       error: function(xhr, status, error) {
+    //           console.log("Error:", error);
+    //           animating = false;
+    //           hideLoader();
+    //       }
+    //   });
+    // } catch (error) {
+    //   console.error("Try-Catch Error:", error.message);
+    //   hideLoader();
+    // }
 
-      // if (animating) return false;
-      // animating = true;
-      // $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-      // next_fs.fadeIn();
-      // current_fs.fadeOut(function() {
-      //     animating = false;
-      // });
+      if (animating) return false;
+      animating = true;
+      $(".zr-progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+      next_fs.fadeIn();
+      current_fs.fadeOut(function() {
+          animating = false;
+      });
      
   });
 });
@@ -160,6 +160,7 @@ $(document).ready(function() {
             dateFormat: "dd/mm/yy",
             changeMonth: true,
             changeYear: true,
+            maxDate:0,
             onSelect: function (selectedDate) {
                 var minDate = $(this).datepicker("getDate"); // Get selected date
                 $(this).closest('.form-group').parent().next().find(".where_did_you_work_status_end_date").datepicker("option", "minDate", minDate);
@@ -178,6 +179,7 @@ $(document).ready(function() {
           dateFormat: "dd/mm/yy",
           changeMonth: true,
           changeYear: true,
+          maxDate:0,
           onSelect: function (selectedDate) {
               var minDate = $(this).datepicker("getDate"); // Get selected date
               $(".last_working_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
@@ -196,6 +198,7 @@ $(document).ready(function() {
           dateFormat: "dd/mm/yy",
           changeMonth: true,
           changeYear: true,
+          maxDate:0,
           onSelect: function (selectedDate) {
               var minDate = $(this).datepicker("getDate"); // Get selected date
               $(".additional_previous_relationship_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
@@ -214,6 +217,7 @@ $(document).ready(function() {
       $(".relationship_start_date").datepicker({
         dateFormat: "dd/mm/yy",
         changeMonth: true,
+        maxDate: 0,
         changeYear: true,
         onSelect: function (selectedDate) {
             var minDate = $(this).datepicker("getDate"); // Get selected date
@@ -233,6 +237,7 @@ $(document).ready(function() {
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
+        maxDate: 0,
         onSelect: function (selectedDate) {
             var minDate = $(this).datepicker("getDate"); // Get selected date
             $(".status_end_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
@@ -251,6 +256,7 @@ $(document).ready(function() {
         dateFormat: "dd/mm/yy",
         changeMonth: true,
         changeYear: true,
+        maxDate:0,
         onSelect: function (selectedDate) {
             var minDate = $(this).datepicker("getDate"); // Get selected date
             $(".language_result_date").datepicker("option", "minDate", minDate); // Set minDate for last working date
@@ -332,7 +338,8 @@ $(document).ready(function () {
         todayHighlight: true,
         endDate: "0d",
         minViewMode: 0,
-        startView: 2
+        startView: 2,
+        maxDate: 0,
     });
     
     fetch("https://restcountries.com/v3.1/independent?status=true")
