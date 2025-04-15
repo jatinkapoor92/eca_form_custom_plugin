@@ -83,7 +83,7 @@ $(document).ready(function() {
               $(".zr-progressbar li").eq(0).addClass("active");
               $("fieldset").hide();
               $("fieldset").eq(0).show();
-              $("#canada_details_block, .additional_relationsips_append, .family_members_block_append,#addMoreRelationship,#addMoreFamilyFriends").css("display", "none");
+              $("#canada_details_block, .additional_relationsips_append, .family_members_block_append,#addMoreRelationship,#addMoreFamilyFriends,#previouse_spouse_details_married,#other_statuses_in_canada,#spouse_status_in_country_other").css("display", "none");
               $(".show_message").css({"width": "100%","display": "block","important": true });
               setTimeout(function () {
                 $(".show_message").fadeOut();
