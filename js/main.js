@@ -83,6 +83,7 @@ $(document).ready(function() {
               $(".zr-progressbar li").eq(0).addClass("active");
               $("fieldset").hide();
               $("fieldset").eq(0).show();
+              $("#canada_details_block, .additional_relationsips_append, .family_members_block_append,#addMoreRelationship,#addMoreFamilyFriends").css("display", "none");
               $(".show_message").css({"width": "100%","display": "block","important": true });
               setTimeout(function () {
                 $(".show_message").fadeOut();
@@ -563,7 +564,7 @@ $(document).ready(function () {
             newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeRelationship">REMOVE</button></div>');
         }
     
-        $("#additional_relationsips").after(newRow);
+        $(".additional_relationsips_append").append(newRow);
         initializeDatePickers(newRow);
         $('input, select, textarea').on('input change click blur', handleInputChange);
         initializeDatepicker(newRow.find("input[name='additional_previous_relationship_start_date[]'], input[name='additional_previous_relationship_end_date[]']"));
@@ -585,6 +586,7 @@ $(document).ready(function () {
       });
     });
 
+     $("#addMoreFamilyFriends").hide();
     //Family members
     $("#addMoreFamilyFriends").click(function () {
         let newRow = $("#family_members").first().clone();
@@ -596,7 +598,7 @@ $(document).ready(function () {
         }
         newRow.find(".error").remove();
         $('input, select, textarea').on('input change click blur', handleInputChange);
-        $("#family_members").after(newRow);
+        $(".family_members_block_append").append(newRow);
     });
 
     $(document).on("click", ".removeFamilyMember", function () {
@@ -605,9 +607,11 @@ $(document).ready(function () {
 
     function toggleFamilyMembersBlock() {
         if ($("#family_friends_in_canada1").is(":checked")) {
-          $("#family_members_block").show();
+          $("#family_members_block").show();        
+          $("#addMoreFamilyFriends").show();
         } else {
           $("#family_members_block").hide();
+          $("#addMoreFamilyFriends").hide();
           $("#family_members_block input, #family_members_block select").val('');
         }
       }
@@ -639,7 +643,7 @@ $(document).ready(function () {
                 newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeEducation">REMOVE</button></div>');
             }
             $('input, select, textarea').on('input change click blur', handleInputChange);
-            $("#education_block").last().after(newRow);
+            $(".education_block_append").append(newRow);
         });
 
         $(document).on("click", ".removeEducation", function() {
@@ -708,7 +712,7 @@ $(document).ready(function () {
             if (!newBlock.find(".removeLanguageTest").length) {
                 newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeLanguageTest">REMOVE</button></div>');
             }
-            $("#language_test_block").last().after(newBlock);
+            $(".language_test_block_append").append(newBlock);
             initializeDatePickers(newBlock);
             $('input, select, textarea').on('input change click blur', handleInputChange);
             initializeDatepicker(newBlock.find("input[name='language_test_date[]'], input[name='language_result_date[]']"));
@@ -754,7 +758,7 @@ $(document).ready(function () {
             if (!newBlock.find(".removeLanguageTest").length) {
                 newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeSpouseLanguageTest">REMOVE</button></div>');
             }
-            $("#spouse_language_test_block").last().after(newBlock);
+            $(".spouse_language_test_block_append").append(newBlock);
             initializeDatePickers(newBlock);
             $('input, select, textarea').on('input change click blur', handleInputChange);
             initializeDatepicker(newBlock.find("input[name='spouse_language_test_date[]'], input[name='spouse_language_result_date[]']"));
@@ -899,7 +903,7 @@ $(document).ready(function () {
           if (newBlock.find(".remove-travel-record").length === 0) {
             newBlock.append('<div class="col-12 mt-2"><button type="button" class="remove-travel-record btn btn-danger mt-3">Remove</button></div>');
           }      
-          $("#travelled_history_block").last().after(newBlock);
+          $(".travelled_history_block_append").append(newBlock);
         });
       
         $(document).on("click", ".remove-travel-record", function () {
@@ -947,7 +951,7 @@ $(document).ready(function () {
                 newApplicationBlock.append('<div class="col-12 mt-2"><button type="button" class="removeImmegrationApplication btn btn-danger mt-3">Remove</button></div>');
             }
         
-            $("#immegration_applications").append(newApplicationBlock);
+            $(".immegration_applications_append").append(newApplicationBlock);
             handleOtherApplicationDisplay(newApplicationBlock); // Attach change listener
         });
       
@@ -970,7 +974,7 @@ $(document).ready(function () {
                 newRefusedBlock.append('<div class="col-12 mt-2"><button type="button" class="removeRefusedApplication btn btn-danger mt-3">Remove</button></div>');
             }
     
-            $("#refused_immegration_block").last().after(newRefusedBlock);
+            $(".refused_immegration_block_append").append(newRefusedBlock);
         });
     
         $(document).on("click", ".removeRefusedApplication", function () {
