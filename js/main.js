@@ -15,6 +15,7 @@ $(document).ready(function() {
   
     var current_fs, next_fs, previous_fs;
     var animating;
+    let leadData = null;
   // Save & Next Button
   $(".save-next").click(function() {
     
@@ -28,7 +29,7 @@ $(document).ready(function() {
         formDataObj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1] || '');
     });
 
-    // // Scroll helper function
+    // // // Scroll helper function
     function scrollToFirstError() {
       let firstError = $(".error:visible,.checkbox:visible").first();
       if (firstError.length) {
@@ -37,7 +38,7 @@ $(document).ready(function() {
           }, 500);
       }
     }
-    // Loader Show
+    // // Loader Show
     function showLoader() {
       $(".form-loader").show();
     }
@@ -75,6 +76,12 @@ $(document).ready(function() {
           header : "Content-Type: application/json",
           data: formData,
           success: function(response) {
+              if (response.lead && response.lead.marital_status) {
+                let marital_status = response.lead.marital_status === "married" ? "married" : null;
+                $(".marital_status_1").val(marital_status);
+              }else {
+                $(".marital_status_1").val(""); 
+              }
             hideLoader();
             if (response.message === "Successfully Submitted") {
               window.scrollTo({ top: 0, behavior: "smooth" });
@@ -91,7 +98,6 @@ $(document).ready(function() {
               }, 7000);
               return;
             }
-            $(".marital_status_1").val(response.lead.marital_status);
               // Move to next fieldset if submission is successful
               if (response.lead && response.lead.id) {
                   // Append the ID to the hidden input field
@@ -124,13 +130,20 @@ $(document).ready(function() {
      
   });
 });
+
+
+    // drop down serach bar
+    $('.select2').select2({
+      placeholder: "Please select",
+      allowClear: true
+    });
+   
     // error remove on input
     function handleInputChange() {
       // const radioName = $(this).attr('name');
       const checkbox = $(this).attr('type');
       if ($(this).is(':radio')) {
           if (checkbox) {
-            console.log('if first');
             $(this).closest('.erroremove').next('.error').hide(); 
           }else{
             $(this).closest('.erroremove').next('.error').show();
@@ -138,7 +151,6 @@ $(document).ready(function() {
       } 
       else if(checkbox == "checkbox"){
          if ($(this).is(':checked')) {
-          console.log('checkbox first');
             $(this).closest('.checkbox').next('.checkbox').hide(); 
           }else{
             $(this).closest('.checkbox').next('.checkbox').show();
@@ -147,6 +159,7 @@ $(document).ready(function() {
       else{
           if ($(this).val().trim() !== '') {
               $(this).next('.error').hide();
+              $(this).next(".select2-container").next(".error").remove();
           } else {
               $(this).next('.error').show();
           }
@@ -478,6 +491,7 @@ $(document).ready(function () {
             $("#previouse_spouse_details input,#previouse_spouse_details select").val('');
             $("#spouse_highest_education, #countrySelect_spouse").val('');
             $("#spouse_status_in_country_other textarea").val('');
+            $(".spouse_citizanship.select2,#spouse_current_country_residence.select2").val("").trigger("change");
         }
     });
 
@@ -629,6 +643,7 @@ $(document).ready(function () {
         } else {
           $('#education_field_of_study').hide();
           $("#education_field_of_study input, #education_field_of_study select").val('');
+          $(".country_of_study.select2").val("").trigger("change");
         }
       });
 
@@ -639,11 +654,18 @@ $(document).ready(function () {
 
             newRow.find("select").prop("selectedIndex", 0);
             newRow.find(".error").remove();
+             // Remove old Select2 container if any
+            newRow.find("select.select2").next('.select2-container').remove();
             if (!newRow.find(".removeEducation").length) {
                 newRow.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger removeEducation">REMOVE</button></div>');
             }
             $('input, select, textarea').on('input change click blur', handleInputChange);
             $(".education_block_append").append(newRow);
+            newRow.find("select.select2").select2({
+              placeholder: "Select status",
+              width: "100%",
+              allowClear: true,
+            });
         });
 
         $(document).on("click", ".removeEducation", function() {
@@ -686,24 +708,126 @@ $(document).ready(function () {
     // Language test
 
         const detailsDiv = $("#language_test_details");
-
+        const spouseFrenchAbilityDiv = $("#spouse_French_language_ability");
         detailsDiv.hide();
-        $("#taken_english_test_no").prop("checked", true);
-
+        spouseFrenchAbilityDiv.hide();
+        // $("#taken_english_test_no").prop("checked", true);
         $('input[name="taken_english_test"]').change(function () {
-        if ($("#taken_english_test_yes").is(":checked")) {
-            detailsDiv.show();
-            $("#language_test_details input, #language_test_details select").val('');
-        } else {
-            detailsDiv.hide();
-        }
+          if ($("#taken_english_test_yes").is(":checked")) {
+              detailsDiv.show();
+              spouseFrenchAbilityDiv.hide();
+              $("#language_test_details input, #language_test_details select").val('');
+              $("#language_test_block_append select input").val('');
+          } else {
+              detailsDiv.hide();
+              spouseFrenchAbilityDiv.show();
+              $("#spouse_French_language_ability input[type='radio']").prop('checked', false);
+          }
         });
+
+        // const ilets_score = $(".div1,.div2,.div3,.div4");
+        // ilets_score.hide();
+        // const ilets_score2 = $(".div5,.div6,.div7,.div8");
+        // ilets_score2.hide();
+        // const validTests = ["ielts_general", "ielts_academic", "celpip_general"];
+        // const validTests2 = ["tef_canada", "tcf_canada", "pte_core"];
+        // $(document).on('change', '.single_lang_test', function () {
+        //     const selectedTest = $(this).val();
+        //     const block = $(this).closest("#language_test_block");
+        //     block.find(".error").remove();
+        //     const ilets_score = block.find(".div1, .div2, .div3, .div4");
+        //     const ilets_score2 = block.find(".div5,.div6,.div7,.div8");
+        //     if (validTests.includes(selectedTest)) {
+        //       ilets_score.show();
+        //     } else {
+        //       ilets_score.hide();
+        //     }
+        //     if (validTests2.includes(selectedTest)) {
+        //       ilets_score2.show();
+        //     } else {
+        //       ilets_score2.hide();
+        //     }
+        // });
+
+        const ilets_score = $(".div1, .div2, .div3, .div4");
+        ilets_score.hide().find('select, input').prop('disabled', true);
+        const ilets_score2 = $(".div5, .div6, .div7, .div8");
+        ilets_score2.hide().find('select, input').prop('disabled', true);
+        const validTests = ["ielts_general", "ielts_academic", "celpip_general"];
+        const validTests2 = ["tef_canada", "tcf_canada", "pte_core"];
+        $(document).on('change', '.single_lang_test', function () {
+            const selectedTest = $(this).val();
+            const block = $(this).closest("#language_test_block");
+            block.find(".error").remove();
+            const ilets_score = block.find(".div1, .div2, .div3, .div4");
+            const ilets_score2 = block.find(".div5, .div6, .div7, .div8");
+            ilets_score.hide().find('select, input').prop('disabled', true);
+            ilets_score2.hide().find('select, input').prop('disabled', true);
+            if (validTests.includes(selectedTest)) {
+                ilets_score.show().find('select, input').prop('disabled', false);
+            }
+            if (validTests2.includes(selectedTest)) {
+                ilets_score2.show().find('select, input').prop('disabled', false);
+            }
+        });
+
+
+        const spouse_div1_4 = $(".spouse_div1, .spouse_div2, .spouse_div3, .spouse_div4");
+        spouse_div1_4.hide().find('select').prop('disabled', true);
+        const spouse_div5_8 = $(".spouse_div5, .spouse_div6, .spouse_div7, .spouse_div8");
+        spouse_div5_8.hide().find('input').prop('disabled', true);
+        const spouse_div2Tests = ["ielts_general", "ielts_academic", "celpip_general"];
+        const spouse_div2Tests2 = ["tef_canada", "tcf_canada", "pte_core"];
+        $(document).on('change', '.spouse_language_test_type_val', function () {
+            const selectedTest = $(this).val();
+            const block = $(this).closest("#spouse_language_test_block");
+            block.find(".error").remove();
+            const spouse_divs = block.find(".spouse_div1, .spouse_div2, .spouse_div3, .spouse_div4");
+            const spouse_inputs = block.find(".spouse_div5, .spouse_div6, .spouse_div7, .spouse_div8");
+            spouse_divs.hide().find('select').prop('disabled', true);
+            spouse_inputs.hide().find('input').prop('disabled', true);
+            if (spouse_div2Tests.includes(selectedTest)) {
+                spouse_divs.show().find('select').prop('disabled', false);
+            }
+
+            if (spouse_div2Tests2.includes(selectedTest)) {
+                spouse_inputs.show().find('input').prop('disabled', false);
+            }
+        });
+
+
+
+
+        // const spouse_divs = $(".spouse_div1,.spouse_div2,.spouse_div3,.spouse_div4");
+        // spouse_divs.hide();
+        // const spouse_div2 = $(".spouse_div5,.spouse_div6,.spouse_div7,.spouse_div8");
+        // spouse_div2.hide();
+        // const spouse_div2Tests = ["ielts_general", "ielts_academic", "celpip_general"];
+        // const spouse_div2Tests2 = ["tef_canada", "tcf_canada", "pte_core"];
+        // $(document).on('change', '.spouse_language_test_type_val', function () {
+        //     const selectedTest = $(this).val();
+        //     const block = $(this).closest("#spouse_language_test_block");
+        //     block.find(".error").remove();
+        //     const spouse_divs = block.find(".spouse_div1,.spouse_div2,.spouse_div3,.spouse_div4");
+        //     const spouse_div2 = block.find(".spouse_div5,.spouse_div6,.spouse_div7,.spouse_div8");
+        //     if (spouse_div2Tests.includes(selectedTest)) {
+        //       spouse_divs.show();
+        //     } else {
+        //       spouse_divs.hide();
+        //     }
+        //     if (spouse_div2Tests2.includes(selectedTest)) {
+        //       spouse_div2.show();
+        //     } else {
+        //       spouse_div2.hide();
+        //     }
+        // });
+
 
         initializeDatepicker($("input[name='language_test_date[]'], input[name='language_result_date[]"));
 
         $("#addMoreLanguageTest").click(function () {
             let newBlock = $("#language_test_block").first().clone();
-    
+            newBlock.find(".div1, .div2, .div3, .div4").hide();
             newBlock.find("input").val("");
             newBlock.find("select").prop("selectedIndex", 0);
     
@@ -742,6 +866,7 @@ $(document).ready(function () {
         } else {
             spouseDetailsDiv.hide();
             spouseLangAbility.show();
+            $("#spouse_language_ability input[type='radio']").prop('checked', false);
         }
         });
 
@@ -749,7 +874,7 @@ $(document).ready(function () {
 
         $("#addMoreSpouseLanguageTest").click(function () {
             let newBlock = $("#spouse_language_test_block").first().clone();
-    
+            newBlock.find(".spouse_div5, .spouse_div6, .spouse_div7, .spouse_div8").hide();
             newBlock.find("input").val("");
             newBlock.find("select").prop("selectedIndex", 0);
     
@@ -794,18 +919,26 @@ $(document).ready(function () {
                 let newName = oldName + "_" + uniqueId; // Make the name unique
                 $(this).attr("name", newName);
                 if (index === 0) {
-                  $(this).val("yes"); 
+                  $(this).val("Yes"); 
                 } else {
-                    $(this).val("no"); 
+                    $(this).val("No"); 
                 }
             });
             newBlock.find(".error").remove();
             newBlock.find("input").removeClass("hasDatepicker").removeAttr("id");
-        
+             // Remove old Select2 container if any
+            newBlock.find("select.select2").next('.select2-container').remove();
             if (!newBlock.find(".EmploymentHistory").length) {
               newBlock.append('<div class="col-12 mt-2"><button type="button" class="btn btn-danger EmploymentHistory">REMOVE</button></div>');
           }
             $("#employment_history").append(newBlock);
+
+            // Reinitialize Select2 only on the new select(s)
+            newBlock.find("select.select2").select2({
+              placeholder: "Select status",
+              width: "100%",
+              allowClear: true,
+            });
             // Append an <hr> line after the newly added company details block
             newBlock.after('<hr class="company-divider">');
 
@@ -846,7 +979,7 @@ $(document).ready(function () {
             var parentBlock = element.closest(".company_details_block"); 
             var lastWorkingDateField = parentBlock.find(".LastWorkingDaydiv");
         
-            if (sel === "yes") {
+            if (sel === "Yes") {
                 lastWorkingDateField.hide();
                 lastWorkingDateField.find("input").val(''); // Clear input field properly
             } else {
@@ -861,11 +994,12 @@ $(document).ready(function () {
 
         $("#travelled_history").hide();
         $("input[name='travelled_country']").change(function () {
-          if ($(this).val() === "yes") {
+          if ($(this).val() === "Yes") {
             $("#travelled_history").show();
           } else {
             $("#travelled_history").hide();
             $("#travelled_history select").val('');
+            $(".where_did_you_travelled.select2").val("").trigger("change");
           }
         });
 
@@ -875,7 +1009,7 @@ $(document).ready(function () {
         $("#immegration_applications").hide();
 
         $("input[name='submitted_immegration_application']").change(function () {
-          if ($(this).val() === "yes") {
+          if ($(this).val() === "Yes") {
             $("#immegration_applications").show();
           } else {
             $("#immegration_applications").hide();
@@ -887,11 +1021,12 @@ $(document).ready(function () {
         $("#refused_details").hide();
 
         $("input[name='refused_immegration_applications']").change(function () {
-          if ($(this).val() === "yes") {
+          if ($(this).val() === "Yes") {
             $("#refused_details").show();
           } else {
             $("#refused_details").hide();
             $("#refused_details select,#refused_details input").val('');
+            $("#refused_application_country.select2").val("").trigger("change");
           }
         });
       
@@ -900,10 +1035,17 @@ $(document).ready(function () {
       
           newBlock.find("select").val("");
           newBlock.find(".error").remove();
+          newBlock.find("select.select2").next('.select2-container').remove();
           if (newBlock.find(".remove-travel-record").length === 0) {
             newBlock.append('<div class="col-12 mt-2"><button type="button" class="remove-travel-record btn btn-danger mt-3">Remove</button></div>');
           }      
           $(".travelled_history_block_append").append(newBlock);
+            // Reinitialize Select2 only on the new select(s)
+            newBlock.find("select.select2").select2({
+            placeholder: "Select status",
+            width: "100%",
+            allowClear: true,
+        });
         });
       
         $(document).on("click", ".remove-travel-record", function () {
@@ -970,9 +1112,15 @@ $(document).ready(function () {
     
             newRefusedBlock.find("input, select").val("");
             newRefusedBlock.find(".error").remove();
+            newRefusedBlock.find("select.select2").next('.select2-container').remove();
             if (!newRefusedBlock.find(".removeRefusedApplication").length) {
                 newRefusedBlock.append('<div class="col-12 mt-2"><button type="button" class="removeRefusedApplication btn btn-danger mt-3">Remove</button></div>');
             }
+            newRefusedBlock.find("select.select2").select2({
+              placeholder: "Select status",
+              width: "100%",
+              allowClear: true,
+          });
     
             $(".refused_immegration_block_append").append(newRefusedBlock);
         });
@@ -1020,11 +1168,12 @@ $(document).ready(function () {
         $("#company_details").hide();
         $(document).on("click", ".emp1", function () {
           $val = $(this).val();
-          if( $val === "yes"){
+          if( $val === "Yes"){
              $("#company_details").show();
           }else{
             $("#company_details").hide();
             $("#company_details input, #company_details select").val('');
+            $(".where_did_you_work.select2").val("").trigger("change");
           }
         });
         

@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-  
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
 </head>
 
@@ -131,7 +131,7 @@
                           title="Select the gender you identify with. This information is required for accurate  documentation and addressing.">
                           <i class="tool-tip__icon">i</i>
                         </span></label>
-                      <select name="gender" class="form-select zr-assessment-form-input" >
+                      <select name="gender" class="form-select zr-assessment-form-input " >
                         <option value="">Please select</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -154,7 +154,7 @@
                           title="Select the country of your citizenship or nationality as listed in your passport or other official identification.">
                           <i class="tool-tip__icon">i</i>
                         </span></label>
-                        <select id="countrySelect" name="citizanship_nationality" class="form-select zr-assessment-form-input" data-live-search="true">
+                        <select id="countrySelect" name="citizanship_nationality" class="form-select zr-assessment-form-input select2" data-live-search="true">
                           <option value="">Select country</option>
                         </select>
                     </div>
@@ -228,7 +228,7 @@
                             title="Select the country where your current residence is located.">
                             <i class="tool-tip__icon">i</i>
                           </span> </label>
-                          <select id="countrySelect2" name="country" class="form-select zr-assessment-form-input redidential_country" data-live-search="true">
+                          <select id="countrySelect2" name="country" class="form-select zr-assessment-form-input redidential_country select2" data-live-search="true">
                             <option value="">Select country</option>
                           </select>
                       </div>
@@ -372,7 +372,7 @@
                               title="Enter the date when this relationship began.">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                              <input type="text" id="relationship_start_date" class="form-control zr-assessment-form-input relationship_start_date" placeholder="Select Date of Birth">
+                              <input type="text" id="relationship_start_date" name="start_date_relationship" class="form-control zr-assessment-form-input relationship_start_date" placeholder="Select Date of Birth">
                           </div>
 
                         </div>
@@ -383,7 +383,7 @@
                               title="Enter the date when this relationship ended (divorce/separation/death of  former spouse/etc.)">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                              <input type="text" id="relationship_end_date" class="form-control zr-assessment-form-input relationship_end_date" placeholder="Select Date of Birth">
+                              <input type="text" id="relationship_end_date" name="end_date_relationship" class="form-control zr-assessment-form-input relationship_end_date" placeholder="Select Date of Birth">
                           </div>
                         </div>
                       </div>
@@ -412,7 +412,7 @@
                                 title="Provide the current age of your spouse or common-law partner in years.">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                            <input type="number" name="spouse_age" class="form-control zr-assessment-form-input" placeholder="" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);">
+                            <input type="text" name="spouse_age" class="form-control zr-assessment-form-input" placeholder="" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
                           </div>
                         </div>
                         <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
@@ -438,7 +438,7 @@
                                 title="Select the citizenship or nationality of your spouse or common-law partner as mentioned in their passport or official documents.">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                            <select id="spouse_citizanship" name="spouse_citizanship"  class="form-select zr-assessment-form-input spouse_citizanship" data-live-search="true">
+                            <select id="spouse_citizanship" name="spouse_citizanship"  class="form-select zr-assessment-form-input spouse_citizanship select2" data-live-search="true">
                               <option value= "">Select country</option>
                             </select>
                           </div>
@@ -462,7 +462,7 @@
                                 title="Select the current country where your spouse or common-law partner resides.">
                                 <i class="tool-tip__icon">i</i>
                               </span></label>
-                              <select id="spouse_current_country_residence" name="spouse_current_country_residence"  class="form-select zr-assessment-form-input" data-live-search="true">
+                              <select id="spouse_current_country_residence" name="spouse_current_country_residence"  class="form-select zr-assessment-form-input select2" data-live-search="true">
                               <option value="">Select country</option>
                             </select>
                           </div>
@@ -725,14 +725,14 @@
                         <div class="py-2 d-flex">
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="formal_education_completed"
-                              id="formal_education_completed_yes" value="yes">
+                              id="formal_education_completed_yes" value="Yes">
                             <label class="form-check-label zr-radi0-btn" for="formal_education_completed">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="formal_education_completed"
-                              id="formal_education_completed_no" value="no" checked>
+                              id="formal_education_completed_no" value="No" checked>
                             <label class="form-check-label zr-radi0-btn" for="formal_education_completed2">
                               No
                             </label>
@@ -835,7 +835,7 @@
                                   title="Select the country where you completed this education.">
                                   <i class="tool-tip__icon">i</i>
                                 </span></label>
-                              <select id="country_of_study" name="country_of_study[]"  class="form-select zr-assessment-form-input country_of_study" data-live-search="true">
+                              <select id="country_of_study" name="country_of_study[]"  class="form-select zr-assessment-form-input country_of_study select2" data-live-search="true" style="width: 100%;">
                                 <option value = "">Select country</option>
                               </select>
                             </div>
@@ -958,7 +958,7 @@
                             <i class="tool-tip__icon">i</i>
                           </span>
                         </label>
-                        <div class="py-2 d-flex align-items-center">
+                        <div class="py-2 d-flex align-items-center erroremove">
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="taken_english_test" value="Yes"
                               id="taken_english_test_yes">
@@ -992,12 +992,13 @@
                                   <i class="tool-tip__icon">i</i>
                                 </span></label>
 
-                              <select name="language_test_type[]" class="form-select zr-assessment-form-input language_test_type">
+                              <select name="language_test_type[]" class="form-select zr-assessment-form-input language_test_type single_lang_test" >
                                 <option value="" selected>Please select</option>
                                 <option value="ielts_general">IELTS (General)</option>
                                 <option value="ielts_academic">IELTS (Academic)</option>
                                 <option value="celpip_general">CELPIP (General)</option>
                                 <option value="tef_canada">TEF Canada</option>
+                                <option value="tcf_canada">TCF Canada</option>
                                 <option value="pte_core">PTE Core</option>
                               </select>
                             </div>
@@ -1032,91 +1033,142 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                            <div class="form-group">
-                              <label class="form-label zr-assessment-form-label">Listening Scores<span
-                                  class="req-red">*</span>
-                                <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Enter the score you received for the listening section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
-                                  <i class="tool-tip__icon">i</i>
-                                </span></label>
-                              <select name="listening_score[]" class="form-select zr-assessment-form-input listening_score">
-                                <option value="">Please select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                              </select>
+                          <!-- <div class="ilets_score"> -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div1">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">Listening Scores<span
+                                    class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the listening section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <select name="listening_score[]" class="form-select zr-assessment-form-input listening_score">
+                                  <option value="">Please select</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                </select>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                            <div class="form-group">
-                              <label class="form-label zr-assessment-form-label">
-                                Speaking Scores <span class="req-red">*</span>
-                                <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Enter the score you received for the Speaking section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
-                                  <i class="tool-tip__icon">i</i>
-                                </span></label>
-                              <select name="speaking_score[]" class="form-select zr-assessment-form-input speaking_score">
-                                <option value="">Please select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                              </select>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div2">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Speaking Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Speaking section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <select name="speaking_score[]" class="form-select zr-assessment-form-input speaking_score">
+                                  <option value="">Please select</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                </select>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                            <div class="form-group">
-                              <label class="form-label zr-assessment-form-label">
-                                Reading Scores <span class="req-red">*</span>
-                                <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Enter the score you received for the Reading section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
-                                  <i class="tool-tip__icon">i</i>
-                                </span></label>
-                              <select  name="reading_score[]"  class="form-select zr-assessment-form-input reading_score">
-                                <option value="">Please select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                              </select>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div3">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Reading Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Reading section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <select  name="reading_score[]"  class="form-select zr-assessment-form-input reading_score">
+                                  <option value="">Please select</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                </select>
+                              </div>
                             </div>
-                          </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
-                            <div class="form-group">
-                              <label class="form-label zr-assessment-form-label">
-                                Writing Scores <span class="req-red">*</span>
-                                <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
-                                  data-bs-placement="top"
-                                  title="Enter the score you received for the Writing section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
-                                  <i class="tool-tip__icon">i</i>
-                                </span></label>
-                              <select  name="writing_score[]"  class="form-select zr-assessment-form-input writing_score">
-                                <option value="">Please select</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                              </select>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div4">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Writing Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Writing section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <select  name="writing_score[]"  class="form-select zr-assessment-form-input writing_score">
+                                  <option value="">Please select</option>
+                                  <option value="1">1</option>
+                                  <option value="2">2</option>
+                                  <option value="3">3</option>
+                                  <option value="4">4</option>
+                                  <option value="5">5</option>
+                                  <option value="6">6</option>
+                                  <option value="7">7</option>
+                                </select>
+                              </div>
                             </div>
-                          </div>
-
+                          <!-- </div> -->
+                           <!-- <div class="ilets_score2"> -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div5">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">Listening Scores<span
+                                    class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the listening section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="listening_score[]" class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div6">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Speaking Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Speaking section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="speaking_score[]" class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div7">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Reading Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Reading section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="reading_score[]"  class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 div8">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Writing Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Writing section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="writing_score[]"  class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                          <!-- </div> -->
                           <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
                             <div class="form-group">
                               <label class="form-label zr-assessment-form-label">CLB/NCLC Equivalent<span
@@ -1144,9 +1196,76 @@
                       </div>
                       <button type="button" id="addMoreLanguageTest" class="addMoreBtn mt-4">ADD ADDITIONAL LANGUAGE TEST RESULTS</button>
                     </div>
+                    <!-- no-->
+                    <div id="spouse_French_language_ability" class="zr-provide-detail pt-2">
+                      <div id="" class="zr-form-detail">
+                        <div class="row">
+                          <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                              <label class="zr-assessment-form-label">
+                                Please based on your assessment, please estimate your english language ability
+                                <span class="req-red">*</span>
+                              </label>
+                              <div class="py-2 zr-french-language-test erroremove">
+                                <div class="form-check">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="english_language_ability" id="flexRadioDefault35" value="None" >
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefault35">None</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="english_language_ability" id="flexRadioDefault34" value="Basic">
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefault34">Basic</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="english_language_ability" id="flexRadioDefault33" value="Intermediate">
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefault33">Intermediate</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="english_language_ability" id="referred_by" value="Advanced">
+                                  <label class="form-check-label zr-radi0-btn" for="referred_by">Advanced</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Englishlanguageability" type="radio" name="english_language_ability" id="immigration_matter_would_you_like_to_discuss" value="Fluent/Native Language">
+                                  <label class="form-check-label zr-radi0-btn" for="immigration_matter_would_you_like_to_discuss">Fluent/Native Language</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    
+                          <div class="col-md-6 mt-3">
+                            <div class="form-group">
+                              <label class="zr-assessment-form-label">
+                                Please based on your assessment, please estimate your french language ability 
+                                <span class="req-red">*</span>
+                              </label>
+                              <div class="py-2 zr-french-language-test erroremove">
+                                <div class="form-check">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="french_language_ability" id="flexRadioDefaulta35" value="None" >
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta35">None</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="french_language_ability" id="flexRadioDefaulta34" value="Basic">
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta34">Basic</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="french_language_ability" id="flexRadioDefaulta33" value="Intermediate">
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta33">Intermediate</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="french_language_ability" id="flexRadioDefaulta32" value="Advanced">
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta32">Advanced</label>
+                                </div>
+                                <div class="form-check">
+                                  <input class="form-check-input Frenchlanguageability" type="radio" name="french_language_ability" id="flexRadioDefaulta31" value="Fluent/Native Language">
+                                  <label class="form-check-label zr-radi0-btn" for="flexRadioDefaulta31">Fluent/Native Language</label>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>   
                   </div>
                 </div>
-
                 <!-- 3 step start -->
                 <div class="zr-assessment-form2" id="spouse_div">
                   <h2 class="zr-form-title">Spouse Education Details</h2>
@@ -1170,7 +1289,7 @@
                             title="Select the country where you completed this education.">
                             <i class="tool-tip__icon">i</i>
                           </span></label>
-                        <select id="countrySelect_spouse" name="spouse_country_of_study" class="form-select zr-assessment-form-input">
+                        <select id="countrySelect_spouse" name="spouse_country_of_study" class="form-select zr-assessment-form-input select2" style="width: 100%;">
                           <option value="">Please select</option>
                         </select>
                       </div>
@@ -1265,12 +1384,13 @@
                                   <i class="tool-tip__icon">i</i>
                                 </span></label>
 
-                                <select name="spouse_language_test_type[]" class="form-select zr-assessment-form-input language_test_type">
+                                <select name="spouse_language_test_type[]" class="form-select zr-assessment-form-input language_test_type spouse_language_test_type_val" id="language_test_types">
                                     <option value="" selected>Please select</option>
                                     <option value="ielts_general">IELTS (General)</option>
                                     <option value="ielts_academic">IELTS (Academic)</option>
                                     <option value="celpip_general">CELPIP (General)</option>
                                     <option value="tef_canada">TEF Canada</option>
+                                    <option value="tcf_canada">TCF Canada</option>
                                     <option value="pte_core">PTE Core</option>
                                 </select>
                               
@@ -1306,7 +1426,7 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div1">
                             <div class="form-group">
                               <label class="form-label zr-assessment-form-label">Listening Scores<span
                                   class="req-red">*</span>
@@ -1327,7 +1447,7 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div2">
                             <div class="form-group">
                               <label class="form-label zr-assessment-form-label">
                                 Speaking Scores <span class="req-red">*</span>
@@ -1348,7 +1468,7 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div3">
                             <div class="form-group">
                               <label class="form-label zr-assessment-form-label">
                                 Reading Scores <span class="req-red">*</span>
@@ -1369,7 +1489,7 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
+                          <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div4">
                             <div class="form-group">
                               <label class="form-label zr-assessment-form-label">
                                 Writing Scores <span class="req-red">*</span>
@@ -1390,6 +1510,56 @@
                               </select>
                             </div>
                           </div>
+                           <!-- <div class="ilets_score2"> -->
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div5">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">Listening Scores<span
+                                    class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the listening section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="spouse_listening_score[]" class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);">
+                              </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div6">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Speaking Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Speaking section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="spouse_speaking_score[]" class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div7">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Reading Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Reading section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="spouse_reading_score[]"  class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-sm-12 mt-3 spouse_div8">
+                              <div class="form-group">
+                                <label class="form-label zr-assessment-form-label">
+                                  Writing Scores <span class="req-red">*</span>
+                                  <span class="custom-tooltip tooltip-icon" data-bs-toggle="tooltip"
+                                    data-bs-placement="top"
+                                    title="Enter the score you received for the Writing section of your language test (e.g.,  IELTS, CELPIP, TEF, etc.). Ensure the score matches the results on your official test report.">
+                                    <i class="tool-tip__icon">i</i>
+                                  </span></label>
+                                <input type="text" name="spouse_writing_score[]"  class="form-control zr-assessment-form-input" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 2);">
+                              </div>
+                            </div>
+                          <!-- </div> -->
 
                           <div class="col-lg-4 col-md-6 col-sm-12 mt-3">
                             <div class="form-group">
@@ -1617,14 +1787,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center erroremove">
                           <div class="form-check">
-                            <input class="form-check-input emp1" type="radio" name="employed_before" value="yes"
+                            <input class="form-check-input emp1" type="radio" name="employed_before" value="Yes"
                               id="flexRadioDefault40" >
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault40">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input emp1" type="radio" name="employed_before" value="no"
+                            <input class="form-check-input emp1" type="radio" name="employed_before" value="No"
                               id="flexRadioDefault41" >
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault41">
                               No
@@ -1719,7 +1889,7 @@
                                   data-bs-original-title="Select the country where this job was located.">
                                   <i class="tool-tip__icon">i</i>
                                 </span> </label>
-                              <select id="where_did_you_work" name="where_did_you_work[]" class="form-select zr-assessment-form-input where_did_you_work" data-live-search="true">
+                              <select id="where_did_you_work" name="where_did_you_work[]" class="form-select zr-assessment-form-input where_did_you_work select2" data-live-search="true" style="width: 100%;">
                                 <option value="">Select country</option>
                               </select>
                             </div>
@@ -1840,14 +2010,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input travelled_country" type="radio" name="travelled_country" value="yes"
+                            <input class="form-check-input travelled_country" type="radio" name="travelled_country" value="Yes"
                               id="travelled_country">
                             <label class="form-check-label zr-radi0-btn " for="travelled_country">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input travelled_country" type="radio" name="travelled_country" checked value="no"
+                            <input class="form-check-input travelled_country" type="radio" name="travelled_country" checked value="No"
                               id="travelled_country1">
                             <label class="form-check-label zr-radi0-btn" for="travelled_country1">
                               No
@@ -1870,7 +2040,7 @@
                                   data-bs-original-title="Enter the name of the country you traveled to.">
                                   <i class="tool-tip__icon">i</i>
                                 </span> </label>
-                              <select id="where_did_you_travelled" name="where_did_you_travelled[]" class="form-select zr-assessment-form-input where_did_you_travelled" data-live-search="true">
+                              <select id="where_did_you_travelled" name="where_did_you_travelled[]" class="form-select zr-assessment-form-input where_did_you_travelled select2" data-live-search="true" style="width: 100%;">
                                 <option value="">Select country</option>
                               </select>
                             </div>
@@ -1915,14 +2085,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="submitted_immegration_application" value="yes"
+                            <input class="form-check-input" type="radio" name="submitted_immegration_application" value="Yes"
                               id="submitted_immegration_application">
                             <label class="form-check-label zr-radi0-btn" for="submitted_immegration_application">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="submitted_immegration_application" value="no"
+                            <input class="form-check-input" type="radio" name="submitted_immegration_application" value="No"
                               id="submitted_immegration_application1" checked>
                             <label class="form-check-label zr-radi0-btn" for="submitted_immegration_application1">
                               No
@@ -2045,14 +2215,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="refused_immegration_applications" value="yes"
+                            <input class="form-check-input" type="radio" name="refused_immegration_applications" value="Yes"
                               id="flexRadioDefault55">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault55">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="refused_immegration_applications" value="no"
+                            <input class="form-check-input" type="radio" name="refused_immegration_applications" value="No"
                               id="flexRadioDefault56" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault56">
                               No
@@ -2074,7 +2244,7 @@
                                   data-bs-original-title="Enter the name of the country where your application was refused.">
                                   <i class="tool-tip__icon">i</i>
                                 </span> </label>
-                                <select id="refused_application_country" name="refused_application_country[]" class="form-select zr-assessment-form-input" data-live-search="true">
+                                <select id="refused_application_country" name="refused_application_country[]" class="form-select zr-assessment-form-input select2" data-live-search="true" style="width: 100%;">
                                   <option value="">Select country</option>
                                 </select>
                             </div>
@@ -2125,14 +2295,14 @@
                       </label>
                       <div class="py-2 d-flex align-items-center">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="have_you_ever_stayed" value="yes"
+                          <input class="form-check-input" type="radio" name="have_you_ever_stayed" value="Yes"
                             id="have_you_ever_stayed">
                           <label class="form-check-label zr-radi0-btn" for="have_you_ever_stayed">
                             Yes
                           </label>
                         </div>
                         <div class="form-check ms-3">
-                          <input class="form-check-input" type="radio" name="have_you_ever_stayed" value="no"
+                          <input class="form-check-input" type="radio" name="have_you_ever_stayed" value="No"
                             id="have_you_ever_stayed2" checked>
                           <label class="form-check-label zr-radi0-btn" for="have_you_ever_stayed2">
                             No
@@ -2154,14 +2324,14 @@
                       </label>
                       <div class="py-2 d-flex align-items-center">
                         <div class="form-check">
-                          <input class="form-check-input" type="radio" name="unauthorized_work_of_study" value="yes"
+                          <input class="form-check-input" type="radio" name="unauthorized_work_of_study" value="Yes"
                             id="unauthorized_work_of_study">
                           <label class="form-check-label zr-radi0-btn" for="unauthorized_work_of_study">
                             Yes
                           </label>
                         </div>
                         <div class="form-check ms-3">
-                          <input class="form-check-input" type="radio" name="unauthorized_work_of_study" value="no"
+                          <input class="form-check-input" type="radio" name="unauthorized_work_of_study" value="No"
                             id="unauthorized_work_of_study2" checked>
                           <label class="form-check-label zr-radi0-btn" for="unauthorized_work_of_study2">
                             No
@@ -2191,14 +2361,14 @@
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="serious_diseases"
-                              id="flexRadioDefault70" value="yes">
+                              id="flexRadioDefault70" value="Yes">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault70">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="serious_diseases"
-                              id="flexRadioDefault71" checked value="no">
+                              id="flexRadioDefault71" checked value="No">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault71" >
                               No
                             </label>
@@ -2218,14 +2388,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="served_in_govt_job" value="yes"
+                            <input class="form-check-input" type="radio" name="served_in_govt_job" value="Yes"
                               id="flexRadioDefault72">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault72">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="served_in_govt_job" value="no"
+                            <input class="form-check-input" type="radio" name="served_in_govt_job" value="No"
                               id="flexRadioDefault73" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault73">
                               No
@@ -2250,14 +2420,14 @@
                         </label>
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
-                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="yes"
+                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="Yes"
                               id="flexRadioDefault74">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault74">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
-                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="no"
+                            <input class="form-check-input" type="radio" name="handcuffs_detained_by_police" value="No"
                               id="flexRadioDefault75" checked>
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault75">
                               No
@@ -2281,14 +2451,14 @@
                         <div class="py-2 d-flex align-items-center">
                           <div class="form-check">
                             <input class="form-check-input" type="radio" name="charged_with_impaired_driving"
-                              id="flexRadioDefault77" value="yes">
+                              id="flexRadioDefault77" value="Yes">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault77">
                               Yes
                             </label>
                           </div>
                           <div class="form-check ms-3">
                             <input class="form-check-input" type="radio" name="charged_with_impaired_driving"
-                              id="flexRadioDefault76" checked value="no">
+                              id="flexRadioDefault76" checked value="No">
                             <label class="form-check-label zr-radi0-btn" for="flexRadioDefault76" >
                               No
                             </label>
@@ -2857,6 +3027,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script src="js/validation.js"></script>
 </body>
