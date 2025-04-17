@@ -616,7 +616,6 @@ function validateForm4(){
 
     if (!consentCheckbox.is(":checked")) {
         if (formCheckDiv.next(".checkbox").length === 0) {
-            alert('1');
             formCheckDiv.after("<span class='checkbox' style='color: red;'>This field is required.</span>");
         }
         isValid = false;
@@ -648,12 +647,12 @@ function validateForm4(){
                 isValid = false;
             }
         });
-
-        if(selectedType ==="other"){
+        
+        if(selectedType ==="Other"){
             let otherField = $("textarea[name='immegration_application_other[]']");
             otherField.each(function () {
             $(this).next(".error").remove(); 
-                if ($(this).val() === "") {
+                if ($(this).val().trim() === "") {
                     $(this).after("<span class='error' style='color: red;'>This field is required.</span>");
                     isValid = false;
                 }

@@ -15,7 +15,6 @@ $(document).ready(function() {
   
     var current_fs, next_fs, previous_fs;
     var animating;
-    let leadData = null;
   // Save & Next Button
   $(".save-next").click(function() {
     
@@ -86,6 +85,7 @@ $(document).ready(function() {
             if (response.message === "Successfully Submitted") {
               window.scrollTo({ top: 0, behavior: "smooth" });
               $("form")[0].reset();
+              $(".select2").val(null).trigger("change");
               $(".zr-progressbar li").removeClass("active");
               $(".zr-progressbar li").eq(0).addClass("active");
               $("fieldset").hide();
@@ -1063,7 +1063,7 @@ $(document).ready(function () {
             container.find(".immegration_application_type").on("change", function () {
                 const selectedValue = $(this).val();
                 const otherDetails = $(this).closest(".row").find(".other-application-details");
-                if (selectedValue === "other") {
+                if (selectedValue === "Other") {
                     otherDetails.show();
                 } else {
                     otherDetails.hide();
