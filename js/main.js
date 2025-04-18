@@ -998,7 +998,7 @@ $(document).ready(function () {
   $("#addMoreCompany").click(function () {
     let newBlock = $("#company_details_block").first().clone();
     newBlock.addClass("company-details-block"); // Add class for easier removal
-    newBlock.find("input").val("");
+    newBlock.find("input,textarea").val("");
     newBlock.find("select").prop("selectedIndex", 0);
     newBlock.find("input[type='radio']").prop("checked", false);
     newBlock.find("input[type='radio']").first().prop("checked", true);
@@ -1011,9 +1011,9 @@ $(document).ready(function () {
       let newName = oldName + "_" + uniqueId; // Make the name unique
       $(this).attr("name", newName);
       if (index === 0) {
-        $(this).val("Yes");
+        $(this).val("yes");
       } else {
-        $(this).val("No");
+        $(this).val("no");
       }
     });
     newBlock.find(".error").remove();
@@ -1077,9 +1077,9 @@ $(document).ready(function () {
     var parentBlock = element.closest(".company_details_block");
     var lastWorkingDateField = parentBlock.find(".LastWorkingDaydiv");
 
-    if (sel === "Yes") {
+    if (sel === "yes") {
       lastWorkingDateField.hide();
-      lastWorkingDateField.find("input").val(""); // Clear input field properly
+      lastWorkingDateField.find("input,textarea").val(""); // Clear input field properly
     } else {
       lastWorkingDateField.show();
     }
@@ -1273,7 +1273,7 @@ $(document).ready(function () {
       $("#company_details").show();
     } else {
       $("#company_details").hide();
-      $("#company_details input, #company_details select").val("");
+      $("#company_details input, #company_details select ,#company_details textarea").val("");
       $(".where_did_you_work.select2").val("").trigger("change");
     }
   });
