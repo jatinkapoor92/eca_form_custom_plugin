@@ -177,7 +177,7 @@ function handleInputChange() {
 }
 
 $(document).on(
-  "input change click blur",
+  "change  blur",
   "input, select, textarea",
   handleInputChange
 );
@@ -455,7 +455,7 @@ $(document).ready(function () {
     $("#canadaDetails").append(newRow);
     initializeDatePickers(newRow);
     $("input, select, textarea").on(
-      "input change click blur",
+      "change blur",
       handleInputChange
     );
     initializeDatepicker(
@@ -652,7 +652,7 @@ $(document).ready(function () {
     $(".additional_relationsips_append").append(newRow);
     initializeDatePickers(newRow);
     $("input, select, textarea").on(
-      "input change click blur",
+      "change blur",
       handleInputChange
     );
     initializeDatepicker(
@@ -699,7 +699,7 @@ $(document).ready(function () {
     }
     newRow.find(".error").remove();
     $("input, select, textarea").on(
-      "input change click blur",
+      "change  blur",
       handleInputChange
     );
     $(".family_members_block_append").append(newRow);
@@ -754,7 +754,7 @@ $(document).ready(function () {
       );
     }
     $("input, select, textarea").on(
-      "input change click blur",
+      "change blur",
       handleInputChange
     );
     $(".education_block_append").append(newRow);
@@ -903,7 +903,7 @@ $(document).ready(function () {
     $(".language_test_block_append").append(newBlock);
     initializeDatePickers(newBlock);
     $("input, select, textarea").on(
-      "input change click blur",
+      "change blur",
       handleInputChange
     );
     initializeDatepicker(
@@ -968,7 +968,7 @@ $(document).ready(function () {
     $(".spouse_language_test_block_append").append(newBlock);
     initializeDatePickers(newBlock);
     $("input, select, textarea").on(
-      "input change click blur",
+      "change blur",
       handleInputChange
     );
     initializeDatepicker(
