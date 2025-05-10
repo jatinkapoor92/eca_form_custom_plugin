@@ -77,7 +77,7 @@ $(document).ready(function () {
     showLoader();
     try {
       $.ajax({
-        url: "http://127.0.0.1:8000/api/leads/customcode", // API endpoint
+        url: "http://127.0.0.1:8001/api/leads/customcode", // API endpoint
         type: "POST",
         header: "Content-Type: application/json",
         data: formData,
